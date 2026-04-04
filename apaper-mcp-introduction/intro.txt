@@ -1,0 +1,16 @@
+中文标题：apaper-mcp：把论文检索带进 MCP 对话工作流
+English Title: apaper-mcp: Bringing Paper Discovery into the MCP Workflow
+
+这个视频介绍 `apaper-mcp` 这个面向学术研究场景的 MCP server，重点说明它为什么不是又一个零散的论文抓取脚本，而是一个更适合 AI assistant 直接调用的研究工具层。视频先用一句话定义项目定位，然后从研究与写作流程中的常见断点切入，指出论文搜索、元数据查询、引用收集和资料整理往往分散在多个网站和工具之间，导致研究上下文频繁中断。`apaper-mcp` 想做的，是把这些高频动作收束到同一个 Model Context Protocol 接口后面，让 assistant 可以在对话内部直接完成论文发现与资料准备。
+
+随后，视频系统梳理这个项目当前已经提供的能力，包括面向 IACR ePrint 的论文搜索与 PDF 下载、面向 DBLP 的发表信息查询与 BibTeX 获取，以及面向 Google Scholar 的更广泛论文发现。它解释这些工具如何共同覆盖一条实际可用的研究路径：从初步搜索，到交叉比对来源，再到收集参考文献和下载原文做进一步阅读。接着，视频还会介绍它通过 stdio 以本地 MCP 服务形式运行的集成方式，以及在 `src/index.ts` 与 `src/platforms/` 之间保持分层的实现思路。最后，内容把视角扩展到未来方向，讨论这个项目如何从论文搜索继续走向引用管理、PDF 处理、文献综述辅助、提纲与草稿支持等更完整的 paper-writing workflow，并用一句话总结它作为 AI research workflow 基础设施的价值。
+
+00:00  定义
+00:19  背景
+00:42  来源
+01:05  工具
+01:31  价值
+01:56  集成
+02:19  结构
+02:46  方向
+03:15  总结

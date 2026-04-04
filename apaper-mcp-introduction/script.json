@@ -1,0 +1,38 @@
+[
+  {
+    "slide_number": 1,
+    "narration": "这一页先用一句话定义 apaper-mcp。它是一个面向学术研究场景的 MCP server，目标不是做一个泛化的知识系统，而是把论文检索和资料收集这类很具体、很高频的工作，直接放进 AI 对话流程里。"
+  },
+  {
+    "slide_number": 2,
+    "narration": "接着要理解它为什么值得做。很多研究和写作流程之所以低效，不是因为缺少信息源，而是因为检索、筛选、记录和整理被拆散在太多网站和工具里。apaper-mcp 想做的，就是把这些研究入口收束成 assistant 可以直接调用的一组 MCP tools。"
+  },
+  {
+    "slide_number": 3,
+    "narration": "具体到当前版本，这个项目先覆盖了三个很常见的来源，也就是 IACR ePrint、DBLP 和 Google Scholar。这样一来，用户既可以查密码学预印本，也可以补充正式发表的元数据，还能做更广泛的论文发现，让检索不再局限于单一站点。"
+  },
+  {
+    "slide_number": 4,
+    "narration": "再往下看它暴露出来的能力，会发现边界其实很清楚。服务器目前提供四个工具，分别负责 IACR 搜索、IACR PDF 下载、DBLP 检索与 BibTeX 输出，以及 Google Scholar 搜索。重点不在于工具数量很多，而在于这些能力已经覆盖了从发现论文到收集引用信息的核心路径。"
+  },
+  {
+    "slide_number": 5,
+    "narration": "这也解释了它在真实工作流里的价值。assistant 不只是帮你回答一个问题，而是能继续按年份、来源和主题缩小范围，对比多平台结果，拉取 BibTeX，甚至把某篇 IACR 论文下载下来做进一步阅读。也就是说，研究过程里的上下文不需要在工具之间来回丢失。"
+  },
+  {
+    "slide_number": 6,
+    "narration": "从集成方式来看，apaper-mcp 也保持得很直接。它通过 stdio 运行，可以被 MCP-compatible client 以本地命令方式启动，比如直接通过 npx 调用。这样做的好处是部署成本低，实验成本也低，特别适合本地研究助手或者 agent 工作台场景。"
+  },
+  {
+    "slide_number": 7,
+    "narration": "如果从实现角度看，这个项目的结构也很克制。入口在 `src/index.ts`，用 Zod 定义工具输入 schema，并处理像年份这样的参数规范化；而平台相关的抓取和解析逻辑则放在 `src/platforms/` 下面。这样的拆分让 transport 层和具体数据源逻辑保持分离，代码表面也更容易维护。"
+  },
+  {
+    "slide_number": 8,
+    "narration": "最后，这篇介绍真正想强调的不是它已经做完了什么，而是它接下来可以长成什么。今天 apaper-mcp 主要解决论文搜索和获取，未来则可以继续扩展到引用管理、PDF 处理、文献综述辅助、提纲生成、草稿写作乃至投稿前检查。换句话说，它正在从 paper search tool 走向更完整的 paper-writing workspace。"
+  },
+  {
+    "slide_number": 9,
+    "narration": "最后用一句话收尾：apaper-mcp 是一个从论文发现起步、面向 AI research workflow 的紧凑型 MCP server。它现在的工具表面虽然很克制，但已经足够实用、可组合，也保留了继续扩展成完整写作工作流的空间。"
+  }
+]

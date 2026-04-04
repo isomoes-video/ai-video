@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>apaper-mcp：把论文检索带进 MCP 对话工作流</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="title" class="section-divider hero-slide" data-state="is-section-divider">
+        <p class="eyebrow">MCP / PAPER DISCOVERY / RESEARCH WORKFLOW</p>
+        <h1>apaper-mcp：把论文检索带进 MCP 对话工作流</h1>
+        <p class="hero-kicker text-xl">它把 IACR、DBLP 和 Google Scholar 背后的检索动作，收束成 assistant 可以直接调用的一层研究工具接口。</p>
+        <div class="hero-meta-row">
+          <p class="hero-meta">IACR ePrint</p>
+          <p class="hero-meta">DBLP</p>
+          <p class="hero-meta">Google Scholar</p>
+          <p class="hero-meta">stdio MCP server</p>
+        </div>
+      </section>
+
+      <section id="divider-context" class="section-divider chapter-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 01</p>
+        <h1>先解决搜索，再延伸到写作</h1>
+        <p>从 paper discovery 起步，逐步长成更完整的 academic writing workspace</p>
+      </section>
+
+      <section id="why-project-exists">
+        <h2>研究工作流的问题，不是缺来源，而是上下文总在断裂</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 24px; align-items: stretch;">
+            <div class="panel panel-soft">
+              <p class="panel-label">手工研究路径</p>
+              <ul>
+                <li>在不同站点来回搜索预印本、发表信息与引用线索</li>
+                <li>把结果再搬运到笔记、参考文献和草稿里</li>
+                <li>每切换一次工具，就丢一次研究上下文</li>
+              </ul>
+            </div>
+            <div class="stacked-column">
+              <div class="mini-card accent-card">
+                <p class="mini-kicker">CORE IDEA</p>
+                <p>把研究侧的高频动作直接变成 MCP tools，让 assistant 在对话里完成检索与资料准备。</p>
+              </div>
+              <div class="mini-card">
+                <p class="mini-kicker">WHY IT MATTERS</p>
+                <p>目标不只是找到一篇论文，而是支撑连续的 paper-writing 任务链路。</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-strip">
+            <p><strong>apaper-mcp 要减少的，不是搜索次数，</strong>而是研究动作在工具边界之间反复被打断的成本。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sources-covered">
+        <h2>当前覆盖三个关键来源，拼出一条更完整的论文发现路径</h2>
+        <div class="content">
+          <div class="triad-grid">
+            <div class="source-card">
+              <p class="source-icon"><i class="fa-solid fa-lock"></i></p>
+              <h3>IACR ePrint</h3>
+              <p>适合密码学预印本检索，也支持进一步下载 PDF 做细读。</p>
+            </div>
+            <div class="source-card">
+              <p class="source-icon"><i class="fa-solid fa-database"></i></p>
+              <h3>DBLP</h3>
+              <p>补全发表元数据，并可直接拉取 BibTeX 作为引用准备。</p>
+            </div>
+            <div class="source-card">
+              <p class="source-icon"><i class="fa-solid fa-globe"></i></p>
+              <h3>Google Scholar</h3>
+              <p>做更广泛的主题发现，帮助从单点来源扩展到更大文献面。</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>这三个来源并不追求覆盖一切，而是先覆盖研究者最常见的“预印本 + 发表记录 + 广域发现”组合。</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="tools-exposed">
+        <h2>服务器表面很小，但已经覆盖从发现论文到收集引用的核心动作</h2>
+        <div class="content">
+          <div class="tool-grid">
+            <div class="tool-card">
+              <p class="tool-name">search_iacr_papers</p>
+              <p>按主题和年份搜索 IACR ePrint，并支持细节获取。</p>
+            </div>
+            <div class="tool-card">
+              <p class="tool-name">download_iacr_paper</p>
+              <p>把 IACR 论文 PDF 保存到本地，方便后续精读和处理。</p>
+            </div>
+            <div class="tool-card">
+              <p class="tool-name">search_dblp_papers</p>
+              <p>查询发表信息、场馆与论文元数据，并可返回 BibTeX。</p>
+            </div>
+            <div class="tool-card accent-card">
+              <p class="tool-name">search_google_scholar_papers</p>
+              <p>用更广的搜索面补充相关论文发现与年份筛选。</p>
+            </div>
+          </div>
+          <div class="legend-row">
+            <p><span class="legend-dot legend-a"></span> 发现论文</p>
+            <p><span class="legend-dot legend-b"></span> 拉取元数据</p>
+            <p><span class="legend-dot legend-c"></span> 获取原文</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow-value">
+        <h2>真正的价值，在于 assistant 可以连续推进研究动作，而不是只回答一次问题</h2>
+        <div class="content">
+          <div class="route-list compact-route">
+            <div class="route-step"><p class="route-no">1</p><p><strong>Topic narrowing</strong>：先按主题与年份缩小检索范围</p></div>
+            <div class="route-step"><p class="route-no">2</p><p><strong>Cross-source compare</strong>：比较 IACR、DBLP 与 Scholar 结果差异</p></div>
+            <div class="route-step"><p class="route-no">3</p><p><strong>BibTeX ready</strong>：把参考文献元数据直接整理成引用材料</p></div>
+            <div class="route-step"><p class="route-no">4</p><p><strong>Closer reading</strong>：下载 IACR PDF 继续进入阅读与笔记阶段</p></div>
+          </div>
+          <div class="quote-panel">
+            <p class="text-xl">研究上下文不再需要在网页、脚本和笔记系统之间来回手动搬运，<strong>assistant 本身就能沿着研究链路继续工作。</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="integration-and-architecture">
+        <h2>它的集成和实现都保持得很克制，这反而让它更适合接入真实工作台</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 24px; align-items: stretch;">
+            <div class="panel panel-dark">
+              <p class="panel-label">Client config</p>
+              <div class="code-card">
+                <p>{</p>
+                <p>&nbsp;&nbsp;"mcp": {</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;"apaper-mcp": {</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type": "local",</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": ["npx", "@ai4paper/apaper-mcp"]</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+                <p>&nbsp;&nbsp;}</p>
+                <p>}</p>
+              </div>
+            </div>
+            <div class="flow-grid compact-flow">
+              <div class="flow-card source-card-alt">
+                <p class="flow-title">Transport</p>
+                <p>通过 stdio 运行，便于本地 MCP client 直接启动。</p>
+              </div>
+              <div class="flow-card skill-card-alt">
+                <p class="flow-title">Entry point</p>
+                <p>`src/index.ts` 注册工具，并用 Zod 定义输入 schema。</p>
+              </div>
+              <div class="flow-card tool-card-alt wide-card">
+                <p class="flow-title">Platforms</p>
+                <p>`src/platforms/` 分离具体抓取与解析逻辑，避免 transport 层和平台细节混在一起。</p>
+              </div>
+              <div class="flow-card output-card-alt wide-card">
+                <p class="flow-title">Source differences</p>
+                <p>IACR 与 Google Scholar 走 HTML 抓取，DBLP 则使用 JSON API 并可附带 BibTeX 获取。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="future-directions">
+        <h2>下一步不只是继续搜索，而是把它扩展成 paper-writing server</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; align-items: stretch;">
+            <div class="panel panel-soft">
+              <p class="panel-label">Near-term extensions</p>
+              <ul>
+                <li>引用收集、去重与导出</li>
+                <li>PDF 元数据、章节文本与笔记提取</li>
+                <li>文献按主题、方法或 venue 聚类</li>
+              </ul>
+            </div>
+            <div class="panel panel-strong">
+              <p class="panel-label">Longer workflow</p>
+              <ul>
+                <li>从研究笔记生成提纲、related work 摘要和初稿</li>
+                <li>检查 claim、citation 与 bibliography 的一致性</li>
+                <li>支持投稿前的格式与元数据清理</li>
+              </ul>
+            </div>
+          </div>
+          <div class="signal-strip alt">
+            <p>它的方向很明确：<strong>从 paper search tool 走向更完整的 research-writing workspace。</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="closing">
+        <h2>一句话总结：apaper-mcp 把“找论文”变成 AI 对话里可持续调用的基础能力</h2>
+        <div class="content">
+          <div class="score-grid">
+            <div class="score-card"><p class="score-value">Small</p><p class="score-label">工具表面很克制</p></div>
+            <div class="score-card"><p class="score-value">Useful</p><p class="score-label">直接覆盖高频研究动作</p></div>
+            <div class="score-card"><p class="score-value">Composable</p><p class="score-label">适合接入本地 MCP client</p></div>
+            <div class="score-card accent-card"><p class="score-value">Extensible</p><p class="score-label">可继续长成写作工作流</p></div>
+          </div>
+          <div class="conclusion-band">
+            <p class="text-2xl">如果要给它下定义：<strong>apaper-mcp 是一个从论文发现起步、面向 AI research workflow 的紧凑型 MCP server。</strong></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      hash: true,
+      transition: 'slide',
+      center: false,
+    });
+  </script>
+</body>
+</html>
