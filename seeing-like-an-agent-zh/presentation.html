@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>像 Agent 一样看世界</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="title" class="section-divider hero-slide" data-state="is-section-divider">
+        <p class="eyebrow">CLAUDE CODE / TOOL DESIGN / CHINESE VERSION</p>
+        <h1>像 Agent 一样看世界</h1>
+        <p class="hero-kicker text-xl">Claude Code 团队如何从模型视角设计工具：什么时候该加工具，什么时候该删掉它。</p>
+        <div class="hero-meta-row">
+          <p class="hero-meta">Anthropic Blog</p>
+          <p class="hero-meta">2026.04.10</p>
+          <p class="hero-meta">Thariq Shihipar</p>
+        </div>
+      </section>
+
+      <section id="framing">
+        <h2>文章先抛出核心问题：Agent 到底需要什么样的工具</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 24px; align-items: stretch;">
+            <div class="panel panel-strong">
+              <p class="panel-label">问题不是越多越好</p>
+              <ul>
+                <li>Claude 完全通过 <strong>tool calling</strong> 行动</li>
+                <li>你可以只给一个通用工具，也可以给几十个专用工具</li>
+                <li>真正难的是：<strong>工具形状要贴合模型能力</strong></li>
+              </ul>
+            </div>
+            <div class="stacked-column">
+              <div class="mini-card accent-card">
+                <p class="mini-kicker">作者的建议</p>
+                <p>观察输出、频繁实验、不断修正你对模型能力边界的判断。</p>
+              </div>
+              <div class="mini-card">
+                <p class="mini-kicker">关键词</p>
+                <p class="text-lg"><strong>see like an agent</strong></p>
+                <p>先理解模型怎样思考，再决定给它什么工具。</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-strip">
+            <p><strong>工具设计不是 API 列表问题，</strong>而是一次关于“模型如何完成任务”的认知建模。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="math-analogy">
+        <h2>作者用一道数学题来解释：工具必须顺着模型的能力曲线</h2>
+        <div class="content">
+          <div class="triad-grid">
+            <div class="feature-card">
+              <p class="feature-icon"><i class="fa-regular fa-file-lines"></i></p>
+              <h3>纸和笔</h3>
+              <p>最低可用，但复杂计算会被人工步骤拖慢。</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-icon"><i class="fa-solid fa-calculator"></i></p>
+              <h3>计算器</h3>
+              <p>更快，但前提是你知道高级功能该怎么操作。</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-icon"><i class="fa-solid fa-laptop-code"></i></p>
+              <h3>计算机</h3>
+              <p>最强，但前提又变成你会写代码、会执行代码。</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>同一个任务，最适合的工具集合，取决于使用者自身的技能结构。</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="ask-user-question">
+        <h2>案例一：AskUserQuestion 不是一次到位，而是三次试错</h2>
+        <div class="content">
+          <div class="timeline-grid">
+            <div class="timeline-card">
+              <p class="timeline-step">Attempt 1</p>
+              <p class="text-xl"><strong>把问题塞进 ExitPlanTool</strong></p>
+              <p>计划和提问混在一起，让 Claude 困惑：答案若冲突，是否要再调一次工具？</p>
+            </div>
+            <div class="timeline-card">
+              <p class="timeline-step">Attempt 2</p>
+              <p class="text-xl"><strong>改成 Markdown 格式约束</strong></p>
+              <p>模型能大致输出，但不稳定，常常多说一句、漏选项、格式走样。</p>
+            </div>
+            <div class="timeline-card accent-card dark-card">
+              <p class="timeline-step">Attempt 3</p>
+              <p class="text-xl"><strong>独立的 AskUserQuestion Tool</strong></p>
+              <p>让模型在任意时点结构化提问，UI 可承载选项，用户回答也能阻塞 agent 循环。</p>
+            </div>
+          </div>
+          <div class="quote-panel">
+            <p>文章强调的判断标准很实用：<strong>再好的工具，如果模型不理解怎么调用，就等于没设计好。</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tasks-vs-todos">
+        <h2>案例二：模型变强后，旧工具反而可能变成束缚</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 24px; align-items: stretch;">
+            <div class="panel panel-soft">
+              <p class="panel-label">早期做法</p>
+              <ul>
+                <li>用 <strong>TodoWrite</strong> 维持任务清单</li>
+                <li>每 5 轮系统再提醒一次目标</li>
+                <li>问题是 Claude 容易把 todo 当成不能修改的死列表</li>
+              </ul>
+            </div>
+            <div class="panel panel-strong">
+              <p class="panel-label">后来的替代</p>
+              <p class="text-lg">随着模型更擅长改计划、派 subagent、协调依赖，团队把重点从“别跑偏”换成“让 agent 之间能沟通”。</p>
+              <p><strong>于是 TodoWrite 被 Task tool 取代。</strong> 它支持依赖、共享更新、修改与删除，更适合多 agent 协作。</p>
+            </div>
+          </div>
+          <div class="signal-strip alt">
+            <p>一个重要启发是：<strong>你昨天为了补能力缺口加的工具，明天可能会限制新能力发挥。</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="search-interface">
+        <h2>最关键的工具，是让 Agent 自己找到上下文</h2>
+        <div class="content">
+          <div class="flow-grid">
+            <div class="flow-card source-card">
+              <p class="flow-title">阶段 1</p>
+              <p><strong>RAG 预取上下文</strong></p>
+              <p>快，但依赖索引，且上下文是系统塞给 Claude 的。</p>
+            </div>
+            <div class="flow-card skill-card">
+              <p class="flow-title">阶段 2</p>
+              <p><strong>Grep 搜代码库</strong></p>
+              <p>不再只在网页上搜索，而是让 Claude 自己在 repo 里建立上下文。</p>
+            </div>
+            <div class="flow-card tool-card">
+              <p class="flow-title">阶段 3</p>
+              <p><strong>Skills + 渐进披露</strong></p>
+              <p>skill 文件还能继续引用别的文件，形成多层嵌套探索。</p>
+            </div>
+            <div class="flow-card output-card wide-card">
+              <p class="flow-title">结论</p>
+              <p>随着模型变强，最好的上下文往往不是“提前喂给它”，而是“让它自己找出来”。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="progressive-disclosure">
+        <h2>渐进披露的价值：增加能力，不一定要增加工具</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
+            <div class="comparison-card muted-card">
+              <p class="mini-kicker">方案 A</p>
+              <p class="text-xl"><strong>塞进系统提示</strong></p>
+              <p>所有知识都常驻上下文，会造成 context rot，也会干扰主任务。</p>
+            </div>
+            <div class="comparison-card muted-card">
+              <p class="mini-kicker">方案 B</p>
+              <p class="text-xl"><strong>直接搜文档</strong></p>
+              <p>可行，但主 agent 会把大量文档拉进上下文，只为回答一个小问题。</p>
+            </div>
+            <div class="comparison-card accent-card">
+              <p class="mini-kicker">方案 C</p>
+              <p class="text-xl"><strong>Claude Code Guide 子代理</strong></p>
+              <p>让专门 subagent 搜文档、提炼答案，再回传给主 agent，保持主上下文干净。</p>
+            </div>
+          </div>
+          <div class="quote-panel">
+            <p><strong>这页的重点不是“又造了一个工具”，</strong>而是通过子代理和技能，把能力扩张放进可控的上下文边界里。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="takeaways">
+        <h2>最后收束成四条设计原则</h2>
+        <div class="content">
+          <div class="score-grid">
+            <div class="score-card"><p class="score-value">贴合能力</p><p class="score-label">工具形状应匹配模型当前会不会用</p></div>
+            <div class="score-card"><p class="score-value">持续淘汰</p><p class="score-label">模型变强后，旧工具可能该删而不是继续补</p></div>
+            <div class="score-card"><p class="score-value">自建上下文</p><p class="score-label">尽量让 agent 搜索、发现、递归读取</p></div>
+            <div class="score-card accent-card"><p class="score-value">控制边界</p><p class="score-label">用渐进披露和子代理避免主上下文膨胀</p></div>
+          </div>
+          <div class="conclusion-band">
+            <p class="text-2xl">这篇文章真正想说的是：<strong>tooling 设计不是静态配置，而是要随着模型能力一起演化。</strong></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      hash: true,
+      transition: 'slide',
+      center: false
+    });
+  </script>
+</body>
+</html>
