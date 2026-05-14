@@ -1,0 +1,468 @@
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+
+/* ===========================================
+   CSS VARIABLES — Precision Console palette
+   Deep navy + cyan + amber, evoking a computer-vision dashboard
+   =========================================== */
+:root {
+  --background-color: #0F1B2D;
+  --section-divider-bg: #0B1422;
+  --panel-bg: #18253A;
+  --panel-border: #243651;
+
+  --heading-font: "Inter", "Noto Sans SC", Helvetica, sans-serif;
+  --body-font: "Inter", "Noto Sans SC", Helvetica, sans-serif;
+  --mono-font: "JetBrains Mono", "Menlo", monospace;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 46pt;
+  --h2-size: 32pt;
+  --h3-size: 22pt;
+  --footnote-size: 11pt;
+
+  --primary-color: #22D3EE;     /* cyan — targets, cursor */
+  --secondary-color: #F59E0B;   /* amber — warnings, accents */
+  --tertiary-color: #FB7185;    /* coral — errors */
+  --success-color: #34D399;     /* green — success */
+  --text-color: #E6EDF6;
+  --muted-color: #8FA3BF;
+  --line-color: #2A3C56;
+
+  --slide-padding: 60px;
+  --slide-padding-top: 40px;
+  --watermark-safe-top: 44px;
+  --content-gap: 24px;
+
+  --box-radius: 6px;
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top accent line on every slide */
+.reveal .slides section:not(.section-divider):not(.stack)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  opacity: 0.85;
+}
+
+/* Title with underline */
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line-color);
+  color: var(--text-color);
+  letter-spacing: -0.01em;
+}
+.reveal .slides section > h2 .accent {
+  color: var(--primary-color);
+}
+
+/* Section dividers */
+.reveal .slides section.section-divider {
+  background: linear-gradient(135deg, #0B1422 0%, #142238 100%);
+}
+.reveal .slides section.section-divider h1 {
+  color: var(--text-color);
+  letter-spacing: -0.02em;
+}
+.reveal .slides section.section-divider h1::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  margin: 28px auto 0;
+  background: var(--primary-color);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.55);
+}
+.reveal .slides section.section-divider .eyebrow {
+  font-family: var(--mono-font);
+  font-size: 14pt;
+  letter-spacing: 0.3em;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* Panel — generic card */
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--box-radius);
+  padding: 18px 22px;
+}
+.panel.accent-cyan { border-left: 3px solid var(--primary-color); }
+.panel.accent-amber { border-left: 3px solid var(--secondary-color); }
+.panel.accent-coral { border-left: 3px solid var(--tertiary-color); }
+.panel.accent-green { border-left: 3px solid var(--success-color); }
+
+.panel h3 {
+  font-size: 18pt;
+  margin: 0 0 8px 0;
+  color: var(--primary-color);
+}
+.panel.accent-amber h3 { color: var(--secondary-color); }
+.panel.accent-coral h3 { color: var(--tertiary-color); }
+.panel.accent-green h3 { color: var(--success-color); }
+
+.panel p, .panel li {
+  font-size: 15pt;
+  color: var(--text-color);
+}
+
+/* Stat box — big number + label */
+.stat {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--box-radius);
+  padding: 20px 18px;
+  text-align: center;
+}
+.stat .num {
+  display: block;
+  font-family: var(--mono-font);
+  font-size: 34pt;
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1;
+}
+.stat .label {
+  display: block;
+  margin-top: 8px;
+  font-size: 13pt;
+  color: var(--muted-color);
+}
+
+/* Chip — small inline tag */
+.chip {
+  display: inline-block;
+  font-family: var(--mono-font);
+  font-size: 11pt;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--primary-color);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  margin-right: 6px;
+}
+.chip.amber { background: rgba(245, 158, 11, 0.12); color: var(--secondary-color); border-color: rgba(245, 158, 11, 0.35); }
+.chip.coral { background: rgba(251, 113, 133, 0.12); color: var(--tertiary-color); border-color: rgba(251, 113, 133, 0.35); }
+.chip.green { background: rgba(52, 211, 153, 0.12); color: var(--success-color); border-color: rgba(52, 211, 153, 0.35); }
+
+/* Code blocks */
+.reveal pre {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--box-radius);
+  box-shadow: none;
+  width: 100%;
+  margin: 0;
+}
+.reveal pre code {
+  font-family: var(--mono-font);
+  font-size: 14pt;
+  color: var(--text-color);
+  padding: 16px 20px;
+  line-height: 1.5;
+  background: transparent;
+}
+.reveal code {
+  font-family: var(--mono-font);
+  font-size: 0.92em;
+  color: var(--secondary-color);
+  background: rgba(245, 158, 11, 0.10);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.reveal pre code .k { color: var(--primary-color); }
+.reveal pre code .s { color: var(--success-color); }
+.reveal pre code .c { color: var(--muted-color); font-style: italic; }
+.reveal pre code .n { color: var(--secondary-color); }
+
+/* Tables */
+.reveal table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0;
+}
+.reveal table th {
+  font-size: 14pt;
+  color: var(--primary-color);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--primary-color);
+  background: rgba(34, 211, 238, 0.06);
+  font-weight: 600;
+}
+.reveal table td {
+  font-size: 14pt;
+  color: var(--text-color);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-color);
+  vertical-align: top;
+}
+
+/* Step / layer rows */
+.layer {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  align-items: start;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-left: 3px solid var(--primary-color);
+  border-radius: var(--box-radius);
+  padding: 14px 18px;
+}
+.layer .n {
+  font-family: var(--mono-font);
+  font-size: 26pt;
+  color: var(--primary-color);
+  font-weight: 600;
+  line-height: 1;
+}
+.layer h3 {
+  font-size: 17pt;
+  margin: 0 0 4px 0;
+  color: var(--text-color);
+}
+.layer p {
+  font-size: 14pt;
+  color: var(--muted-color);
+  margin: 0;
+}
+
+/* Slide-number color */
+.reveal .slide-number {
+  background: rgba(15, 27, 45, 0.7);
+  color: var(--muted-color);
+  font-family: var(--mono-font);
+  font-size: 10pt;
+}

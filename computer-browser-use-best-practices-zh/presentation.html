@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude 计算机与浏览器使用最佳实践</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic · Engineering 实践</p>
+        <h1>Claude 计算机与浏览器使用<br>最佳实践</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">从分辨率到防护，构建可靠的代理体验</p>
+      </section>
+
+      <section id="slide-2">
+        <h2>本次内容 <span class="accent">/ Agenda</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 10px;">
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-1"></i>　分辨率与坐标</h3>
+              <p>预降采样、API 上限、坐标对齐公式</p>
+            </div>
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-2"></i>　诊断点击问题</h3>
+              <p>偏移、近失、错点的根因排查</p>
+            </div>
+            <div class="panel accent-amber">
+              <h3><i class="fa-solid fa-3"></i>　模型与思考努力</h3>
+              <p>Sonnet · Opus · Haiku 的取舍</p>
+            </div>
+            <div class="panel accent-coral">
+              <h3><i class="fa-solid fa-4"></i>　Prompt Injection 防御</h3>
+              <p>训练、分类器、人工三层防线</p>
+            </div>
+            <div class="panel accent-green">
+              <h3><i class="fa-solid fa-5"></i>　长会话上下文管理</h3>
+              <p>缓存断点 · 滚动缓冲 · 压缩</p>
+            </div>
+            <div class="panel accent-green">
+              <h3><i class="fa-solid fa-6"></i>　教 Claude 完成任务</h3>
+              <p>演示模式与实验功能</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-1" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 01</p>
+        <h1>分辨率与坐标对齐</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">单一影响力最大的优化</p>
+      </section>
+
+      <section id="slide-4">
+        <h2>最关键的一条：<span class="accent">预降采样</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; margin-top: 6px;">
+            <div>
+              <p class="text-xl" style="margin-top: 6px;">在调用 API 之前，把截图压到模型的视觉上限以内。</p>
+              <p style="color: var(--muted-color); margin-top: 14px;">这是文章中明确点名的<strong style="color: var(--secondary-color);">单一影响力最大的优化</strong>。</p>
+              <ul style="margin-top: 12px;">
+                <li>避免后端"静默降采样"导致的坐标错位</li>
+                <li>显著减少 token 用量与延迟</li>
+                <li>让模型看到与你期望一致的像素结构</li>
+              </ul>
+            </div>
+            <div class="panel accent-coral">
+              <h3><i class="fa-solid fa-triangle-exclamation"></i>　常见陷阱</h3>
+              <p>把原始 4K 截图直接送进模型 → 内部被压缩 → 模型返回的坐标无法映射回你的屏幕。</p>
+              <p style="margin-top: 10px;">点击始终偏左、偏上，往往就是这个原因。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <h2>API 视觉输入<span class="accent"> · 上限速查</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 6px;">
+            <div class="panel accent-cyan">
+              <h3>Claude Sonnet 4.6</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                <div class="stat"><span class="num">1568</span><span class="label">最长边 px</span></div>
+                <div class="stat"><span class="num">1.15</span><span class="label">megapixels</span></div>
+              </div>
+              <p style="margin-top: 12px;">推荐起点 <code>1280 × 720</code></p>
+            </div>
+            <div class="panel accent-amber">
+              <h3 style="color: var(--secondary-color);">Claude Opus 4.7</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                <div class="stat"><span class="num" style="color: var(--secondary-color);">2576</span><span class="label">最长边 px</span></div>
+                <div class="stat"><span class="num" style="color: var(--secondary-color);">3.75</span><span class="label">megapixels</span></div>
+              </div>
+              <p style="margin-top: 12px;">推荐起点 <code>1920 × 1080</code></p>
+            </div>
+          </div>
+          <p class="text-muted" style="margin-top: 18px; text-align: center;">超出上限的截图会被<strong style="color: var(--tertiary-color);">静默</strong>压缩 — 坐标对齐随之失效</p>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <h2>消息顺序：<span class="accent">文本在前，图像在后</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 6px;">
+            <div class="panel accent-coral">
+              <h3><i class="fa-solid fa-xmark"></i>　反模式</h3>
+              <pre><code>messages = [{
+  "role": "user",
+  "content": [
+    {"type": "image", ...},
+    {"type": "text",
+     "text": "请点击登录按钮"}
+  ]
+}]</code></pre>
+              <p style="margin-top: 10px;">模型先读图，再读目标。注意力分配不利。</p>
+            </div>
+            <div class="panel accent-green">
+              <h3><i class="fa-solid fa-check"></i>　推荐</h3>
+              <pre><code>messages = [{
+  "role": "user",
+  "content": [
+    {"type": "text",
+     "text": "请点击登录按钮"},
+    {"type": "image", ...}
+  ]
+}]</code></pre>
+              <p style="margin-top: 10px;">先建立目标，再扫描截图 — 点击准确率提升。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <h2>坐标缩放：<span class="accent">把 API 坐标映射回真实屏幕</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.05fr 1fr; gap: 24px; margin-top: 6px;">
+            <div>
+              <p>截图被压缩后，模型返回的是<strong>压缩坐标空间</strong>。在真正驱动鼠标前必须线性缩放回原始分辨率。</p>
+              <pre style="margin-top: 14px;"><code>screen_x = int(api_x * (screen_w / display_w))
+screen_y = int(api_y * (screen_h / display_h))</code></pre>
+              <p class="text-muted" style="margin-top: 12px;">高级做法：使用 <strong style="color: var(--primary-color);">"max API fit"</strong> 算法，在不超出上限的前提下保留宽高比。</p>
+            </div>
+            <div class="panel accent-amber">
+              <h3><i class="fa-solid fa-bullseye"></i>　校验清单</h3>
+              <ul style="margin-top: 6px;">
+                <li>实际截图尺寸 = 你声明的 <code>display_w / h</code></li>
+                <li>缩放方向与轴一致（不要 swap x / y）</li>
+                <li>HiDPI 屏幕的设备像素比要单独乘入</li>
+                <li>多显示器时使用窗口本地坐标</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-2" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 02</p>
+        <h1>诊断点击问题</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">偏移、近失、错点 — 三类症状对应三种根因</p>
+      </section>
+
+      <section id="slide-9">
+        <h2>点击失败的<span class="accent"> 三类症状</span></h2>
+        <div class="content">
+          <table style="margin-top: 6px;">
+            <thead>
+              <tr>
+                <th style="width: 24%;">症状</th>
+                <th style="width: 38%;">最可能的根因</th>
+                <th>解决方案</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="chip coral">恒定偏移</span><br><span class="text-muted" style="font-size: 12pt;">每次都偏同一方向</span></td>
+                <td>声明的显示尺寸与实际截图不一致</td>
+                <td>核对 <code>display_w / h</code>，确认坐标缩放因子</td>
+              </tr>
+              <tr>
+                <td><span class="chip amber">近失</span><br><span class="text-muted" style="font-size: 12pt;">擦边而过</span></td>
+                <td>目标元素过小，受降采样模糊</td>
+                <td>启用 zoom、放大目标、或改用键盘导航</td>
+              </tr>
+              <tr>
+                <td><span class="chip">点错元素</span><br><span class="text-muted" style="font-size: 12pt;">点到旁边相似项</span></td>
+                <td>提示语义模糊，缺少位置上下文</td>
+                <td>在 prompt 中补充"左侧/第一行/标题旁"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <h2>小目标的<span class="accent"> 四种应对策略</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 6px;">
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-magnifying-glass-plus"></i>　启用 Zoom</h3>
+              <p>对密集 UI 增加局部缩放工具，让模型先聚焦再点击。</p>
+            </div>
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-up-right-and-down-left-from-center"></i>　放大目标</h3>
+              <p>如果是你可控的界面，直接把按钮、链接、可点击区域做得更大。</p>
+            </div>
+            <div class="panel accent-amber">
+              <h3><i class="fa-solid fa-keyboard"></i>　键盘导航</h3>
+              <p>Tab / Enter / 快捷键比像素级点击更可靠，尤其在表单与菜单中。</p>
+            </div>
+            <div class="panel accent-amber">
+              <h3><i class="fa-solid fa-image"></i>　控制源图分辨率</h3>
+              <p>避免对已经被压缩过的源图再次降采样，叠加压缩会让小目标彻底糊掉。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-3" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 03</p>
+        <h1>选择模型与思考努力</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">精度、推理、延迟，三方权衡</p>
+      </section>
+
+      <section id="slide-12">
+        <h2>模型选择<span class="accent"> · 三种取舍</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 6px;">
+            <div class="panel accent-cyan">
+              <h3>Sonnet 4.6</h3>
+              <p style="margin-top: 4px;"><strong style="color: var(--primary-color);">机械精度更强</strong></p>
+              <ul style="margin-top: 10px;">
+                <li>对重度降采样最鲁棒</li>
+                <li>高吞吐的代理首选</li>
+                <li>性价比平衡</li>
+              </ul>
+            </div>
+            <div class="panel accent-amber">
+              <h3 style="color: var(--secondary-color);">Opus 4.7</h3>
+              <p style="margin-top: 4px;"><strong style="color: var(--secondary-color);">推理更深</strong></p>
+              <ul style="margin-top: 10px;">
+                <li>点击精度与 Sonnet 相当</li>
+                <li>复杂规划与异常处理</li>
+                <li>支持更高 megapixel 上限</li>
+              </ul>
+            </div>
+            <div class="panel accent-green">
+              <h3 style="color: var(--success-color);">Haiku 4.5</h3>
+              <p style="margin-top: 4px;"><strong style="color: var(--success-color);">延迟最低</strong></p>
+              <ul style="margin-top: 10px;">
+                <li>对延迟敏感的任务</li>
+                <li>简单、可预测的工作流</li>
+                <li>大规模批处理</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-13">
+        <h2>思考努力：<span class="accent">用一半的 token 换接近峰值的表现</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 6px;">
+            <div class="panel accent-amber">
+              <h3>Opus 4.7</h3>
+              <ul style="margin-top: 8px;">
+                <li><span class="chip amber">high</span> 默认推荐 — 半数 token 达到近峰值表现</li>
+                <li><span class="chip">low</span> 成本敏感场景</li>
+                <li><span class="chip coral">max</span> 复杂的一次性任务</li>
+              </ul>
+            </div>
+            <div class="panel accent-cyan">
+              <h3>Sonnet 4.6 系列</h3>
+              <ul style="margin-top: 8px;">
+                <li><span class="chip">medium</span> 性价比最佳</li>
+                <li><span class="chip green">low</span> 高吞吐工作负载</li>
+                <li><span class="chip">off</span> 简单且定义良好的工作流</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-muted text-center" style="margin-top: 18px;">原则：先把分辨率与提示词调对，再用思考努力做最后的精度提升。</p>
+        </div>
+      </section>
+
+      <section id="divider-4" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 04</p>
+        <h1>Prompt Injection 防御</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">把所有网页内容视为不可信</p>
+      </section>
+
+      <section id="slide-15">
+        <h2>三层防御<span class="accent"> · 纵深策略</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 6px;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="layer">
+                <div class="n">1</div>
+                <div>
+                  <h3>训练时鲁棒性</h3>
+                  <p>模型在训练阶段就被强化抵抗注入文本</p>
+                </div>
+              </div>
+              <div class="layer">
+                <div class="n">2</div>
+                <div>
+                  <h3>实时分类器</h3>
+                  <p>官方 <code>computer_20251124</code> 工具自动扫描可疑指令</p>
+                </div>
+              </div>
+              <div class="layer">
+                <div class="n">3</div>
+                <div>
+                  <h3>红队评估</h3>
+                  <p>持续的对抗性测试，发现新攻击面</p>
+                </div>
+              </div>
+            </div>
+            <div class="panel accent-coral">
+              <h3><i class="fa-solid fa-shield-halved"></i>　工程侧实践</h3>
+              <ul style="margin-top: 6px;">
+                <li>高风险动作要求 <strong style="color: var(--secondary-color);">human-in-the-loop</strong></li>
+                <li>严格收敛代理权限（最小授权）</li>
+                <li>对所有动作做审计日志</li>
+                <li>把网页内容视作<strong>不可信</strong>输入</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-5" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 05</p>
+        <h1>长会话的上下文管理</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">让代理跑得久，而且跑得起</p>
+      </section>
+
+      <section id="slide-17">
+        <h2>三层叠加<span class="accent"> · 缓存 → 滚动 → 压缩</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 6px;">
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-bookmark"></i>　缓存断点</h3>
+              <p>最多 3 个 ephemeral cache breakpoint，放在最近的 tool 结果上。</p>
+              <p class="text-muted" style="margin-top: 8px; font-size: 13pt;">让常用前缀命中缓存，显著降低成本。</p>
+            </div>
+            <div class="panel accent-amber">
+              <h3 style="color: var(--secondary-color);"><i class="fa-solid fa-arrows-rotate"></i>　滚动缓冲</h3>
+              <p>仅保留最近 <code>keep_n</code> 张截图，老的批量裁掉。</p>
+              <p class="text-muted" style="margin-top: 8px; font-size: 13pt;">默认 <code>keep_n=3</code>, <code>interval=25</code></p>
+            </div>
+            <div class="panel accent-green">
+              <h3 style="color: var(--success-color);"><i class="fa-solid fa-compress"></i>　压缩</h3>
+              <p>token 超阈值（约 150k）时，把会话压成摘要再继续。</p>
+              <p class="text-muted" style="margin-top: 8px; font-size: 13pt;">保留任务目标、关键发现、待办事项。</p>
+            </div>
+          </div>
+          <p class="text-muted text-center" style="margin-top: 18px;">三层效果<strong style="color: var(--primary-color);">复利叠加</strong>：单独用任意一层都不如组合起来。</p>
+        </div>
+      </section>
+
+      <section id="divider-6" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">PART 06</p>
+        <h1>提升可靠性 · 教会 Claude</h1>
+        <p style="margin-top: 28px; font-size: 18pt; color: var(--muted-color);">用演示而非描述，传递复杂工作流</p>
+      </section>
+
+      <section id="slide-19">
+        <h2>演示驱动：<span class="accent">Show, Don't Tell</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 6px;">
+            <div>
+              <p>用户亲自完成一次任务，系统记录全过程；Claude 在回放时把它当作<strong style="color: var(--primary-color);">参考脚本</strong>，并根据 UI 变化自适应。</p>
+              <p style="margin-top: 10px; color: var(--muted-color);">数据模型记录的要素：</p>
+              <ul style="margin-top: 6px;">
+                <li>动作类型（点击 / 输入 / 导航 / 滚动）</li>
+                <li>人类可读的步骤描述</li>
+                <li>选择器与坐标</li>
+                <li>带视觉标记的截图</li>
+                <li>可选：语音解说转写</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="panel accent-coral">
+                <h3 style="color: var(--tertiary-color);">Strict 严格</h3>
+                <p>逐步严格复现，几乎不偏离录制路径。</p>
+              </div>
+              <div class="panel accent-cyan">
+                <h3>Adaptive 自适应 <span class="chip" style="margin-left: 6px;">推荐默认</span></h3>
+                <p>把演示当指引，按当前 UI 调整。</p>
+              </div>
+              <div class="panel accent-green">
+                <h3 style="color: var(--success-color);">Goal-oriented 目标导向</h3>
+                <p>只关心结果，自主选择路径。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-20">
+        <h2>实验性功能<span class="accent"> · 两把利器</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 6px;">
+            <div class="panel accent-amber">
+              <h3><i class="fa-solid fa-layer-group"></i>　Batch Tools</h3>
+              <p>把多个连续动作合并到一次调用，<strong style="color: var(--secondary-color);">显著降低延迟</strong>。</p>
+              <p style="margin-top: 10px; color: var(--muted-color);">⚠️ 不要在依赖视觉反馈的步骤上使用 — 没看到第 N 步结果就发出第 N+1 步，错误会级联。</p>
+            </div>
+            <div class="panel accent-cyan">
+              <h3><i class="fa-solid fa-user-tie"></i>　Advisor Tool</h3>
+              <p>把"执行模型 + 更高智能的顾问模型"配对：执行端遇到困境时，可调用 Advisor 请求策略建议。</p>
+              <p style="margin-top: 10px; color: var(--muted-color);">用<strong style="color: var(--primary-color);">便宜的模型跑路径</strong>，把贵的模型留给关键决策。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-21">
+        <h2>六条<span class="accent"> 关键要点</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px;">
+            <div class="layer">
+              <div class="n">01</div>
+              <div>
+                <h3>分辨率决定准确率</h3>
+                <p>预降采样是单一影响力最大的优化</p>
+              </div>
+            </div>
+            <div class="layer">
+              <div class="n">02</div>
+              <div>
+                <h3>文本先于图像</h3>
+                <p>消息顺序直接影响点击命中率</p>
+              </div>
+            </div>
+            <div class="layer">
+              <div class="n">03</div>
+              <div>
+                <h3>medium / high 是甜点</h3>
+                <p>思考努力不必拉满，性价比最优</p>
+              </div>
+            </div>
+            <div class="layer">
+              <div class="n">04</div>
+              <div>
+                <h3>上下文管理三层叠加</h3>
+                <p>缓存断点 + 滚动缓冲 + 压缩</p>
+              </div>
+            </div>
+            <div class="layer">
+              <div class="n">05</div>
+              <div>
+                <h3>安全靠多层防御</h3>
+                <p>训练 + 分类器 + 人工把关</p>
+              </div>
+            </div>
+            <div class="layer">
+              <div class="n">06</div>
+              <div>
+                <h3>演示比描述更可靠</h3>
+                <p>复杂工作流用 Show, Don't Tell</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-22" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">END · 谢谢</p>
+        <h1>从分辨率到信任<br>每一层都值得打磨</h1>
+        <p style="margin-top: 32px; font-size: 16pt; color: var(--muted-color); font-family: var(--mono-font);">claude.com/blog/best-practices-for-computer-and-browser-use-with-claude</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(230, 237, 246, 0.9)',
+          borderColor: 'rgba(42, 60, 86, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
