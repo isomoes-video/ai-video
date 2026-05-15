@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 在大型代码库中的工作方式</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <div class="brand-mark"></div>
+        <h1 style="font-size: 50pt; line-height: 1.2;">Claude Code<br>在大型代码库中的工作方式</h1>
+        <p class="subtitle" style="margin-top: 18px;">最佳实践与起步指南</p>
+        <p class="source-link">来源:claude.com/blog · How Claude Code Works in Large Codebases</p>
+      </section>
+
+      <section id="slide-2">
+        <h2>核心洞察</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+            <div class="pull-quote">
+              围绕模型搭建的<strong>脚手架</strong>——CLAUDE.md、Hooks、Skills、Plugins、MCP——比模型本身更能决定 Claude Code 的表现。
+              <cite>— Anthropic 工程团队观察</cite>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <p class="text-lg"><strong>模型</strong> 决定了能力上限</p>
+              <p class="text-lg"><strong>脚手架</strong> 决定了实际产出</p>
+              <p class="text-muted" style="font-size: 14pt; margin-top: 8px;">大型代码库中,后者往往更具杠杆效应。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-1" class="section-divider" data-state="is-section-divider">
+        <div class="brand-mark"></div>
+        <p class="tag" style="margin-bottom: 18px;">01 / 04</p>
+        <h1>它如何导航代码库</h1>
+        <p class="subtitle">没有索引,没有嵌入,只有活的代码</p>
+      </section>
+
+      <section id="slide-4">
+        <h2>智能体搜索,而非 RAG 检索</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 10px;">
+            <div class="dont">
+              <h3><i class="fa-solid fa-database"></i>&nbsp; 传统 RAG 方式</h3>
+              <ul>
+                <li>依赖预先构建的向量索引</li>
+                <li>检索的可能是<strong style="color:#B85450;">过期的</strong>代码片段</li>
+                <li>难以跨文件追踪引用关系</li>
+                <li>需要持续维护嵌入与索引</li>
+              </ul>
+            </div>
+            <div class="do">
+              <h3><i class="fa-solid fa-magnifying-glass"></i>&nbsp; Claude Code 的方式</h3>
+              <ul>
+                <li>直接遍历文件系统</li>
+                <li>用 <code>grep</code> 精确定位符号</li>
+                <li>跨文件跟随引用链</li>
+                <li>面对的始终是<strong style="color:#6B8E7F;">活的代码</strong></li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-muted text-center" style="margin-top: 22px; font-size: 14pt;">无需中心化索引——这正是它能跟上不断演化的代码库的原因。</p>
+        </div>
+      </section>
+
+      <section id="divider-2" class="section-divider" data-state="is-section-divider">
+        <div class="brand-mark"></div>
+        <p class="tag" style="margin-bottom: 18px;">02 / 04</p>
+        <h1>Claude Code 脚手架</h1>
+        <p class="subtitle">五个扩展点 + 两个加速器</p>
+      </section>
+
+      <section id="slide-6">
+        <h2>五个扩展点全景</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 10px;">
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-file-lines"></i></div>
+              <h3>CLAUDE.md</h3>
+              <p>每次会话自动加载的上下文文件</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
+              <h3>Hooks</h3>
+              <p>关键时刻触发的脚本,用于自动化</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-toolbox"></i></div>
+              <h3>Skills</h3>
+              <p>按需加载的领域专长,避免上下文膨胀</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-cubes"></i></div>
+              <h3>Plugins</h3>
+              <p>打包分发的组织级配置</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-plug"></i></div>
+              <h3>MCP Servers</h3>
+              <p>连接内部工具与数据源</p>
+            </div>
+            <div class="card" style="border-style: dashed;">
+              <div class="card-icon" style="color: var(--tertiary-color);"><i class="fa-solid fa-plus"></i></div>
+              <h3 style="color: var(--tertiary-color);">加速器</h3>
+              <p><strong style="color:var(--tertiary-color);">LSP</strong> 提供符号级精度<br><strong style="color:var(--tertiary-color);">Subagents</strong> 并行探索与编辑</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <h2>CLAUDE.md — 每次会话的入口</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; margin-top: 14px;">
+            <div>
+              <p class="text-lg" style="margin-bottom: 14px;"><strong>分层布置,不要堆在一起</strong></p>
+              <ul>
+                <li>根目录的 <code>CLAUDE.md</code> 只放<strong>普遍适用</strong>的大局信息</li>
+                <li>子目录放本地约定:测试命令、lint 规则、模块惯例</li>
+                <li>更适合在子目录中初始化,而非仓库根</li>
+                <li>用 <code>.claudeignore</code> 排除生成代码与构建产物</li>
+              </ul>
+            </div>
+            <div>
+              <p class="text-lg" style="margin-bottom: 14px;"><strong>保持精简、保持新鲜</strong></p>
+              <blockquote>
+                CLAUDE.md 应当聚焦于"广泛适用"的内容——可复用的专长应该放到 Skills 里。
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-8">
+        <h2>Hooks — 把规范变成自动化</h2>
+        <div class="content">
+          <div style="margin-top: 14px;">
+            <p class="text-lg">在关键时刻触发的脚本,让人类约定<strong>变成确定性行为</strong>。</p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px;">
+            <div class="step">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <h3>提交前格式化</h3>
+                <p>统一代码风格,避免无意义的 diff</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <h3>关键操作审计</h3>
+                <p>对敏感命令记录与拦截</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <h3>持续反馈回路</h3>
+                <p>把测试结果、lint 错误回灌给会话</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted" style="margin-top: 22px; font-size: 14pt;">Hooks 把"团队希望发生的事"从口头约定升级为系统保障。</p>
+        </div>
+      </section>
+
+      <section id="slide-9">
+        <h2>Skills — 按需加载的专长</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 16px;">
+            <div>
+              <p class="text-lg" style="margin-bottom: 16px;"><strong>解决"上下文膨胀"问题</strong></p>
+              <ul>
+                <li>不必要的专业知识不再塞进 CLAUDE.md</li>
+                <li>仅在任务类型匹配时被激活</li>
+                <li>把"如何写迁移脚本""如何打 release"封装成可复用单元</li>
+                <li>团队成员之间可以共享同一份专长</li>
+              </ul>
+            </div>
+            <div style="background: var(--card-bg); border-radius: 8px; padding: 22px; border: 1px solid var(--card-border);">
+              <p class="tag" style="margin-bottom: 12px;">原则</p>
+              <p class="text-xl" style="line-height: 1.4;">
+                可复用的专长 →
+                <strong>Skills</strong><br>
+                <span class="text-muted" style="font-size: 14pt;">而非永久驻留在每次会话里</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <h2>Plugins — 让好配置可被分发</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 36px; margin-top: 16px;">
+            <div>
+              <p class="text-lg"><strong>把工作流打包,推广到全组织</strong></p>
+              <ul style="margin-top: 12px;">
+                <li>统一的命令、Hooks、Skills 集合</li>
+                <li>Day-one 即可使用,无需个人摸索</li>
+                <li>避免好实践停留在"部落知识"</li>
+                <li>升级一处,全员受益</li>
+              </ul>
+            </div>
+            <div class="pull-quote" style="font-size: 19pt;">
+              一家最成功的部署案例:在大规模推广前,就已经"构建了一整套 plugins 与 MCP 服务器,首日即可使用"。
+              <cite>— Anthropic 文章中的案例</cite>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-11">
+        <h2>MCP、LSP 与 Subagents</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 14px;">
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-plug"></i></div>
+              <h3>MCP Servers</h3>
+              <p>把 Claude Code 接入内部工具、私有数据、票据系统、监控面板。</p>
+              <p style="margin-top: 8px; color: var(--primary-color); font-size: 13pt;">扩展"能做什么"</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
+              <h3>LSP 集成</h3>
+              <p>用语言服务器做符号级查找,替代纯文本匹配,定位重命名与跨文件引用更精准。</p>
+              <p style="margin-top: 8px; color: var(--primary-color); font-size: 13pt;">提升"看得多准"</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-people-group"></i></div>
+              <h3>Subagents</h3>
+              <p>并行探索与编辑,把噪声大的调研工作交给子代理,主上下文保持干净。</p>
+              <p style="margin-top: 8px; color: var(--primary-color); font-size: 13pt;">放大"能走多远"</p>
+            </div>
+          </div>
+          <p class="text-muted text-center" style="margin-top: 26px; font-size: 14pt;">注意:LSP 集成<strong style="color:#B85450;">不会自动发生</strong>——需要主动配置。</p>
+        </div>
+      </section>
+
+      <section id="divider-3" class="section-divider" data-state="is-section-divider">
+        <div class="brand-mark"></div>
+        <p class="tag" style="margin-bottom: 18px;">03 / 04</p>
+        <h1>三种配置模式</h1>
+        <p class="subtitle">让代码库可导航 · 让配置不腐化 · 让组织有担当</p>
+      </section>
+
+      <section id="slide-13">
+        <h2>模式一:让代码库可导航</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 16px;">
+            <div>
+              <p class="tag" style="margin-bottom: 12px;">结构</p>
+              <ul>
+                <li>分层布置 <code>CLAUDE.md</code>:根目录概述,子目录细节</li>
+                <li>测试与 lint 命令<strong>按目录分别声明</strong></li>
+                <li>目录结构特殊时,显式提供<strong>代码库地图</strong></li>
+              </ul>
+            </div>
+            <div>
+              <p class="tag" style="margin-bottom: 12px;">工具</p>
+              <ul>
+                <li>用 <code>.claudeignore</code> 屏蔽生成代码与构建产物</li>
+                <li>部署 LSP 服务器,启用符号级搜索</li>
+                <li>常用的 MCP 服务器在 day-one 就配好</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-center text-muted" style="margin-top: 24px; font-size: 14pt;">"保持 CLAUDE.md 精简且分层"——Anthropic 原文</p>
+        </div>
+      </section>
+
+      <section id="slide-14">
+        <h2>模式二:配置随模型一起演进</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 36px; align-items: center; margin-top: 18px;">
+            <div style="text-align: center;">
+              <p class="big-num">3–6</p>
+              <p class="text-lg" style="margin-top: 8px;">个月</p>
+              <p class="text-muted" style="font-size: 13pt;">建议的回顾周期</p>
+            </div>
+            <div>
+              <p class="text-lg" style="margin-bottom: 12px;"><strong>模型在进步,你的规则不该原地踏步。</strong></p>
+              <blockquote style="font-size: 15pt;">
+                一条 CLAUDE.md 规则——"把每次重构拆成单文件改动"——可能曾帮过早期模型保持专注,却会阻止新模型做出协调一致的跨文件编辑。
+              </blockquote>
+              <p class="text-muted" style="margin-top: 12px; font-size: 14pt;">每次重大模型发布后,审视并删除已不再需要的约束。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-15">
+        <h2>模式三:组织级的归属与治理</h2>
+        <div class="content">
+          <div style="margin-top: 14px;">
+            <p class="text-lg"><strong>不指定负责人,配置就会碎片化。</strong></p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 22px;">
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
+              <h3>设立 DRI</h3>
+              <p>指定一位负责人或一支团队,统管中心化配置标准、模板与默认值。</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-handshake"></i></div>
+              <h3>跨职能工作组</h3>
+              <p>早期就把工程、安全、治理代表拉到同一桌——而非事后救火。</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h3>保守起步</h3>
+              <p>从一组<strong>已审核的 Skills</strong>、必备的 code review 流程、有限的初期访问开始。</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <h3>随信心扩张</h3>
+              <p>用 plugins 把已验证的工作流分发出去——避免好实践停留在"部落知识"。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-4" class="section-divider" data-state="is-section-divider">
+        <div class="brand-mark"></div>
+        <p class="tag" style="margin-bottom: 18px;">04 / 04</p>
+        <h1>陷阱与起步</h1>
+        <p class="subtitle">先避开常见错误,再谈第一行配置</p>
+      </section>
+
+      <section id="slide-17">
+        <h2>常见陷阱</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 14px;">
+            <div class="dont">
+              <h3><i class="fa-solid fa-triangle-exclamation"></i>&nbsp; 别这样做</h3>
+              <ul>
+                <li>把可复用专长塞进 <code>CLAUDE.md</code>(应放进 Skills)</li>
+                <li>什么都往 <code>CLAUDE.md</code> 里堆</li>
+                <li>以为 LSP 集成会自动发生</li>
+                <li>基础还没跑通就先搭 MCP 接入</li>
+                <li>只改了一个服务,却跑全量测试套件</li>
+                <li>好配置只在少数人手里,缺乏分发机制</li>
+              </ul>
+            </div>
+            <div class="do">
+              <h3><i class="fa-solid fa-circle-check"></i>&nbsp; 这样替代</h3>
+              <ul>
+                <li>专长 → Skills;约定 → Hooks;广义上下文 → CLAUDE.md</li>
+                <li>每条规则都问:"这是不是普遍适用?"</li>
+                <li>把 LSP、子目录配置作为首日任务</li>
+                <li>先把"导航 + 测试 + lint"这三件事做对</li>
+                <li>用目录级 lint/test 命令限定影响面</li>
+                <li>用 plugins 把好实践打包传播</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-18">
+        <h2>从哪里开始?</h2>
+        <div class="content">
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+            <div class="step">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <h3>先写一份精简的 CLAUDE.md</h3>
+                <p>只放普遍适用的内容,放进根目录;在子目录里再补本地约定。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <h3>把测试与 lint 命令按目录划清</h3>
+                <p>加上 <code>.claudeignore</code>,让导航不被生成代码干扰。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <h3>部署 LSP,再考虑 MCP 与 Subagents</h3>
+                <p>基础没跑通前,不要急着接外部系统。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">04</div>
+              <div class="step-body">
+                <h3>指定 DRI,用 Plugins 分发好配置</h3>
+                <p>保守起步、逐步扩张,每 3–6 个月回顾一次配置。</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-center" style="margin-top: 18px; font-size: 14pt; color: var(--primary-color); letter-spacing: 0.06em;">脚手架,而不是模型,决定你的 Claude Code 体验。</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
