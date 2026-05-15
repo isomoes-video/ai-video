@@ -1,0 +1,21 @@
+中文标题:Claude Code 在大型代码库中的工作方式——最佳实践与起步指南
+English Title: How Claude Code Works in Large Codebases: Best Practices and Where to Start
+
+Source: https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start
+
+本视频系统梳理了 Anthropic 官方博客《How Claude Code Works in Large Codebases》的核心观点,围绕"如何在数百万行级代码库中真正用好 Claude Code"展开。视频先从最底层的导航机制讲起:Claude Code 并不依赖向量索引或传统 RAG,而是采用智能体式搜索——直接遍历文件系统、用 grep 精确定位符号、跨文件跟随引用链,因此它面对的始终是活的代码,而不是某个版本的快照。
+
+随后视频拆解了 Claude Code 的脚手架,包括五个扩展点和两个加速器。五个扩展点分别是:每次会话自动加载的 CLAUDE.md、在关键时刻触发脚本的 Hooks、按需加载领域专长的 Skills、打包分发组织级配置的 Plugins,以及连接内部工具与数据源的 MCP Servers。两个加速器则是带来符号级精度的 LSP 集成,以及让 Claude Code 能够并行探索与编辑的 Subagents。每个零件的作用、典型使用场景、容易踩坑的边界都做了具体讨论。
+
+接下来视频提炼出三种配置模式:让代码库可导航(分层 CLAUDE.md、按目录限定 lint 与测试、.claudeignore、LSP);让配置随模型演进(每 3–6 个月回顾一次,删除已不再需要的约束);以及组织级的归属与治理(指定 DRI、跨职能工作组、保守起步再扩张)。最后一部分汇总了常见陷阱与四步起步路径,帮助团队避免把可复用专长塞进 CLAUDE.md、跳过基础直接接 MCP、好实践停留在部落知识等典型错误。整段内容的中心论点贯穿始终:决定 Claude Code 表现的不是模型本身,而是围绕它的那套脚手架。
+
+00:00  开场
+00:55  智能体搜索
+01:34  五个扩展点
+02:18  CLAUDE.md
+02:56  Hooks
+03:28  Skills
+04:01  Plugins
+04:34  MCP 与 LSP
+05:14  配置模式
+07:32  陷阱与起步
