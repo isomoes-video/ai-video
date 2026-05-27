@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我们如何控制 Claude</title>
+
+  <!-- Reveal.js core (vendored locally for offline render) -->
+  <link rel="stylesheet" href="vendor/reset.css">
+  <link rel="stylesheet" href="vendor/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="vendor/fontawesome.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1. Title -->
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic 工程博客</p>
+        <h1>我们如何在产品中<br><span class="clay-text">"控制"</span> Claude</h1>
+        <p style="margin-top:24px;">当 AI 智能体越来越强大时，如何在保留它的能力的同时，<br>把它可能造成的破坏范围限制到最小</p>
+      </section>
+
+      <!-- 2. Why contain — blast radius + fig1 -->
+      <section id="why-contain">
+        <p class="eyebrow">核心理念</p>
+        <h2>为什么要谈"控制"</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1.25fr; gap:34px; align-items:center; flex:1; min-height:0;">
+            <div>
+              <p class="text-lg">智能体能力越强，一旦出错或被滥用，造成的<strong class="risk-text">"爆炸半径"（blast radius）</strong>就越大。</p>
+              <p class="text-lg" style="margin-top:18px;">是否上线，取决于三者的平衡：</p>
+              <ul class="text-lg">
+                <li><strong>P(harm)</strong>：出问题的概率</li>
+                <li><strong>blast radius</strong>：出问题后的破坏范围</li>
+                <li><strong class="safe-text">reward</strong>：能带来的价值</li>
+              </ul>
+              <p class="text-lg" style="margin-top:14px;">把破坏范围牢牢控制住，高价值的能力才敢放心交付。</p>
+            </div>
+            <div class="figure" style="height:100%;">
+              <img src="figures/fig1-capability-deployment.png" alt="风险与价值的权衡">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Three risks -->
+      <section id="three-risks">
+        <p class="eyebrow">威胁建模</p>
+        <h2>需要防范的三类风险</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:24px; flex:1; min-height:0; align-content:center; align-items:start;">
+            <div class="card risk">
+              <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+                <span class="badge risk">1</span><h3>用户滥用</h3>
+              </div>
+              <p>用户主动引导智能体去完成有害任务。</p>
+            </div>
+            <div class="card risk">
+              <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+                <span class="badge risk">2</span><h3>模型失当</h3>
+              </div>
+              <p>模型自身做出非预期的、有害的行为。</p>
+            </div>
+            <div class="card risk">
+              <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+                <span class="badge risk">3</span><h3>外部攻击者</h3>
+              </div>
+              <p>利用工具、文件或网络访问发起攻击，例如提示注入。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Three defense layers + fig2 -->
+      <section id="three-defenses">
+        <p class="eyebrow">防御组件</p>
+        <h2>三层防御协同工作</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.3fr 1fr; gap:34px; align-items:center; flex:1; min-height:0;">
+            <div class="figure" style="height:100%;">
+              <img src="figures/fig2-defense-components.png" alt="防御 AI 智能体的组件">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card accent" style="padding:16px 20px;">
+                <h3 style="font-size:20pt;">环境层 · hard ceiling</h3>
+                <p>沙箱、虚拟机、文件系统边界、出口流量控制——<strong>确定性</strong>的硬上限。</p>
+              </div>
+              <div class="card accent" style="padding:16px 20px;">
+                <h3 style="font-size:20pt;">模型层 · probabilistic</h3>
+                <p>系统提示、分类器、探针、训练——<strong>概率性</strong>的行为引导。</p>
+              </div>
+              <div class="card accent" style="padding:16px 20px;">
+                <h3 style="font-size:20pt;">外部内容层</h3>
+                <p>对工具权限做最小化授权，并审计连接器与输入输出。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Divider: three patterns -->
+      <section id="patterns-divider" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">三种产品形态</p>
+        <h1>三种控制模式</h1>
+        <p style="margin-top:18px;">隔离强度，匹配用户的监督能力</p>
+      </section>
+
+      <!-- 6. Pattern 1 — ephemeral container -->
+      <section id="pattern-1">
+        <p class="eyebrow">模式一 · claude.ai</p>
+        <h2>临时容器（Ephemeral Container）</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div>
+              <ul class="text-lg">
+                <li>代码运行在服务端的 <strong>gVisor</strong> 隔离容器中</li>
+                <li>文件系统按会话隔离，用完即<strong>销毁</strong></li>
+                <li>爆炸半径极小</li>
+              </ul>
+            </div>
+            <div class="card accent" style="align-self:center;">
+              <h3>威胁模型重点</h3>
+              <p class="text-lg">保护的是 <strong>Anthropic 自身基础设施</strong> 与租户隔离，而不是用户的机器——因为代码根本不在用户机器上跑。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Pattern 2 — Claude Code sandbox + stats -->
+      <section id="pattern-2">
+        <p class="eyebrow">模式二 · Claude Code</p>
+        <h2>人在回路的沙箱</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div>
+              <p class="text-lg">运行在用户本地机器上，拥有文件系统与 shell 访问权限。最初设计要求对写入、bash、网络操作逐一<strong>审批</strong>。</p>
+              <p class="text-lg" style="margin-top:12px;">问题：用户几乎对所有提示都点了"同意"，产生严重的<strong class="risk-text">审批疲劳</strong>。</p>
+              <p class="text-lg" style="margin-top:12px;">对策：叠加 <strong>OS 级沙箱</strong>（macOS Seatbelt、Linux bubblewrap）。</p>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:28px;">
+              <div class="stat">
+                <p class="num risk">93%</p>
+                <p class="lbl">权限提示被直接批准 → 审批形同虚设</p>
+              </div>
+              <div class="stat">
+                <p class="num safe">↓84%</p>
+                <p class="lbl">加入 OS 沙箱后，权限提示减少</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. Claude Code lessons -->
+      <section id="code-lessons">
+        <p class="eyebrow">两次真实教训</p>
+        <h2>当模型层假设失效时</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; flex:1; min-height:0; align-content:center; align-items:start;">
+            <div class="card risk">
+              <h3>信任对话框之前就执行代码</h3>
+              <p>启动时解析项目配置（如 settings、CLAUDE.md）发生在用户授权<strong>之前</strong>，留下窗口期。</p>
+            </div>
+            <div class="card risk">
+              <h3>经用户的直接提示注入</h3>
+              <p>一份看似无害的"钓鱼"指令，成功在 <strong class="risk-text">25 次里有 24 次</strong> 窃取了 AWS 凭证。</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">关键启示：当模型层的防御被绕过时，<strong>环境层</strong>（出口控制、文件系统边界）是唯一仍然有效的防线。</p>
+      </section>
+
+      <!-- 9. Pattern 3 — Cowork sealed VM + fig3 -->
+      <section id="pattern-3">
+        <p class="eyebrow">模式三 · Claude Cowork</p>
+        <h2>封闭虚拟机（Sealed VM）</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 0.85fr 1.15fr; gap:30px; align-items:center; flex:1; min-height:0;">
+            <div>
+              <ul>
+                <li>完整虚拟机：macOS 用 Apple Virtualization，Windows 用 HCS</li>
+                <li>用户挑选挂载的工作区，凭证留在<strong>宿主机钥匙串</strong></li>
+                <li>面向无法判断 bash 命令的<strong>非技术用户</strong></li>
+              </ul>
+              <p style="margin-top:10px;"><span class="pill clay">两道在客户机内核之外</span> 可抵御 root 沦陷；<span class="pill green">四道客户机内</span> 保持最小化。</p>
+            </div>
+            <div class="figure" style="height:100%;">
+              <img src="figures/fig3-vm-isolation.png" alt="Claude Cowork 的隔离机制">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Cowork architecture evolution + fig4 -->
+      <section id="cowork-arch">
+        <p class="eyebrow">架构演进</p>
+        <h2>智能体循环：移出虚拟机</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:30px; align-items:center; flex:1; min-height:0;">
+            <div class="figure" style="height:100%;">
+              <img src="figures/fig4-agent-architecture.png" alt="全虚拟机模式与宿主循环模式对比">
+            </div>
+            <div>
+              <p class="text-lg">为了提升可靠性，智能体循环被<strong>移到虚拟机之外</strong>，而代码执行仍被牢牢隔离在内。</p>
+              <p class="text-lg" style="margin-top:14px;">本地 MCP 服务器也移到 VM 外，便于<strong>审计</strong>和依赖管理。</p>
+              <p class="text-lg" style="margin-top:14px;">安全没有妥协，可靠性反而更好。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. Cowork attack & fix + fig5 -->
+      <section id="cowork-attack">
+        <p class="eyebrow">攻击与修复</p>
+        <h2>经"已批准域名"的外泄</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.45fr 1fr; gap:30px; align-items:center; flex:1; min-height:0;">
+            <div class="figure" style="height:100%;">
+              <img src="figures/fig5-exfil-fix.png" alt="经已批准域名外泄的攻击与修复">
+            </div>
+            <div>
+              <p class="text-lg"><strong class="risk-text">攻击：</strong>工作区里的恶意文件带着攻击者的 API key，借合法的 <code>api.anthropic.com</code> 把文件上传到攻击者账户。</p>
+              <p class="text-lg" style="margin-top:14px;"><strong class="safe-text">修复：</strong>在 VM 内放一个防御性的中间人代理（MTM proxy），<strong>拦截并校验会话令牌</strong>，攻击者的 key 直接被拦下。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. EDR visibility paradox -->
+      <section id="edr">
+        <p class="eyebrow">隔离的代价</p>
+        <h2>EDR 可见性悖论</h2>
+        <div class="content" style="justify-content:center;">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px; align-items:center;">
+            <blockquote class="text-2xl">把 Claude 关得越严，安全软件就越看不见里面发生了什么。</blockquote>
+            <div class="card safe">
+              <h3>当前缓解方案</h3>
+              <p class="text-lg">同样的隔离也挡住了端点检测（EDR）软件。改用基于 <strong>OTLP 的拉取式日志导出</strong>，让管理员仍能取到审计日志。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. External content trust -->
+      <section id="external-trust">
+        <p class="eyebrow">外部内容</p>
+        <h2>对外部内容保持警惕</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:22px; flex:1; min-height:0; align-content:center;">
+            <div class="card accent">
+              <h3>双重风险</h3>
+              <p>MCP、连接器、网络工具既有传统供应链漏洞，又是提示注入的入口。</p>
+            </div>
+            <div class="card accent">
+              <h3>远端会变</h3>
+              <p>远端工具在批准后可能改变行为；本地工具才是可审计的。</p>
+            </div>
+            <div class="card accent">
+              <h3>检查输出</h3>
+              <p>即使来源可信，也要检查工具返回；代理会在内容进入上下文前先过一遍。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14. Divider: looking ahead -->
+      <section id="ahead-divider" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">展望与原则</p>
+        <h1>未来的挑战</h1>
+      </section>
+
+      <!-- 15. Looking ahead -->
+      <section id="looking-ahead">
+        <p class="eyebrow">新出现的攻击面</p>
+        <h2>三个待解的问题</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:24px; flex:1; min-height:0; align-content:center;">
+            <div class="card risk">
+              <h3>持久记忆投毒</h3>
+              <p>产品记忆、CLAUDE.md、工作区等持久状态，带来新的持久化攻击向量。</p>
+            </div>
+            <div class="card risk">
+              <h3>多智能体信任升级</h3>
+              <p>隔离带来收益，但智能体间的通信也引入新的注入通道。</p>
+            </div>
+            <div class="card risk">
+              <h3>智能体身份</h3>
+              <p>智能体该有独立身份，还是继承用户权限？尚无定论。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. Core principles (closing) -->
+      <section id="principles">
+        <p class="eyebrow">核心原则</p>
+        <h2>三条经验法则</h2>
+        <div class="content">
+          <div style="display:flex; flex-direction:column; gap:18px; flex:1; justify-content:center; min-height:0;">
+            <div class="card accent" style="display:flex; gap:18px; align-items:center;">
+              <span class="badge">1</span>
+              <p class="text-lg" style="margin:0;"><strong>先在环境层做控制，再在模型层做引导。</strong>确定性的边界能兜住概率性防御漏掉的失败。</p>
+            </div>
+            <div class="card accent" style="display:flex; gap:18px; align-items:center;">
+              <span class="badge">2</span>
+              <p class="text-lg" style="margin:0;"><strong>让隔离强度匹配用户的监督能力。</strong>会读 bash 的开发者和普通知识工作者，需要不同的威胁模型。</p>
+            </div>
+            <div class="card accent" style="display:flex; gap:18px; align-items:center;">
+              <span class="badge">3</span>
+              <p class="text-lg" style="margin:0;"><strong>慎用自研组件。</strong>久经考验的虚拟机管理程序和系统调用过滤器，比临时拼凑的安全层更耐久。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="vendor/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+/* ===========================================
+   CSS VARIABLES - Anthropic "contain Claude" theme
+   Warm cream palette matched to the blog's own figures,
+   with the signature clay/coral accent.
+   =========================================== */
+:root {
+  --background-color: #EDE9E0;              /* Warm cream — matches embedded figures */
+  --section-divider-bg: #1F1E1B;            /* Dark charcoal dividers for contrast */
+
+  /* Typography */
+  --heading-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --body-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 46pt;
+  --h2-size: 34pt;
+  --h3-size: 22pt;
+  --footnote-size: 11pt;
+
+  /* Colors */
+  --primary-color: #CC785C;    /* Anthropic clay/coral */
+  --secondary-color: #B23A2B;  /* Deep red — risk / attack */
+  --safe-color: #4F7A3A;       /* Green — defense / fix */
+  --text-color: #1F1E1B;       /* Near-black warm ink */
+  --muted-color: #6B665C;      /* Warm gray */
+  --line-color: #C9C2B4;       /* Soft divider lines */
+  --card-bg: #FAF8F2;          /* Light card surface (matches figure panels) */
+
+  /* Layout */
+  --slide-padding: 60px;
+  --slide-padding-top: 40px;
+  --watermark-safe-top: 44px;
+  --content-gap: 24px;
+
+  /* Border radius for custom components */
+  --box-radius: 12px;
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1,
+.reveal .slides section.section-divider h2,
+.reveal .slides section.section-divider p {
+  color: #F4F1E8;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 52pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 19pt;
+  color: #C9B9A8;
+}
+
+.reveal .slides section.section-divider .eyebrow {
+  color: var(--primary-color);
+  font-size: 16pt;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   CUSTOM COMPONENTS — contain Claude theme
+   =========================================== */
+
+/* Slide titles get a subtle clay underline */
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+/* Eyebrow / kicker above a title */
+.reveal .eyebrow {
+  font-size: 13pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+/* Card surface used across slides */
+.reveal .card {
+  background: var(--card-bg);
+  border: 1px solid var(--line-color);
+  border-radius: var(--box-radius);
+  padding: 22px 24px;
+}
+
+.reveal .card h3 {
+  margin: 0 0 8px 0;
+  color: var(--text-color);
+}
+
+.reveal .card.accent { border-top: 5px solid var(--primary-color); }
+.reveal .card.risk   { border-top: 5px solid var(--secondary-color); }
+.reveal .card.safe   { border-top: 5px solid var(--safe-color); }
+
+/* Number badge for ordered concepts */
+.reveal .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 900;
+  font-size: 20pt;
+  flex-shrink: 0;
+}
+.reveal .badge.risk { background: var(--secondary-color); }
+.reveal .badge.safe { background: var(--safe-color); }
+
+/* Stat box: big number + label */
+.reveal .stat {
+  text-align: center;
+}
+.reveal .stat .num {
+  font-size: 42pt;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--primary-color);
+  margin: 0;
+}
+.reveal .stat .num.risk { color: var(--secondary-color); }
+.reveal .stat .num.safe { color: var(--safe-color); }
+.reveal .stat .lbl {
+  font-size: 14pt;
+  color: var(--muted-color);
+  margin: 8px 0 0 0;
+}
+
+/* Figure embed — frames the blog diagrams cleanly */
+.reveal .figure {
+  background: var(--card-bg);
+  border: 1px solid var(--line-color);
+  border-radius: var(--box-radius);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reveal .figure img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: 0;
+}
+
+/* Pill labels */
+.reveal .pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12pt;
+  font-weight: 700;
+}
+.reveal .pill.clay { background: rgba(204,120,92,0.16); color: var(--secondary-color); }
+.reveal .pill.green { background: rgba(79,122,58,0.16); color: var(--safe-color); }
+
+.reveal strong { color: inherit; }
+.reveal .clay-text { color: var(--primary-color); }
+.reveal .risk-text { color: var(--secondary-color); }
+.reveal .safe-text { color: var(--safe-color); }
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* Bottom decorative line */
+/*
+.reveal .slides section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  height: 2px;
+  background: var(--line-color);
+}
+*/
