@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 LLM 守护源代码安全</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1. Title -->
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic 工程博客</p>
+        <h1>用 LLM 守护<br><span class="clay-text">源代码安全</span></h1>
+        <p style="margin-top:28px;">把 Claude 变成一支随时上岗的安全团队：<br>从威胁建模到补丁验证的六步流程</p>
+        <div class="clay-bar"></div>
+      </section>
+
+      <!-- 2. Why this matters — the numbers -->
+      <section id="why">
+        <p class="eyebrow">来自前线</p>
+        <h2>发现已经不是瓶颈，<span class="clay-text">验证和修复</span>才是</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; align-items:stretch; margin-top:18px;">
+            <div class="stat">
+              <span class="num">1,596</span>
+              <span class="label">已披露的开源漏洞<br>截至 2026 年 5 月 22 日</span>
+            </div>
+            <div class="stat">
+              <span class="num risk">97</span>
+              <span class="label">据我们所知<br>已经被修复的数量</span>
+            </div>
+            <div class="stat">
+              <span class="num safe">~90%</span>
+              <span class="label">有完善威胁模型的团队<br>能达到的可利用率</span>
+            </div>
+          </div>
+          <div class="pullquote" style="margin-top:30px;">
+            <p>"扫描已经可以轻松并行，瓶颈已经转移到验证、分诊和打补丁。"</p>
+          </div>
+          <p class="source">Source: Anthropic — Using LLMs to Secure Source Code</p>
+        </div>
+      </section>
+
+      <!-- 3. Hero figure — the defender's loop -->
+      <section id="loop-figure" style="padding-top: 24px !important;">
+        <h2 style="font-size:28pt;">防守方的循环：<span class="clay-text">投入一次，反复扫描</span></h2>
+        <div class="content" style="padding-top:10px; overflow:hidden;">
+          <div class="figure" style="flex:1; min-height:0; padding:8px;">
+            <img src="figures/fig1-find-and-fix-loop.png" alt="The defender's loop: threat model and sandbox feed a discovery → verification → triage → patching cycle" style="max-height:540px;">
+          </div>
+          <p class="figure-caption" style="margin-top:6px;">Figure 1 · 一次性投入 = 威胁模型 + 沙箱；循环 = 发现 → 验证 → 分诊 → 修复</p>
+        </div>
+      </section>
+
+      <!-- 4. Divider: Setup -->
+      <section id="div-setup" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Part 1 · Setup</p>
+        <h1>一次性投入：<br><span class="clay-text">把扫描的"地基"打稳</span></h1>
+        <div class="clay-bar"></div>
+      </section>
+
+      <!-- 5. Step 1 — Threat model -->
+      <section id="step-threat-model">
+        <div class="step-head">
+          <span class="badge">1</span>
+          <h2>Threat Model · 决定"算什么漏洞"</h2>
+        </div>
+        <p class="step-sub">在动手扫描之前，先把"重要的东西"写清楚</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:28px; flex:1; min-height:0;">
+            <div>
+              <p class="text-lg">如果不先定义什么算漏洞，模型就会在<strong>任何看起来可疑</strong>的地方报警。</p>
+              <ul class="text-lg" style="margin-top:14px;">
+                <li>从现有代码、文档和 <code>CVE</code> 历史里 <strong>bootstrap</strong> 出第一版</li>
+                <li>用 Shostack 四问框架做团队访谈</li>
+                <li>产出 <code>THREAT_MODEL.md</code>，明确<strong>信任边界</strong>和<strong>关键资产</strong></li>
+              </ul>
+            </div>
+            <div class="card accent">
+              <h3>关键发现</h3>
+              <p class="text-lg">有完善威胁模型的团队，发现的漏洞可利用率达到 <strong class="clay-text">~90%</strong>。</p>
+              <p class="text-lg" style="margin-top:12px;">"过去被人利用过的姿势" —— 比"帮我找漏洞"是更省力的<strong>作弊码</strong>。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Step 2 — Sandbox -->
+      <section id="step-sandbox">
+        <div class="step-head">
+          <span class="badge">2</span>
+          <h2>Sandbox · 让 PoC 能跑、能炸、但炸不到生产</h2>
+        </div>
+        <p class="step-sub">既是安全护栏，也是"可利用性"的实验台</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; flex:1; min-height:0;">
+            <div class="card">
+              <h3><i class="fa-solid fa-box" style="color:var(--primary-color); margin-right:8px;"></i>容器</h3>
+              <p>用于代码静态分析，启动快、并行多。</p>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-server" style="color:var(--primary-color); margin-right:8px;"></i>microVM / 完整 VM</h3>
+              <p>用于跑真正的 PoC，可以触发崩溃、写文件、提权。</p>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-network-wired" style="color:var(--primary-color); margin-right:8px;"></i>网络隔离</h3>
+              <p>初始化完成后切断公网，只保留必要的 API 连接。</p>
+            </div>
+          </div>
+          <p class="text-lg" style="margin-top:22px;">钉住依赖版本、构建产物和 <code>commit SHA</code>，确保每次重放的结果<strong>可复现</strong>。</p>
+        </div>
+      </section>
+
+      <!-- 7. Divider: The cycle -->
+      <section id="div-cycle" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Part 2 · The cycle</p>
+        <h1>循环四步：<br><span class="clay-text">发现 · 验证 · 分诊 · 修复</span></h1>
+        <div class="clay-bar"></div>
+      </section>
+
+      <!-- 8. Step 3 — Discovery -->
+      <section id="step-discovery">
+        <div class="step-head">
+          <span class="badge">3</span>
+          <h2>Discovery · 把候选漏洞捞上来</h2>
+        </div>
+        <p class="step-sub">不要写检查清单，要给上下文</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; flex:1; min-height:0;">
+            <div class="card safe">
+              <h3><i class="fa-solid fa-check" style="color:var(--safe-color); margin-right:8px;"></i>这样做</h3>
+              <ul>
+                <li>把架构文档、威胁模型一起喂进去</li>
+                <li>用"<strong>为什么</strong>"和"<strong>什么</strong>"的开放式提问</li>
+                <li>把代码库切分成多个 focus area</li>
+                <li><strong>并行</strong>多个 agent，避免大家都收敛到浅层 bug</li>
+                <li>用结构化字段返回结果</li>
+              </ul>
+            </div>
+            <div class="card risk">
+              <h3><i class="fa-solid fa-xmark" style="color:var(--secondary-color); margin-right:8px;"></i>避免</h3>
+              <ul>
+                <li>写一份大而全的 checklist 让模型对照</li>
+                <li>用单线 agent 串行扫整个 repo</li>
+                <li>只让模型输出自由格式的描述</li>
+                <li>把发现 (discovery) 和验证 (verification) 揉在一起</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Step 4 — Verification -->
+      <section id="step-verification">
+        <div class="step-head">
+          <span class="badge">4</span>
+          <h2>Verification · 证伪，而不是证实</h2>
+        </div>
+        <p class="step-sub">用一个"全新环境"的 agent，专门来挑刺</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:28px; flex:1; min-height:0;">
+            <div>
+              <ul class="text-lg">
+                <li>验证 agent 要在<strong>独立的 fresh 环境</strong>里跑</li>
+                <li>提示词里明确要求：<strong>试图推翻</strong>这个发现</li>
+                <li>有条件就强制生成 <strong>PoC</strong> 代码</li>
+                <li>多个独立验证 agent 做<strong>多数投票</strong>，提升精度</li>
+              </ul>
+            </div>
+            <div class="card accent">
+              <h3>效果</h3>
+              <p class="text-lg">通过对抗式验证，团队把"<strong>不可利用</strong>"的误报数量降低了 <strong class="clay-text">~50%</strong>。</p>
+              <p class="text-lg" style="margin-top:12px;">关键：发现和验证<strong>目标不同</strong>，要用不同的 agent、不同的提示、不同的环境。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Step 5 — Triage -->
+      <section id="step-triage">
+        <div class="step-head">
+          <span class="badge">5</span>
+          <h2>Triage · 先去重，再排序</h2>
+        </div>
+        <p class="step-sub">按"根因"去重，不要按"症状"去重</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; flex:1; min-height:0;">
+            <div class="card">
+              <h3><i class="fa-solid fa-filter" style="color:var(--primary-color); margin-right:8px;"></i>先用确定性规则过滤</h3>
+              <ul>
+                <li>同一文件</li>
+                <li>同一漏洞类别</li>
+                <li>代码位置邻近</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-scale-balanced" style="color:var(--primary-color); margin-right:8px;"></i>再按严重程度打分</h3>
+              <ul>
+                <li>可达性 (reachability)</li>
+                <li>攻击者可控程度</li>
+                <li>触发前置条件</li>
+                <li>是否需要鉴权</li>
+                <li>影响范围 (scope)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. Step 6 — Patching -->
+      <section id="step-patching">
+        <div class="step-head">
+          <span class="badge">6</span>
+          <h2>Patching · 先写失败的测试，再写补丁</h2>
+        </div>
+        <p class="step-sub">闭环的最后一公里，也是最容易翻车的一段</p>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; flex:1; min-height:0;">
+            <div>
+              <p class="text-lg" style="margin-bottom:10px;"><strong>验收一个补丁，至少要过四关：</strong></p>
+              <ul class="text-lg">
+                <li>项目构建成功</li>
+                <li>原本的 <strong>PoC 不再触发</strong></li>
+                <li>回归测试全部通过</li>
+                <li>再让 agent 做一次<strong>对抗式复查</strong></li>
+              </ul>
+            </div>
+            <div class="card safe">
+              <h3>两层"找变种"</h3>
+              <p><strong>层一：</strong>同一段模式在仓库中其它位置的复制</p>
+              <p><strong>层二：</strong>同一<strong>漏洞类别</strong>在其它地方的不同实现</p>
+              <p style="margin-top:14px;"><strong class="risk-text">不要</strong>顺手做不相关的重构。补丁越小越好。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. Key insights -->
+      <section id="insights">
+        <p class="eyebrow">实战经验</p>
+        <h2>几个反直觉的发现</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; flex:1; min-height:0; align-content:start;">
+            <div class="card">
+              <h3>首次扫描数量最多</h3>
+              <p>之后每次重扫，新发现的数量会下降，但<strong>复杂度上升</strong>。要提前设定停扫标准。</p>
+            </div>
+            <div class="card">
+              <h3>同一份代码也会出新结果</h3>
+              <p>模型是随机的。即使代码没变，多跑几次仍会冒出新发现 —— 这是特性，不是 bug。</p>
+            </div>
+            <div class="card">
+              <h3>模型懂代码，不懂"我们"</h3>
+              <p>它能看懂逻辑，但不懂业务上哪些路径才<strong>真的重要</strong>。这就是威胁模型存在的意义。</p>
+            </div>
+            <div class="card">
+              <h3>人类还得在环里</h3>
+              <p>架构约束、服务依赖、上下游影响 —— 这些 context-dependent 的判断，目前仍需要人类工程师来做。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. Resources & closing -->
+      <section id="resources">
+        <p class="eyebrow">动手试试</p>
+        <h2>开箱即用的<span class="clay-text">五个 Skills</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:14px; margin-top:14px;">
+            <div class="card accent" style="padding:16px 14px; text-align:center;">
+              <h3 style="font-size:16pt;">threat-model</h3>
+              <p style="font-size:13pt;">建立威胁模型</p>
+            </div>
+            <div class="card accent" style="padding:16px 14px; text-align:center;">
+              <h3 style="font-size:16pt;">vuln-scan</h3>
+              <p style="font-size:13pt;">并行扫描漏洞</p>
+            </div>
+            <div class="card accent" style="padding:16px 14px; text-align:center;">
+              <h3 style="font-size:16pt;">triage</h3>
+              <p style="font-size:13pt;">去重与排序</p>
+            </div>
+            <div class="card accent" style="padding:16px 14px; text-align:center;">
+              <h3 style="font-size:16pt;">patch</h3>
+              <p style="font-size:13pt;">生成与验证补丁</p>
+            </div>
+            <div class="card accent" style="padding:16px 14px; text-align:center;">
+              <h3 style="font-size:16pt;">customize</h3>
+              <p style="font-size:13pt;">按项目定制</p>
+            </div>
+          </div>
+          <div class="pullquote" style="margin-top:28px;">
+            <p>发现已经廉价，"<strong>把它修对</strong>" 才是新的护城河。</p>
+          </div>
+          <p class="source">参考实现：<code>defending-code-reference-harness</code> · 也可通过 Claude Security 与 GitHub Action 集成</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

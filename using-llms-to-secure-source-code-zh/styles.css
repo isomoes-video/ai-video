@@ -1,0 +1,502 @@
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ===========================================
+   CSS VARIABLES - Anthropic "secure source code" theme
+   Warm cream palette matched to the blog's own figure, with the
+   signature clay/coral accent, deep red for risk and forest green for safe.
+   =========================================== */
+:root {
+  --background-color: #EDE9E0;              /* Warm cream — matches blog figure */
+  --section-divider-bg: #1F1E1B;            /* Dark charcoal dividers for contrast */
+
+  /* Typography */
+  --heading-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --body-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --mono-font: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 46pt;
+  --h2-size: 34pt;
+  --h3-size: 22pt;
+  --footnote-size: 11pt;
+
+  /* Colors */
+  --primary-color: #CC785C;     /* Anthropic clay/coral — the action color */
+  --secondary-color: #B23A2B;   /* Deep red — vulnerability / risk */
+  --safe-color: #4F7A3A;        /* Forest green — patched / safe */
+  --text-color: #1F1E1B;        /* Near-black warm ink */
+  --muted-color: #6B665C;       /* Warm gray */
+  --line-color: #C9C2B4;        /* Soft divider lines */
+  --card-bg: #FAF8F2;           /* Light card surface (matches figure panels) */
+  --card-bg-dark: #2A2926;      /* Dark card on light slides */
+
+  /* Layout */
+  --slide-padding: 60px;
+  --slide-padding-top: 40px;
+  --watermark-safe-top: 44px;
+  --content-gap: 24px;
+
+  /* Border radius for custom components */
+  --box-radius: 12px;
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* ===========================================
+   CUSTOM THEME — "secure source code"
+   =========================================== */
+
+/* Eyebrow label above title */
+.reveal .eyebrow {
+  font-size: 12pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+/* Section dividers — dark background, light text */
+.reveal .slides section.section-divider h1,
+.reveal .slides section.section-divider h2,
+.reveal .slides section.section-divider p,
+.reveal .slides section.section-divider .eyebrow {
+  color: #FAF8F2;
+}
+
+.reveal .slides section.section-divider .eyebrow {
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.reveal .slides section.section-divider .clay-bar {
+  width: 90px;
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 2px;
+  margin: 24px 0 0 0;
+}
+
+/* Clay-colored accent text */
+.reveal .clay-text { color: var(--primary-color); }
+.reveal .risk-text { color: var(--secondary-color); }
+.reveal .safe-text { color: var(--safe-color); }
+
+/* Title slide */
+.reveal #title h1 {
+  font-size: 60pt;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Cards */
+.reveal .card {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  padding: 22px 24px;
+  border: 1px solid var(--line-color);
+}
+
+.reveal .card.accent {
+  border-left: 6px solid var(--primary-color);
+}
+
+.reveal .card.risk {
+  border-left: 6px solid var(--secondary-color);
+}
+
+.reveal .card.safe {
+  border-left: 6px solid var(--safe-color);
+}
+
+.reveal .card h3 {
+  margin: 0 0 8px 0;
+  font-size: 20pt;
+  line-height: 1.25;
+}
+
+.reveal .card p,
+.reveal .card li {
+  font-size: 15pt;
+  line-height: 1.45;
+  margin: 0 0 6px 0;
+}
+
+/* Numbered badge — matches figure pill style */
+.reveal .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #FAF8F2;
+  font-weight: 700;
+  font-size: 16pt;
+  font-family: var(--mono-font);
+  flex-shrink: 0;
+}
+
+.reveal .badge.muted { background: var(--muted-color); }
+.reveal .badge.risk { background: var(--secondary-color); }
+.reveal .badge.safe { background: var(--safe-color); }
+
+/* Figure container */
+.reveal .figure {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  border: 1px solid var(--line-color);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reveal .figure img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 6px;
+}
+
+.reveal .figure-caption {
+  font-size: 11pt;
+  color: var(--muted-color);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Stat box */
+.reveal .stat {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  border: 1px solid var(--line-color);
+  padding: 20px 22px;
+  text-align: center;
+}
+
+.reveal .stat .num {
+  font-family: var(--mono-font);
+  font-size: 42pt;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+  display: block;
+}
+
+.reveal .stat .num.risk { color: var(--secondary-color); }
+.reveal .stat .num.safe { color: var(--safe-color); }
+
+.reveal .stat .label {
+  font-size: 13pt;
+  color: var(--muted-color);
+  margin-top: 8px;
+  display: block;
+}
+
+/* Step header with number + title */
+.reveal .step-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.reveal .step-head .badge {
+  width: 44px;
+  height: 44px;
+  font-size: 18pt;
+}
+
+.reveal .step-head h2 {
+  margin: 0;
+}
+
+.reveal .step-sub {
+  font-size: 14pt;
+  color: var(--muted-color);
+  margin-top: -8px;
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Code-style inline */
+.reveal code {
+  font-family: var(--mono-font);
+  font-size: 0.9em;
+  background: rgba(204, 120, 92, 0.12);
+  color: var(--primary-color);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* Quote callout */
+.reveal .pullquote {
+  border-left: 4px solid var(--primary-color);
+  background: var(--card-bg);
+  padding: 18px 22px;
+  border-radius: 0 var(--box-radius) var(--box-radius) 0;
+}
+
+.reveal .pullquote p {
+  font-style: italic;
+  font-size: 18pt;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Source footnote */
+.reveal .source {
+  font-size: 11pt;
+  color: var(--muted-color);
+  margin-top: auto;
+  padding-top: 16px;
+  letter-spacing: 0.04em;
+}
+
+/* Override list bullet color for clay theme */
+.reveal ul li::before {
+  background: var(--primary-color);
+}
