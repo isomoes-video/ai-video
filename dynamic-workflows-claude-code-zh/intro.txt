@@ -1,0 +1,17 @@
+中文标题：为每个任务定制 Harness：Claude Code 动态工作流
+English Title: A Harness for Every Task: Dynamic Workflows in Claude Code
+
+Source: https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code
+
+这个视频解读 Anthropic 于 2026 年 6 月发布的官方博客，介绍 Claude Code 的动态工作流：面对复杂任务时，Claude 不再在单个上下文窗口里硬扛，而是现场编写一段 JavaScript 编排脚本，派生一组子智能体分工协作。视频首先讲解工作流的三个编排积木——agent()、parallel() 与 pipeline()，以及指定模型、隔离 worktree、中断续跑等关键能力；接着分析单上下文的三种典型失败模式（智能体惰性、自我偏好偏差、目标漂移），并通过「该不该迁移结账服务」的例子对比静态工作流与动态工作流的差距。随后视频梳理六种常用编排模式：分类后行动、扇出与综合、对抗式验证、生成与过滤、锦标赛和循环至完成，并展开十大应用场景——从大规模迁移重构（Bun 从 Zig 改写为 Rust 的实战案例）、深度研究与深度验证，到千行数据的锦标赛排序、CLAUDE.md 规则遵从的哨兵设计、带隔离区的规模化分诊，以及根因调查、探索与品味、轻量评测和模型路由。最后给出实用建议：工作流 token 消耗显著更高，应留给复杂高价值任务；提示要具体、可搭配 /loop 与 /goal、设置 token 预算控制开销；好用的工作流可以按 s 保存，或放进 skill 文件夹分发给整个团队。
+
+00:00  开场
+00:24  概念
+01:02  引擎
+01:39  失败模式
+02:14  动静对比
+03:01  六模式
+03:53  应用场景
+07:21  实用技巧
+07:59  保存分享
+08:27  总结

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>为每个任务定制 Harness：Claude Code 动态工作流</title>
+
+  <!-- Reveal.js core (local node_modules — CDN unreachable on this network) -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic 官方博客 · Claude Code</p>
+        <h1>为每个任务<br><span class="clay-text">定制一套 Harness</span></h1>
+        <p style="margin-top:28px;">Claude Code 动态工作流：让 Claude 现场编写<br>专属的多智能体编排程序</p>
+        <div class="clay-bar"></div>
+        <p style="font-size:13pt; margin-top:30px;">2026 年 6 月 2 日 · Thariq Shihipar &amp; Sid Bidasaria</p>
+      </section>
+
+      <section id="what-is-it">
+        <h2>什么是<span class="clay-text">动态工作流</span>？</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; flex: 1;">
+            <div style="display:flex; flex-direction:column; justify-content:center;">
+              <p class="text-xl">面对复杂任务，Claude 不再在单个上下文窗口里硬扛，而是<strong>现场编写一段编排脚本</strong>——拆解任务、派生一组子智能体分工协作。</p>
+              <ul style="margin-top:22px;">
+                <li class="text-lg" style="margin-bottom:16px;">工作流是一个 <strong>JavaScript 文件</strong>，用特殊函数派生并协调子智能体</li>
+                <li class="text-lg" style="margin-bottom:16px;">可为每个子智能体<strong>指定模型</strong>、决定是否在<strong>隔离 worktree</strong> 中运行</li>
+                <li class="text-lg">中途被打断？<strong>可恢复续跑</strong>，不必从头再来</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:13pt; color:var(--muted-color); margin-bottom:12px; letter-spacing:0.06em;">你可以直接这样开口 ——</p>
+              <p class="prompt-chip">复现这个 flaky 测试，提出几个相互竞争的假设</p>
+              <p class="prompt-chip">挖掘我最近 50 个会话里反复出现的纠正，总结成规则</p>
+              <p class="prompt-chip">翻 6 个月的 Slack 事故记录，找出重复出现的根因</p>
+              <p class="prompt-chip">让多个智能体从不同视角批判我的商业计划</p>
+              <p class="prompt-chip">用工作流给 80 份简历排序，并安排候选人面试</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="engine-api">
+        <h2>引擎室：三个<span class="clay-text">编排积木</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.35fr; gap: 32px; flex: 1; min-height: 0;">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:14px;">
+              <div class="card accent">
+                <h3 style="font-size:17pt;"><code>agent(prompt, opts?)</code></h3>
+                <p>派生一个子智能体。<code>schema</code> 强制返回校验过的 JSON；<code>model</code> 选 opus/sonnet/haiku；<code>isolation</code> 隔离 worktree；<code>agentType</code> 用自定义子智能体</p>
+              </div>
+              <div class="card blue">
+                <h3 style="font-size:17pt;"><code>parallel([fns])</code></h3>
+                <p>扇出并发执行，<strong>屏障语义</strong>——等所有任务完成才返回</p>
+              </div>
+              <div class="card blue">
+                <h3 style="font-size:17pt;"><code>pipeline(items, …)</code></h3>
+                <p>每个条目独立流过所有阶段，<strong>无屏障</strong>——快的不等慢的</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-agent-api.png" alt="agent() API signature with schema, model, isolation, agentType options, plus parallel() and pipeline() composition blocks" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 1 · agent() 的完整签名，以及 parallel() 与 pipeline() 两种组合方式</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-workflows">
+        <h2>为什么需要？单上下文的<span class="clay-text">三种失败模式</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 10px;">
+            <div class="card accent">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-battery-quarter" style="color:var(--primary-color);"></i>&nbsp; 智能体惰性</h3>
+              <p class="text-muted" style="font-size:12pt; letter-spacing:0.04em;">AGENTIC LAZINESS</p>
+              <p style="margin-top:10px;">多部分任务做到一半，Claude 就「觉得差不多了」，提前收工</p>
+            </div>
+            <div class="card accent">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-heart" style="color:var(--primary-color);"></i>&nbsp; 自我偏好偏差</h3>
+              <p class="text-muted" style="font-size:12pt; letter-spacing:0.04em;">SELF-PREFERENTIAL BIAS</p>
+              <p style="margin-top:10px;">评判自己的产出时不自觉偏心，难以发现自身错误</p>
+            </div>
+            <div class="card accent">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-route" style="color:var(--primary-color);"></i>&nbsp; 目标漂移</h3>
+              <p class="text-muted" style="font-size:12pt; letter-spacing:0.04em;">GOAL DRIFT</p>
+              <p style="margin-top:10px;">轮次一多，对最初目标的忠实度逐渐流失，越跑越偏</p>
+            </div>
+          </div>
+          <div class="pullquote" style="margin-top: 36px;">
+            <p>工作流的解法：把工作拆给一组<strong>目标单一、上下文干净</strong>的子智能体，<br>各自专注、互相制衡。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="static-vs-dynamic">
+        <h2>静态 vs <span class="clay-text">动态</span>：量身定制的差距</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <p style="margin:0;"><strong class="blue-text">静态工作流</strong>（Agent SDK / <code>claude -p</code>）：一次编写、通用执行，对各种输入都给出「泛化」的处理</p>
+            <p style="margin:0;"><strong class="clay-text">动态工作流</strong>：Claude Opus 4.8 针对<strong>眼前这个任务</strong>现场编写专属 harness，深入你的代码和数据</p>
+          </div>
+          <div style="display:flex; flex-direction:column; flex:1; min-height:0; margin-top:14px;">
+            <div class="figure" style="flex:1; min-height:0;">
+              <img src="figures/fig-static-vs-dynamic.png" alt="Static harness produces a generic research report; dynamic workflow reads billing code, checks features against new provider docs, plays devil's advocate, and outputs a specific recommendation" style="max-height:375px;">
+            </div>
+            <p class="figure-caption">图 2 · 「该不该迁移结账服务？」—— 静态产出通用报告；动态会读你的账单代码、对照新供应商文档、再唱反调，给出针对性建议</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-patterns" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Patterns</p>
+        <h1>六种工作流模式</h1>
+        <p style="margin-top:20px;">从分类路由到锦标赛对决 —— 可自由组合的编排原语</p>
+        <div class="clay-bar"></div>
+      </section>
+
+      <section id="six-patterns">
+        <h2>六种<span class="clay-text">常用模式</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.45fr 1fr; gap: 28px; flex: 1; min-height: 0;">
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-six-patterns.png" alt="Six workflow patterns: classify-and-act, fanout-and-synthesize, adversarial verification, generate-and-filter, tournament, loop until done" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 3 · 博客原图：六种工作流模式一览</p>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:4px;">
+              <p style="margin:0 0 8px 0;"><span class="pattern-tag">1 · Classify-and-Act</span>分类后行动 —— 按类型路由给不同智能体</p>
+              <p style="margin:0 0 8px 0;"><span class="pattern-tag">2 · Fan-out-and-Synthesize</span>扇出与综合 —— 拆小并行，再统一汇总</p>
+              <p style="margin:0 0 8px 0;"><span class="pattern-tag">3 · Adversarial Verification</span>对抗式验证 —— 独立智能体按标准校验产出</p>
+              <p style="margin:0 0 8px 0;"><span class="pattern-tag">4 · Generate-and-Filter</span>生成与过滤 —— 广撒网生成，按评分去重留优</p>
+              <p style="margin:0 0 8px 0;"><span class="pattern-tag">5 · Tournament</span>锦标赛 —— N 个方案两两对决，评委选出冠军</p>
+              <p style="margin:0;"><span class="pattern-tag">6 · Loop Until Done</span>循环至完成 —— 跑到没有新发现为止</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-usecases" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Use Cases</p>
+        <h1>十大应用场景</h1>
+        <p style="margin-top:20px;">从大规模迁移到深度研究 —— 工作流真正发力的地方</p>
+        <div class="clay-bar"></div>
+      </section>
+
+      <section id="migrations-research">
+        <h2>迁移重构 &amp; <span class="clay-text">深度研究</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1;">
+            <div class="card accent" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3><i class="fa-solid fa-code-branch" style="color:var(--primary-color);"></i>&nbsp; 迁移与重构</h3>
+              <ul style="margin-top:16px;">
+                <li class="text-lg" style="margin-bottom:14px;">把迁移拆成具体步骤：调用点、失败测试、待改模块</li>
+                <li class="text-lg" style="margin-bottom:14px;">每个修复派一个子智能体，跑在<strong>隔离 worktree</strong> 中</li>
+                <li class="text-lg">配<strong>对抗式审查智能体</strong>把关，通过后再合并</li>
+              </ul>
+              <p style="margin-top:auto; padding-top:12px; font-size:13pt; color:var(--muted-color);"><i class="fa-solid fa-star" style="color:var(--primary-color);"></i> 实战案例：Bun 从 Zig 改写为 Rust，用的就是这套方法</p>
+            </div>
+            <div class="card blue" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--secondary-color);"></i>&nbsp; 深度研究</h3>
+              <ul style="margin-top:16px;">
+                <li class="text-lg" style="margin-bottom:14px;"><strong>扇出</strong>网络搜索 → 抓取来源 → 对抗式核查每条断言</li>
+                <li class="text-lg" style="margin-bottom:14px;">最终<strong>综合</strong>成一份带引用的研究报告</li>
+                <li class="text-lg">同样适用：Slack 状态汇总、代码库深度探索</li>
+              </ul>
+              <p style="margin-top:auto; padding-top:12px; font-size:13pt; color:var(--muted-color);"><i class="fa-solid fa-lightbulb" style="color:var(--secondary-color);"></i> 干净的上下文窗口，防止来源之间互相污染</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deep-verification">
+        <h2>深度验证：<span class="clay-text">每条断言</span>都有人核查</h2>
+        <div class="content">
+          <p>报告写完不等于可信。让工作流先<strong>提取每一条事实断言</strong>，再为每条断言派一个核查智能体对照来源验证，可选的「来源审计员」还会把关<strong>来源本身的质量</strong>。</p>
+          <div style="display:flex; flex-direction:column; flex:1; min-height:0; margin-top:14px;">
+            <div class="figure" style="flex:1; min-height:0;">
+              <img src="figures/fig-deep-verification.png" alt="Claim extractor identifies every factual claim; claim checkers 1..N verify against sources; optional source auditors check source quality; output is a verified report" style="max-height:395px;">
+            </div>
+            <p class="figure-caption">图 4 · 断言提取器 → N 个断言核查员 → 来源审计员 → 已验证报告</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sorting">
+        <h2>排序：千行数据的<span class="clay-text">锦标赛</span></h2>
+        <div class="content">
+          <p>按「支持工单严重程度」这类<strong>定性标准</strong>给 1000+ 行数据排序？用锦标赛或流水线化的两两比较——<strong>每次对决都是一个全新智能体</strong>，不带任何历史包袱。</p>
+          <div style="display:flex; flex-direction:column; flex:1; min-height:0; margin-top:14px;">
+            <div class="figure" style="flex:1; min-height:0;">
+              <img src="figures/fig-tournament-sort.png" alt="1000 items flow through tournament rounds of pairwise comparisons by fresh agents until a fully sorted list emerges" style="max-height:100%;">
+            </div>
+            <p class="figure-caption">图 5 · 1000 个条目 → 多轮两两对决（每场都是 fresh agent）→ 完整排序结果</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="rule-adherence">
+        <h2>记忆与规则遵从：<span class="clay-text">一条规则一个哨兵</span></h2>
+        <div class="content">
+          <p><code>CLAUDE.md</code> 里的自定义规则总被忽略？为<strong>每条规则配一个专职验证智能体</strong>检查 diff，再由「怀疑论者」复核每个标记——是真违规，还是误报？</p>
+          <div style="display:flex; flex-direction:column; flex:1; min-height:0; margin-top:14px;">
+            <div class="figure" style="flex:1; min-height:0;">
+              <img src="figures/fig-rule-verifiers.png" alt="A diff is checked by one verifier agent per rule; a skeptic re-reads each flag to decide real violation or false positive; only confirmed violations are reported" style="max-height:395px;">
+            </div>
+            <p class="figure-caption">图 6 · 每条规则一个验证员（上下文各自干净）→ Skeptic 复核 → 只输出确认的违规</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="triage">
+        <h2>规模化分诊：<span class="clay-text">隔离区</span>设计</h2>
+        <div class="content">
+          <p>工单、bug 报告、用户反馈源源不断？分类 → 与已跟踪问题去重 → 修复或升级人工。关键安全设计：<strong>「隔离区」</strong>——读不可信内容的智能体<strong>禁止</strong>执行高权限操作，只向可信区传递结构化摘要。</p>
+          <div style="display:flex; flex-direction:column; flex:1; min-height:0; margin-top:14px;">
+            <div class="figure" style="flex:1; min-height:0;">
+              <img src="figures/fig-triage-quarantine.png" alt="Untrusted backlog enters a quarantine zone with read-only reader agents and dedupe; only structured summaries cross to the trusted zone where an actor agent fixes or escalates; /loop runs continuously" style="max-height:100%;">
+            </div>
+            <p class="figure-caption">图 7 · 隔离区（只读、无特权）→ 结构化摘要 → 可信区行动智能体；配合 /loop 持续运行</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="more-usecases">
+        <h2>更多场景：<span class="clay-text">一招通吃</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; flex: 1;">
+            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-magnifying-glass" style="color:var(--primary-color);"></i>&nbsp; 根因调查</h3>
+              <p class="text-lg" style="margin-top:10px;">多个智能体从<strong>互不相交的证据</strong>独立提出假设——调试、销售分析、数据工程、事后复盘都适用</p>
+            </div>
+            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-palette" style="color:var(--primary-color);"></i>&nbsp; 探索与品味</h3>
+              <p class="text-lg" style="margin-top:10px;">设计或命名拿不定主意？按<strong>评分标准</strong>探索方案、配审查智能体，达标即停</p>
+            </div>
+            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-clipboard-check" style="color:var(--primary-color);"></i>&nbsp; 轻量评测（Evals）</h3>
+              <p class="text-lg" style="margin-top:10px;">独立智能体各跑一遍任务，比较智能体按 <strong>rubric</strong> 打分——快速验证提示词或方案优劣</p>
+            </div>
+            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-shuffle" style="color:var(--primary-color);"></i>&nbsp; 模型与智能路由</h3>
+              <p class="text-lg" style="margin-top:10px;">分类智能体先<strong>预研任务复杂度</strong>，再把工作路由给 Sonnet 或 Opus——好钢用在刀刃上</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="when-and-tips">
+        <h2>何时不用 &amp; <span class="clay-text">实用技巧</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; flex: 1;">
+            <div class="card" style="border-left: 6px solid var(--muted-color); display:flex; flex-direction:column; justify-content:center;">
+              <h3 style="font-size:19pt;"><i class="fa-solid fa-hand" style="color:var(--muted-color);"></i>&nbsp; 先想清楚再上</h3>
+              <ul style="margin-top:14px;">
+                <li class="text-lg" style="margin-bottom:14px;">工作流的 <strong>token 消耗显著更高</strong></li>
+                <li class="text-lg" style="margin-bottom:14px;">留给<strong>复杂、高价值</strong>的任务</li>
+                <li class="text-lg">普通编码任务不需要三个 reviewer 围观</li>
+              </ul>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card accent" style="flex:1; display:flex; align-items:center;">
+                <p class="text-lg"><strong class="clay-text">提示要具体</strong> —— 指名想要的模式效果最好；别忘了「快工作流」，小任务也能用</p>
+              </div>
+              <div class="card accent" style="flex:1; display:flex; align-items:center;">
+                <p class="text-lg"><strong class="clay-text">搭配 <code>/loop</code> 与 <code>/goal</code></strong> —— 分诊、研究、验证这类可重复的工作流定期跑；用 /goal 设硬性完成标准</p>
+              </div>
+              <div class="card accent" style="flex:1; display:flex; align-items:center;">
+                <p class="text-lg"><strong class="clay-text">设 token 预算</strong> —— 一句「最多用 10k tokens」就能显式封顶开销</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="save-share">
+        <h2>保存与分享：<span class="clay-text">沉淀成团队资产</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; flex: 1; min-height: 0;">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:14px;">
+              <div class="card accent">
+                <p>跑完后按 <code>s</code> 一键保存到 <code>~/.claude/workflows</code></p>
+              </div>
+              <div class="card accent">
+                <p>把 <code>.workflow.js</code> 放进 skill 文件夹、在 <code>SKILL.md</code> 中引用——<strong>装上这个 skill 的人，跑的就是同一个工作流</strong></p>
+              </div>
+              <div class="card accent">
+                <p>把保存的工作流当<strong>模板</strong>用，保留 Claude 现场调整的灵活性</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0; gap:8px;">
+              <div class="figure" style="flex:0.7; min-height:0;">
+                <img src="figures/fig-workflows-menu.png" alt="The /workflows menu showing running and completed workflows with an s-to-save shortcut" style="max-height:150px;">
+              </div>
+              <div class="figure" style="flex:1.3; min-height:0;">
+                <img src="figures/fig-skill-share.png" alt="Workflow file lives inside the skill folder next to SKILL.md, which references verify-claims.workflow.js" style="max-height:270px;">
+              </div>
+              <p class="figure-caption">图 8 · /workflows 菜单按 s 保存；workflow 文件随 skill 文件夹一起分发</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="closing" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Takeaway</p>
+        <h1>让 Claude 自己<span class="clay-text">搭脚手架</span></h1>
+        <p style="margin-top:24px; max-width:900px;">单上下文有惰性、偏心、漂移三种失败模式；<br>动态工作流用干净上下文 + 分工制衡来破解。<br>从复杂高价值任务开始，搭配 /loop、/goal 与 token 预算。</p>
+        <div class="clay-bar"></div>
+        <p style="font-size:13pt; margin-top:30px;">原文：claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
