@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Fable 5 与 Claude Mythos 5</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" data-background-color="#EFDEB9" style="align-items:center; justify-content:center; text-align:center;">
+        <p class="eyebrow">Anthropic 官方公告 · 2026 年 6 月 9 日</p>
+        <img src="figures/fig-hero-butterflies.png" alt="蝴蝶拼成的数字 5" style="max-height:300px; width:auto; margin:6px 0 4px; background:transparent; box-shadow:none; border:none;">
+        <h1 style="font-size:54pt;">Claude <span class="clay-text">Fable 5</span> 与 <span class="mythos-text">Mythos 5</span></h1>
+        <p class="text-xl" style="color:var(--text-color); margin-top:14px; max-width:920px;">迄今最强的 Mythos 级模型：<strong>通用可用的 Fable 5</strong>，<br>以及面向授权伙伴、移除保障的 <strong>Mythos 5</strong></p>
+        <div class="clay-bar" style="margin:26px auto 0;"></div>
+      </section>
+
+      <section id="two-models">
+        <h2>一个模型，<span class="clay-text">两种发布</span></h2>
+        <div class="content">
+          <p class="text-lg" style="margin-bottom:18px;">Fable 5 与 Mythos 5 是<strong>同一个底层模型</strong>，区别只在于是否带安全保障。任务越长、越复杂，Fable 5 相对其他模型的领先就越明显。</p>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; flex:1;">
+            <div class="card accent" style="display:flex; flex-direction:column;">
+              <span class="pill clay" style="align-self:flex-start; margin-bottom:12px;">通用发布 · 含保障</span>
+              <h3 class="clay-text">Claude Fable 5</h3>
+              <p>面向所有开发者与企业，跨编程、知识工作、视觉与科研全面达到业界顶尖水平。</p>
+              <p>内置三道分类器，敏感请求会被自动拦截。</p>
+            </div>
+            <div class="card mythos" style="display:flex; flex-direction:column;">
+              <span class="pill mythos" style="align-self:flex-start; margin-bottom:12px;">受限访问 · 无保障</span>
+              <h3 class="mythos-text">Claude Mythos 5</h3>
+              <p>能力完全相同，但<strong>移除了保障</strong>。</p>
+              <p>仅向经过授权的网络安全与生物学伙伴开放，用于防御与科研。</p>
+            </div>
+            <div class="card blue" style="display:flex; flex-direction:column;">
+              <span class="pill blue" style="align-self:flex-start; margin-bottom:12px;">回退模型</span>
+              <h3 class="blue-text">Claude Opus 4.8</h3>
+              <p>当 Fable 5 的保障触发时，相关请求会<strong>自动改由 Opus 4.8 应答</strong>，确保对话不中断。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="benchmarks">
+        <h2>基准成绩：<span class="clay-text">几乎全面领先</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; justify-content:center;">
+              <p class="text-lg" style="margin-bottom:18px;">在编程、知识工作、空间推理、计算机操作、法律、生物等多个维度上，Fable 5 / Mythos 5 同时压过 Opus 4.8、GPT 5.5 与 Gemini 3.1 Pro。</p>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+                <div class="stat"><span class="num">80.3<span style="font-size:20pt;">%</span></span><span class="label">SWE-Bench Pro<br>智能体编程</span></div>
+                <div class="stat"><span class="num blue">1932</span><span class="label">GPQA-AA<br>知识工作</span></div>
+                <div class="stat"><span class="num safe">64.5<span style="font-size:20pt;">%</span></span><span class="label">Humanity's Last Exam<br>多学科推理（带工具）</span></div>
+              </div>
+              <p class="text-muted" style="font-size:12pt; margin-top:16px;">标注 * 的项目因网络安全 / 生物保障会让 Fable 5 回退，分数贴近 Opus 4.8。</p>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-benchmarks.png" alt="Claude Mythos 5 / Fable 5 与 Mythos Preview、Opus 4.8、GPT 5.5、Gemini 3.1 Pro 在十余项基准上的对比表" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 1 · 与前沿模型的逐项基准对比（数据取自官方系统卡）</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-coding" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Capability · 01</p>
+        <h1>软件工程<span class="clay-text">与编程</span></h1>
+        <p style="margin-top:18px;">把数月的工程量压缩进几天</p>
+        <div class="clay-bar"></div>
+      </section>
+
+      <section id="agentic-coding">
+        <h2>智能体编程：<span class="clay-text">拉开身位</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.35fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-coding-perf.png" alt="SWE-Bench Pro 上 Fable 80.3、Opus 4.8 69.2、GPT 5.5 58.6；FrontierCode 上 29.3、13.4、5.7 的柱状对比" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 2 · SWE-Bench Pro 与 FrontierCode 上的成功率对比</p>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="stat"><span class="num">80.3<span style="font-size:18pt;">%</span></span><span class="label">SWE-Bench Pro<br>领先 GPT 5.5 逾 20 个点</span></div>
+                <div class="stat"><span class="num">88.0<span style="font-size:18pt;">%</span></span><span class="label">Terminal-Bench 2.1<br>终端智能体</span></div>
+              </div>
+              <div class="pullquote">
+                <p>在 5000 万行的 Ruby 代码库上，Fable 5 把原本数月的工程量压缩到了几天。</p>
+                <cite>—— Stripe</cite>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="frontiercode">
+        <h2>准确度对成本：<span class="clay-text">越投入，越领先</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.4fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-frontiercode.png" alt="FrontierCode 准确度对单任务成本曲线：Fable 5 随 effort 从 low 到 max 持续攀升至约 31%，全程高于 Opus 4.8 与 GPT-5.5" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 3 · FrontierCode（最难的 50 道题）准确度随单任务成本变化</p>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:14px;">
+              <div class="card accent">
+                <h3 style="font-size:18pt;">用 <code>effort</code> 调档</h3>
+                <p>从 <strong>low → med → high → xhigh → max</strong>，思考与花费随之提升，准确率也一路走高。</p>
+              </div>
+              <div class="card blue">
+                <h3 style="font-size:18pt;">同样的花费，更高的分</h3>
+                <p>在每一个成本点上，Fable 5 都稳居 Opus 4.8 与 GPT-5.5 之上；max 档逼近 <strong>31%</strong>。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="knowledge-vision">
+        <h2>不只是编程：<span class="clay-text">知识工作与视觉</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; flex:1;">
+            <div class="card accent" style="display:flex; flex-direction:column;">
+              <p style="font-size:30pt; margin:0 0 6px;"><i class="fa-solid fa-brain" style="color:var(--primary-color);"></i></p>
+              <h3>知识工作</h3>
+              <p class="text-lg">GPQA-AA 拿下 <strong>1932</strong>；Humanity's Last Exam 带工具 <strong>64.5%</strong>。复杂多步推理尤其出色。</p>
+            </div>
+            <div class="card blue" style="display:flex; flex-direction:column;">
+              <p style="font-size:30pt; margin:0 0 6px;"><i class="fa-solid fa-chart-line" style="color:var(--secondary-color);"></i></p>
+              <h3>金融分析</h3>
+              <p class="text-lg">在 Hebbia 金融基准上取得<strong>最高分</strong>；做市商 IMC 盛赞其交易分析的深度。</p>
+            </div>
+            <div class="card mythos" style="display:flex; flex-direction:column;">
+              <p style="font-size:30pt; margin:0 0 6px;"><i class="fa-solid fa-eye" style="color:var(--mythos-color);"></i></p>
+              <h3>视觉理解</h3>
+              <p class="text-lg">视觉能力业界顶尖——仅凭<strong>纯视觉接口</strong>，独立通关了《宝可梦 火红》(Pokémon FireRed)。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-science" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow" style="color:var(--mythos-color);">Capability · 02 · Mythos 5</p>
+        <h1>科学研究<span class="mythos-text">前沿</span></h1>
+        <p style="margin-top:18px;">在药物设计、基因组学与分子生物学中加速真实发现</p>
+        <div class="clay-bar" style="background:var(--mythos-color);"></div>
+      </section>
+
+      <section id="drug-design">
+        <h2>药物设计：<span class="mythos-text">蛋白质从头设计</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.25fr 1fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-drug-design.png" alt="由 Mythos 5 设计的九个蛋白质复合物三维结构" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 4 · Mythos 5 设计的蛋白质复合物（结合物以橙色标示）</p>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="stat"><span class="num mythos">~10<span style="font-size:22pt;">×</span></span><span class="label">蛋白质设计<br>提速约十倍</span></div>
+                <div class="stat"><span class="num mythos">9 / 14</span><span class="label">目标靶点产出<br>可用候选物</span></div>
+              </div>
+              <div class="card mythos">
+                <p class="text-lg">研究人员用 Mythos 5 设计能与目标靶点结合的全新蛋白质——在 14 个靶点中，<strong>9 个</strong>给出了实验可用的候选分子。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="genomics">
+        <h2>基因组学与<span class="mythos-text">分子生物学</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div class="card blue">
+                <h3 style="font-size:18pt;"><i class="fa-solid fa-dna" style="color:var(--secondary-color);"></i>&nbsp; 基因组学</h3>
+                <p class="text-lg">Mythos 5 训练出的机器学习模型，<strong>胜过了一篇《Science》期刊论文</strong>的结果。</p>
+              </div>
+              <div class="card mythos">
+                <h3 style="font-size:18pt;"><i class="fa-solid fa-flask-vial" style="color:var(--mythos-color);"></i>&nbsp; 分子生物学</h3>
+                <p class="text-lg">在盲测中，科学家约有 <strong>80%</strong> 的情况更青睐 Mythos 生成的假设，而非 Opus 级模型。</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-aav.png" alt="病毒衣壳实验性质预测箱线图：Mythos 5 仅凭推理即达约 0.85，高于蛋白质语言模型 0.70 的基线" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 5 · AAV 包装分类（仅凭推理）：Mythos 5 远超蛋白质语言模型基线</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-safety" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Safety</p>
+        <h1>安全<span class="clay-text">与保障</span></h1>
+        <p style="margin-top:18px;">为何能力可以放开，风险却被牢牢拦住</p>
+        <div class="clay-bar"></div>
+      </section>
+
+      <section id="safeguards">
+        <h2>三道<span class="clay-text">分类器防线</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:12px;">
+              <div class="card accent"><h3 style="font-size:17pt;"><i class="fa-solid fa-shield-halved" style="color:var(--primary-color);"></i>&nbsp; 网络安全</h3><p>拦截漏洞利用与智能体化的攻击任务</p></div>
+              <div class="card accent"><h3 style="font-size:17pt;"><i class="fa-solid fa-virus" style="color:var(--primary-color);"></i>&nbsp; 生物 / 化学</h3><p>阻断两用的生化武器研究协助</p></div>
+              <div class="card accent"><h3 style="font-size:17pt;"><i class="fa-solid fa-copy" style="color:var(--primary-color);"></i>&nbsp; 模型蒸馏</h3><p>防止能力被非授权方提取复制</p></div>
+              <p class="text-muted text-lg" style="margin-top:4px;">平均仅在 <strong class="clay-text">不到 5%</strong> 的会话中触发；触发后请求改由 Opus 4.8 处理。</p>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-cyber-eval.png" alt="进攻性网络评测：带保障的 Claude Fable 在 Firefox、OSS-Fuzz、CyberGym、CyScenarioBench 上全部为 0.0，而无保障的 Mythos 5 得分很高" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 6 · 进攻性网络评测：含保障的 Fable 全程归零，Mythos 5（无保障）保留全部能力</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="robustness">
+        <h2>更难越狱，<span class="clay-text">也更对齐</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-jailbreak.png" alt="自动化红队下进攻性网络任务完成率：Opus 4.6 83.2、4.7 72.7、4.8 56.6，Fable 5 仅 5.4" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 7 · 自动化红队下的攻击成功率：Fable 5 降至 5.4%</p>
+            </div>
+            <div style="display:flex; flex-direction:column; min-height:0;">
+              <div class="figure" style="flex:1; min-height:0;">
+                <img src="figures/fig-alignment.png" alt="错位行为评分（越低越好）：Sonnet 4.6 为 2.81，Mythos Preview 1.90，Opus 4.8 2.05，Mythos 5 2.06" style="max-height:100%;">
+              </div>
+              <p class="figure-caption">图 8 · 错位行为评分（越低越好）：Mythos 5 与 Opus 4.8 持平</p>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:14px;">
+            <div class="card blue" style="padding:12px 18px;"><p style="margin:0;"><strong>1000+ 小时</strong>外部红队，未发现通用越狱</p></div>
+            <div class="card blue" style="padding:12px 18px;"><p style="margin:0;">外部伙伴确认：保障是他们测过<strong>最稳健</strong>的</p></div>
+            <div class="card blue" style="padding:12px 18px;"><p style="margin:0;">Mythos 级流量<strong>留存 30 天</strong>，不用于训练</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <h2>定价与<span class="clay-text">可用性</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1.25fr; gap:30px; flex:1; min-height:0;">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="stat"><span class="num">$10</span><span class="label">每百万<br>输入 tokens</span></div>
+                <div class="stat"><span class="num">$50</span><span class="label">每百万<br>输出 tokens</span></div>
+              </div>
+              <div class="card accent">
+                <p class="text-lg" style="margin:0;">两个模型同价，<strong>不到 Mythos Preview 的一半</strong>。</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div class="card accent">
+                <h3 style="font-size:18pt;" class="clay-text">Claude Fable 5 · 即刻可用</h3>
+                <p>API 与按用量计费的 Enterprise 方案<strong>立即开放</strong>。</p>
+                <p>订阅版（Pro / Max / Team / 按席位 Enterprise）<strong>6 月 22 日前免费包含</strong>；6 月 23 日起按用量额度计费。</p>
+              </div>
+              <div class="card mythos">
+                <h3 style="font-size:18pt;" class="mythos-text">Claude Mythos 5 · 受限开放</h3>
+                <p>Project Glasswing 网络安全伙伴<strong>即刻接入</strong>；生物学研究者的可信访问<strong>未来数周</strong>开放，更广泛计划随后扩展。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="closing" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Takeaway</p>
+        <h1>把能力放到<span class="clay-text">最强</span>，<br>把风险关到<span class="clay-text">最小</span></h1>
+        <p style="margin-top:22px; max-width:920px;">Fable 5 在编程、知识工作、视觉与科研上全面登顶，<br>同时带着迄今最稳健的保障；Mythos 5 则把同一能力，<br>交到经过授权的防御者与科研人员手中。</p>
+        <div class="clay-bar"></div>
+        <p style="font-size:13pt; margin-top:28px;">原文：anthropic.com/news/claude-fable-5-mythos-5</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

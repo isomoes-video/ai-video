@@ -1,0 +1,16 @@
+中文标题：Claude Fable 5 与 Mythos 5：把能力放到最强，把风险关到最小
+English Title: Claude Fable 5 and Claude Mythos 5
+
+Source: https://www.anthropic.com/news/claude-fable-5-mythos-5
+
+这个视频解读 Anthropic 于 2026 年 6 月 9 日发布的官方公告，介绍迄今最强的 Mythos 级模型 Claude Fable 5 与 Claude Mythos 5。两者是同一个底层模型，区别只在于是否带安全保障：Fable 5 是含三道分类器的通用发布版，Mythos 5 移除保障、仅向授权的网络安全与生物学伙伴开放，敏感请求触发保障时由 Opus 4.8 回退应答。视频先用官方基准图展示它在编程、知识工作、空间推理、计算机操作等十余项上对 Opus 4.8、GPT 5.5、Gemini 3.1 Pro 的全面领先；接着分领域展开——智能体编程（SWE-Bench Pro 80.3%、Stripe 在 5000 万行 Ruby 代码库上把数月工作压缩到几天）、FrontierCode 的准确度对成本曲线、知识工作与纯视觉通关《宝可梦 火红》；随后进入由 Mythos 5 驱动的科学前沿——蛋白质从头设计提速约十倍、14 个靶点中 9 个产出候选物、基因组学胜过《Science》论文、分子生物学盲测 80% 偏好率、AAV 病毒衣壳性质预测。最后是安全部分：三道分类器（网络安全 / 生物化学 / 蒸馏）平均触发率不到 5%，进攻性网络评测中含保障的 Fable 全程归零，自动化红队下攻击成功率降至 5.4%，错位行为与 Opus 4.8 持平，Mythos 级流量留存 30 天且不用于训练。结尾给出定价与可用性：两个模型同价（每百万输入 10 美元、输出 50 美元，不到 Mythos Preview 的一半），Fable 5 即刻开放、订阅版 6 月 22 日前免费包含，Mythos 5 经 Project Glasswing 等可信访问计划受限开放。
+
+00:00  开场
+00:22  两种发布
+01:06  基准
+01:47  编程
+02:54  知识与视觉
+03:16  科学前沿
+04:23  安全
+05:44  定价
+06:18  总结

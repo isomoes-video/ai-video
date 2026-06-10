@@ -1,0 +1,494 @@
+/* Claude Fable 5 / Mythos 5 — presentation theme
+ *
+ * Warm cream palette matched to the announcement's own artwork (the
+ * butterfly "5" and the benchmark figures). Clay/coral is Anthropic's
+ * action color (Fable 5); slate blue carries knowledge/science; pink
+ * mirrors the "Mythos 5" series in the source charts; forest green = safe.
+ * Embedded figures sit seamlessly on the cream surface.
+ *
+ * All font sizes use pt (points) for predictable fixed-slide sizing.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --background-color: #EDE9E0;              /* Warm cream — matches the hero artwork */
+  --section-divider-bg: #1F1E1B;            /* Dark charcoal dividers for contrast */
+
+  /* Typography */
+  --heading-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --body-font: "Noto Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Source Sans Pro", Helvetica, sans-serif;
+  --mono-font: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 46pt;
+  --h2-size: 34pt;
+  --h3-size: 22pt;
+  --footnote-size: 11pt;
+
+  /* Colors */
+  --primary-color: #CC785C;     /* Anthropic clay/coral — Fable 5 / action */
+  --secondary-color: #41687A;   /* Slate blue — knowledge / science */
+  --mythos-color: #D6618F;      /* Pink — Mythos 5 series (matches source charts) */
+  --safe-color: #4F7A3A;        /* Forest green — done / confirmed / safe */
+  --warn-color: #C77A18;        /* Amber — caution */
+  --text-color: #1F1E1B;        /* Near-black warm ink */
+  --muted-color: #6B665C;       /* Warm gray */
+  --line-color: #C9C2B4;        /* Soft divider lines */
+  --card-bg: #FAF8F2;           /* Light card surface (matches figure panels) */
+  --card-bg-dark: #2A2926;      /* Dark card on light slides */
+
+  /* Layout */
+  --slide-padding: 60px;
+  --slide-padding-top: 40px;
+  --watermark-safe-top: 44px;
+  --content-gap: 24px;
+  --box-radius: 12px;
+}
+
+/* ===========================================
+   BASE STYLES
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+.reveal strong,
+.reveal b { font-weight: bold; }
+
+.reveal-viewport { background-color: var(--background-color); }
+
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+.reveal blockquote p { font-size: inherit; }
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.reveal .slides section.stack { padding: 0 !important; }
+
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+  min-height: 0;
+}
+
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+.reveal .slides section.section-divider h1,
+.reveal .slides section.section-divider h2,
+.reveal .slides section.section-divider p,
+.reveal .slides section.section-divider .eyebrow {
+  color: #FAF8F2;
+}
+
+.reveal .slides section.section-divider .eyebrow {
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.reveal .slides section.section-divider .clay-bar {
+  width: 90px;
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 2px;
+  margin: 24px 0 0 0;
+}
+
+/* ===========================================
+   TEXT UTILITIES
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }
+.text-xl { font-size: 20pt !important; }
+.text-2xl { font-size: 24pt !important; }
+.text-3xl { font-size: 28pt !important; }
+.text-4xl { font-size: 32pt !important; }
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+.reveal .clay-text { color: var(--primary-color); }
+.reveal .blue-text { color: var(--secondary-color); }
+.reveal .mythos-text { color: var(--mythos-color); }
+.reveal .safe-text { color: var(--safe-color); }
+
+/* Eyebrow label */
+.reveal .eyebrow {
+  font-size: 12pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TITLE SLIDE
+   =========================================== */
+
+.reveal #title h1 {
+  font-size: 60pt;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+/* ===========================================
+   CARDS
+   =========================================== */
+
+.reveal .card {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  padding: 22px 24px;
+  border: 1px solid var(--line-color);
+}
+
+.reveal .card.accent { border-left: 6px solid var(--primary-color); }
+.reveal .card.blue   { border-left: 6px solid var(--secondary-color); }
+.reveal .card.mythos { border-left: 6px solid var(--mythos-color); }
+.reveal .card.safe   { border-left: 6px solid var(--safe-color); }
+.reveal .card.warn   { border-left: 6px solid var(--warn-color); }
+
+.reveal .card h3 {
+  margin: 0 0 8px 0;
+  font-size: 20pt;
+  line-height: 1.25;
+}
+
+.reveal .card p,
+.reveal .card li {
+  font-size: 15pt;
+  line-height: 1.45;
+  margin: 0 0 6px 0;
+}
+
+/* Model badge pill */
+.reveal .pill {
+  display: inline-block;
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: #FAF8F2;
+}
+.reveal .pill.clay   { background: var(--primary-color); }
+.reveal .pill.mythos { background: var(--mythos-color); }
+.reveal .pill.blue   { background: var(--secondary-color); }
+
+/* ===========================================
+   BADGES (numbered circles)
+   =========================================== */
+
+.reveal .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #FAF8F2;
+  font-weight: 700;
+  font-size: 16pt;
+  font-family: var(--mono-font);
+  flex-shrink: 0;
+}
+
+.reveal .badge.muted  { background: var(--muted-color); }
+.reveal .badge.blue   { background: var(--secondary-color); }
+.reveal .badge.mythos { background: var(--mythos-color); }
+.reveal .badge.safe   { background: var(--safe-color); }
+
+/* ===========================================
+   FIGURES
+   =========================================== */
+
+.reveal .figure {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  border: 1px solid var(--line-color);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reveal .figure img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 6px;
+}
+
+.reveal .figure-caption {
+  font-size: 11pt;
+  color: var(--muted-color);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ===========================================
+   STAT BOXES
+   =========================================== */
+
+.reveal .stat {
+  background: var(--card-bg);
+  border-radius: var(--box-radius);
+  border: 1px solid var(--line-color);
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.reveal .stat .num {
+  font-family: var(--mono-font);
+  font-size: 40pt;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+  display: block;
+}
+
+.reveal .stat .num.blue   { color: var(--secondary-color); }
+.reveal .stat .num.mythos { color: var(--mythos-color); }
+.reveal .stat .num.safe   { color: var(--safe-color); }
+
+.reveal .stat .label {
+  font-size: 12.5pt;
+  color: var(--muted-color);
+  margin-top: 8px;
+  display: block;
+  line-height: 1.35;
+}
+
+/* ===========================================
+   STEP HEADER (number + title)
+   =========================================== */
+
+.reveal .step-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.reveal .step-head .badge { width: 44px; height: 44px; font-size: 18pt; }
+.reveal .step-head h2 { margin: 0; }
+
+/* ===========================================
+   CODE + QUOTE CALLOUTS
+   =========================================== */
+
+.reveal code {
+  font-family: var(--mono-font);
+  font-size: 0.9em;
+  background: rgba(204, 120, 92, 0.12);
+  color: var(--primary-color);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.reveal .pullquote {
+  border-left: 4px solid var(--primary-color);
+  background: var(--card-bg);
+  padding: 16px 22px;
+  border-radius: 0 var(--box-radius) var(--box-radius) 0;
+}
+
+.reveal .pullquote p {
+  font-style: italic;
+  font-size: 17pt;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.reveal .pullquote cite {
+  display: block;
+  font-style: normal;
+  font-size: 12pt;
+  color: var(--muted-color);
+  margin-top: 8px;
+}
+
+/* Source footnote */
+.reveal .source {
+  font-size: 11pt;
+  color: var(--muted-color);
+  margin-top: auto;
+  padding-top: 14px;
+  letter-spacing: 0.04em;
+}
+
+/* ===========================================
+   DECK-SPECIFIC — comparison table
+   =========================================== */
+
+.reveal table.clean {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.reveal table.clean th,
+.reveal table.clean td {
+  text-align: left;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.reveal table.clean thead th {
+  font-size: 14pt;
+  color: var(--muted-color);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--line-color);
+}
+
+.reveal table.clean td { font-size: 15pt; }
+.reveal table.clean td.hl { color: var(--primary-color); font-weight: 700; font-family: var(--mono-font); }
+
+/* Small mono tag */
+.reveal .tag {
+  font-family: var(--mono-font);
+  font-size: 12pt;
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
