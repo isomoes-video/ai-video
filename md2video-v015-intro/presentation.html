@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>md2video v0.1.5 自我介绍</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p style="font-size: 30pt; margin: 0 0 10px 0;"><i class="fa-solid fa-clapperboard" style="color: #F96D00;"></i></p>
+        <h1>md2video</h1>
+        <p class="text-2xl" style="margin-top: 18px;">把一份文稿，变成一支有声视频</p>
+        <p style="margin-top: 30px; font-size: 15pt;"><span style="background: #232730; color: #4ECDC4; padding: 6px 18px; border-radius: 20px; font-family: 'JetBrains Mono', 'Courier New', monospace;">v0.1.5 自我介绍</span></p>
+      </section>
+
+      <section id="slide-2">
+        <h2>我是谁</h2>
+        <div class="content">
+          <p class="text-xl">我是一个 <strong style="color: #F96D00;">agent 友好</strong>的小工作流：给我一份 Markdown 或任意文稿，<br>我把它变成带中文解说的幻灯片视频。</p>
+          <ul class="text-lg" style="margin-top: 10px;">
+            <li>每个阶段一个 prompt，做完一步、审核一步，再决定要不要继续</li>
+            <li>所有产物都收在同一个 <code>output/&lt;presentation-slug&gt;/</code> 工作区里</li>
+          </ul>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 20px;">
+            <div class="stat-box">
+              <p class="stat-number">6</p>
+              <p class="stat-label">条流水线阶段</p>
+            </div>
+            <div class="stat-box">
+              <p class="stat-number">6</p>
+              <p class="stat-label">个发布版本（0.1.0 → 0.1.5）</p>
+            </div>
+            <div class="stat-box">
+              <p class="stat-number">17</p>
+              <p class="stat-label">个已产出的视频工作区</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-3">
+        <h2>六步流水线</h2>
+        <div class="content">
+          <div style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 20px;">
+            <div class="stage-card">
+              <p class="stage-step">01</p>
+              <i class="fa-solid fa-display"></i>
+              <p class="stage-name">幻灯片</p>
+              <p class="stage-artifact">output.pdf + script.json</p>
+            </div>
+            <div class="stage-card">
+              <p class="stage-step">02</p>
+              <i class="fa-solid fa-microphone-lines"></i>
+              <p class="stage-name">配音</p>
+              <p class="stage-artifact">audio/slide-XX.mp3</p>
+            </div>
+            <div class="stage-card">
+              <p class="stage-step">03</p>
+              <i class="fa-solid fa-film"></i>
+              <p class="stage-name">合成</p>
+              <p class="stage-artifact">video.mp4</p>
+            </div>
+            <div class="stage-card">
+              <p class="stage-step">04</p>
+              <i class="fa-solid fa-align-left"></i>
+              <p class="stage-name">简介</p>
+              <p class="stage-artifact">intro.txt</p>
+            </div>
+            <div class="stage-card">
+              <p class="stage-step">05</p>
+              <i class="fa-solid fa-image"></i>
+              <p class="stage-name">封面</p>
+              <p class="stage-artifact">thumbnail.png</p>
+            </div>
+            <div class="stage-card">
+              <p class="stage-step">06</p>
+              <i class="fa-solid fa-upload"></i>
+              <p class="stage-name">发布</p>
+              <p class="stage-artifact">Bilibili</p>
+            </div>
+          </div>
+          <p class="text-muted" style="font-size: 13pt; margin: 18px 0 0 0; text-align: center;">前三步是主链路，后三步可选；每一步都对应 <code>prompts/</code> 里的一个独立 prompt</p>
+        </div>
+      </section>
+
+      <section id="slide-4">
+        <h2>仓库里有什么</h2>
+        <div class="content" style="justify-content: center;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div>
+              <h3 style="font-size: 19pt;"><i class="fa-solid fa-message" style="color: #F96D00; margin-right: 10px;"></i>prompts/ — 给 agent 的阶段指令</h3>
+              <ul style="margin-top: 15px;">
+                <li style="font-size: 14pt;"><code>slide-prompt.md</code> 生成 reveal.js 演示与解说稿</li>
+                <li style="font-size: 14pt;"><code>tts-prompt.md</code> 按 script.json 逐页配音</li>
+                <li style="font-size: 14pt;"><code>combine-prompt.md</code> 把 PDF 与音频合成视频</li>
+                <li style="font-size: 14pt;"><code>script2intro / thumbnail / upload</code> 简介、封面、发布</li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="font-size: 19pt;"><i class="fa-solid fa-terminal" style="color: #4ECDC4; margin-right: 10px;"></i>scripts/ — 可独立运行的工具</h3>
+              <ul style="margin-top: 15px;">
+                <li style="font-size: 14pt;"><code>tts_from_script.py</code> CosyVoice / OpenAI TTS 配音</li>
+                <li style="font-size: 14pt;"><code>combine_video.py</code> ffmpeg 视频装配</li>
+                <li style="font-size: 14pt;"><code>thumbnail_from_prompt.py</code> Qwen-Image 封面生成</li>
+                <li style="font-size: 14pt;"><code>upload_bilibili.py</code> 读取浏览器 cookie 直传 B 站</li>
+              </ul>
+            </div>
+          </div>
+          <blockquote style="margin-top: 25px;">
+            <p style="font-size: 14pt;">生成的作品不放在主仓库：<code>output/</code> 是挂载 <strong>ai-video</strong> 仓库的 git 子模块，演示产物的历史都记在那边。</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <h2>v0.1.5 带来了什么</h2>
+        <div class="content">
+          <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px;">
+            <div class="feature-card">
+              <h3><i class="fa-solid fa-cloud-arrow-up"></i>Bilibili 上传阶段</h3>
+              <p>新增 <strong>upload-prompt</strong> 与 <strong>upload_bilibili.py</strong>：登录态直接读取本地浏览器 cookie，标题简介取自 intro.txt、封面取自 thumbnail.png，发布前必先 --dry-run 预览。</p>
+            </div>
+            <div class="feature-card">
+              <h3><i class="fa-solid fa-table-columns"></i>看板封面预览</h3>
+              <p>实时流水线看板的卡片上，现在可以直接预览 thumbnail 阶段生成的封面图，不用再去文件夹里翻。</p>
+            </div>
+            <div class="feature-card">
+              <h3><i class="fa-solid fa-link"></i>intro.txt 公共链接</h3>
+              <p>简介格式新增一行公开产出 URL，发布页可以直接带上演示工作区的可访问地址。</p>
+            </div>
+            <div class="feature-card">
+              <h3><i class="fa-solid fa-broom"></i>更整洁的历史</h3>
+              <p>为重写后的 git 历史重新生成了 changelog，纯产物提交都归档到 ai-video 子模块的历史里。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <h2>一路走来</h2>
+        <div class="content" style="justify-content: center;">
+          <div class="timeline-row">
+            <p class="timeline-version">v0.1.0</p>
+            <p class="timeline-desc">跑通主链路：revealjs skill、脚本化 TTS、PDF 合成视频</p>
+          </div>
+          <div class="timeline-row">
+            <p class="timeline-version">v0.1.1</p>
+            <p class="timeline-desc">SRT 字幕生成与内嵌，新增 OpenAI TTS 支持</p>
+          </div>
+          <div class="timeline-row">
+            <p class="timeline-version">v0.1.2</p>
+            <p class="timeline-desc">连续产出多支中文成片，intro.txt 要求注明来源 URL</p>
+          </div>
+          <div class="timeline-row">
+            <p class="timeline-version">v0.1.3</p>
+            <p class="timeline-desc">Qwen-Image 封面生成、实时流水线看板、reveal.js 资源本地化</p>
+          </div>
+          <div class="timeline-row">
+            <p class="timeline-version">v0.1.4</p>
+            <p class="timeline-desc">output/ 拆分为独立的 ai-video 子模块</p>
+          </div>
+          <div class="timeline-row timeline-current">
+            <p class="timeline-version">v0.1.5</p>
+            <p class="timeline-desc"><strong>Bilibili 上传阶段 + 看板封面预览 —— 流水线第一次通到「发布」</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <h2>怎么开始用我</h2>
+        <div class="content" style="justify-content: center;">
+          <ul class="text-xl" style="margin-top: 10px;">
+            <li style="margin-bottom: 18px;">克隆仓库：<code>git clone https://github.com/isomoes-video/md2video</code></li>
+            <li style="margin-bottom: 18px;">准备一份 <code>source.md</code> 或一段文字想法，交给你的 agent</li>
+            <li style="margin-bottom: 18px;">按阶段挑 prompt：先出片子，审核满意了，再配音、合成、发布</li>
+          </ul>
+          <blockquote style="margin-top: 30px;">
+            <p class="text-2xl">我不替你创作内容，<br>我只负责让内容开口说话。</p>
+            <cite>—— md2video v0.1.5</cite>
+          </blockquote>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

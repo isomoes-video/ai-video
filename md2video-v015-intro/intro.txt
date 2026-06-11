@@ -1,0 +1,17 @@
+中文标题：md2video v0.1.5 自我介绍：把一份文稿变成会说话的视频
+English Title: Meet md2video v0.1.5: Turn a Document into a Narrated Video
+
+标签：md2video，AI视频，Agent，自动化工作流，文字转视频，TTS，reveal.js，开源工具
+
+Source: https://github.com/isomoes-video/md2video
+Output: https://github.com/isomoes-video/ai-video/tree/main/md2video-v015-intro
+
+这是 md2video 在 0.1.5 版本发布之际的一次自我介绍。md2video 是一个为 agent 设计的小工作流：你给它一份 Markdown 或任意文稿，它就一步步把内容变成带中文解说的幻灯片视频。视频先介绍它的工作方式——一个阶段一个 prompt，做完一步、人工审核一步，所有产物收在同一个工作区目录里；接着展开六步流水线：生成幻灯片与解说稿、逐页配音、合成视频，这是主链路，之后还可以选做简介、封面，并发布到 Bilibili。随后介绍仓库的两类组成——prompts 目录里给 agent 的阶段指令，和 scripts 目录里可独立运行的 Python 工具，并说明生成的作品都归档在 ai-video 子模块仓库中。本次 0.1.5 版本最大的更新是 Bilibili 上传阶段：上传脚本直接读取本地浏览器的登录 cookie，标题简介取自 intro.txt、封面取自 thumbnail.png，发布前必先 dry-run 预览；同时流水线看板新增封面预览，intro.txt 格式新增公开产出链接。视频最后回顾了从 0.1.0 跑通主链路到 0.1.5 打通「发布」环节的完整版本历程，并给出上手方式。
+
+00:00  开场
+00:16  我是谁
+00:58  六步流水线
+01:28  仓库结构
+02:03  新特性
+02:39  版本历程
+03:11  怎么上手
