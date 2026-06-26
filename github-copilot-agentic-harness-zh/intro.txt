@@ -1,0 +1,15 @@
+中文标题：GitHub Copilot 智能体框架评测：更省 token，不锁定模型
+English Title: Evaluating the GitHub Copilot Agentic Harness Across Models and Tasks
+
+标签：GitHub Copilot，agentic harness，AI编程，大模型评测，SWE-bench，Token效率，Claude，GPT-5
+
+Source: https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/
+Output: https://github.com/isomoes-video/ai-video/tree/main/github-copilot-agentic-harness-zh
+
+这个视频解读 GitHub 工程团队的一份评测报告，核心问题只有一个：在同样的模型、同样的任务下，Copilot 背后那套「智能体框架」（agentic harness）到底表现如何，又消耗多少 token。视频先讲清楚框架的定位——它是独立于模型之外的编排层，负责工具调用、上下文与记忆、限额与失败恢复，并用同一套实现驱动 CLI、App、code review 等多处体验。随后进入受控评测：在 Claude Sonnet 4.6、Claude Opus 4.7、GPT-5.4、GPT-5.5 四个模型上，跨 SWE-bench Verified、SWE-bench Pro、SkillsBench、TerminalBench 2、Win-Hill 五项基准，把 Copilot CLI 与厂商自家框架（Claude Code、Codex CLI）逐一对比。结论是：任务完成率基本持平（差异落在随机波动范围内），token 消耗在多数配置下更低，Claude 系列单任务最高可省约 65%，唯一明显例外是 GPT 在 SWE-bench Verified 上略增。最后讨论框架的灵活性——支持 20+ 前沿模型自由切换、自带密钥跑本地模型、以及跨模型家族互评的 Rubber Duck，并诚实说明这些都是受控实验，结果不同于公开榜单，基准只是众多信号之一。
+
+00:00  开场
+00:46  框架
+01:50  方法
+02:58  评测
+04:46  结论

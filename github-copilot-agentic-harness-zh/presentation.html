@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评估 GitHub Copilot 智能体框架的性能与效率</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="kicker">GITHUB BLOG · 2026.06.25</p>
+        <h1>GitHub Copilot 智能体框架<br>性能与效率评测</h1>
+        <p style="max-width:880px;">同模型、同任务下，跨多个基准衡量任务完成率与 token 消耗——并保留 20+ 模型的选择自由</p>
+        <p style="font-size:15pt; color:#9aa4b2; margin-top:30px;">
+          <i class="fa-brands fa-github"></i>&nbsp; Shibani Basava &amp; Carlos Castro · agentic harness
+        </p>
+      </section>
+
+      <section id="slide-2">
+        <p class="kicker">核心结论</p>
+        <h2>持平的完成率，更低的 token，开放的模型选择</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:4px;">
+            <div class="gh-card">
+              <div class="idot"><i class="fa-solid fa-equals"></i></div>
+              <h3 style="margin-top:12px;">完成率持平</h3>
+              <p class="text-muted">多项基准上，与模型厂商自家框架的任务完成率相当，差异落在随机波动范围内。</p>
+            </div>
+            <div class="gh-card">
+              <div class="idot"><i class="fa-solid fa-feather"></i></div>
+              <h3 style="margin-top:12px;">更省 token</h3>
+              <p class="text-muted">大多数配置下消耗更少 token，<span class="mono">Claude</span> 系列单任务最高节省 <strong class="good">65%</strong>。</p>
+            </div>
+            <div class="gh-card">
+              <div class="idot"><i class="fa-solid fa-shuffle"></i></div>
+              <h3 style="margin-top:12px;">不锁定模型</h3>
+              <p class="text-muted">一套框架支持 <strong class="accent">20+</strong> 前沿模型，可按任务切换或交给 Auto 自动选择。</p>
+            </div>
+          </div>
+          <blockquote style="margin-top:26px;">同样的任务完成度，更低的 token 成本，同时保留为每个任务挑选最合适模型的自由。</blockquote>
+        </div>
+      </section>
+
+      <section id="divider-1" class="section-divider" data-state="is-section-divider">
+        <p class="kicker">PART 01</p>
+        <h1>框架是什么，<br>我们如何评测</h1>
+        <p>agentic harness 的定位，与控制变量的基准方法</p>
+      </section>
+
+      <section id="slide-4">
+        <p class="kicker">定义</p>
+        <h2>什么是「智能体框架」（agentic harness）</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:28px; align-items:start;">
+            <div>
+              <p class="lede">它是<strong class="accent">编排层</strong>——负责管理工具、上下文与工作流，<strong>独立于底层模型之外</strong>。</p>
+              <p class="text-muted" style="margin-top:14px;">模型负责“思考”，框架负责把每一轮的工具调用、上下文与记忆、限额与失败恢复编排起来。换模型，框架不变。</p>
+              <p style="margin-top:14px;">同一套框架，驱动 <span class="mono">Copilot CLI</span>、<span class="mono">App</span>、code review，以及 GitHub 与 Microsoft 的多处体验。</p>
+            </div>
+            <div class="gh-card subtle">
+              <h3>设计目标</h3>
+              <ul style="margin-top:10px;">
+                <li><strong>快</strong>：更短的端到端时延</li>
+                <li><strong>省 token</strong>：同样结果，更少消耗</li>
+                <li><strong>可预测</strong>：稳定、可复现的表现</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <p class="kicker">架构</p>
+        <h2>一套框架，驱动所有 GitHub Copilot 体验</h2>
+        <div class="content">
+          <div class="fig" style="flex:1; justify-content:flex-start;">
+            <img src="figures/architecture-harness-surfaces.png" alt="agentic harness 架构：驱动 CLI、App、IDE 等界面" style="max-height:392px;">
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px;">
+            <span class="chip chip-accent">模型路由</span>
+            <span class="chip chip-accent">工具路由</span>
+            <span class="chip chip-accent">上下文与记忆</span>
+            <span class="chip chip-accent">限额与恢复</span>
+            <span class="chip chip-accent">遥测与评估</span>
+          </div>
+          <p class="fig-cap">框架经由 Copilot SDK 对外，承担上述五件事；模型可换，上层 CLI / App / IDE 体验不变。</p>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <p class="kicker">方法</p>
+        <h2>我们如何用基准测试持续迭代</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start;">
+            <div>
+              <h3 style="margin-bottom:12px;">四类信号交叉验证</h3>
+              <ul>
+                <li><strong>公共基准</strong>：行业通用标准</li>
+                <li><strong>内部基准</strong>：取自 GitHub 与 Microsoft 真实代码库</li>
+                <li><strong>真实使用指标</strong>：来自线上日常使用</li>
+                <li><strong>在线实验</strong>：A/B 验证每次改动</li>
+              </ul>
+            </div>
+            <div class="gh-card subtle">
+              <h3>核心原则：控制变量</h3>
+              <p class="text-muted" style="margin-top:6px;">把 Copilot 框架与厂商自家框架放在同一条件下对比：</p>
+              <ul style="margin-top:6px;">
+                <li>相同模型、相同基准任务</li>
+                <li>归一化上下文窗口与推理强度</li>
+                <li>统一工具选择与 <span class="mono">MCP</span> 配置</li>
+              </ul>
+            </div>
+          </div>
+          <blockquote style="margin-top:16px;">尽可能控制每一个变量，让对比只反映框架本身的差异。</blockquote>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <p class="kicker">评测范围</p>
+        <h2>四个模型 × 五项基准</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:0.85fr 1.3fr; gap:28px; align-items:start;">
+            <div>
+              <h3 style="margin-bottom:10px;">参评模型</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span class="mono">Claude Sonnet 4.6</span>
+                <span class="mono">Claude Opus 4.7</span>
+                <span class="mono">GPT-5.4</span>
+                <span class="mono">GPT-5.5</span>
+              </div>
+              <h3 style="margin:22px 0 10px;">对照框架</h3>
+              <p style="margin-bottom:6px;"><span class="mono">Copilot CLI</span> 对比——</p>
+              <ul>
+                <li>Claude 模型 → <span class="mono">Claude Code</span></li>
+                <li>GPT 模型 → <span class="mono">Codex CLI</span></li>
+              </ul>
+            </div>
+            <div>
+              <table>
+                <thead><tr><th>基准</th><th>考察什么</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="mono">SWE-bench Verified</span></td><td>500 个人工校验的开源 Python 修 bug 任务（行业标准）</td></tr>
+                  <tr><td><span class="mono">SWE-bench Pro</span></td><td>更难的多步工程任务</td></tr>
+                  <tr><td><span class="mono">SkillsBench</span></td><td>技能调用与任务解决（扩展性）</td></tr>
+                  <tr><td><span class="mono">TerminalBench 2</span></td><td>终端 / 命令行工作流</td></tr>
+                  <tr><td><span class="mono">Win-Hill</span></td><td>内部 Windows 容器任务（环境泛化）</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-2" class="section-divider" data-state="is-section-divider">
+        <p class="kicker">PART 02</p>
+        <h1>评测结果</h1>
+        <p>token 效率 · 任务完成率 · 成本与方差</p>
+      </section>
+
+      <section id="slide-9">
+        <p class="kicker">token 效率</p>
+        <h2>同样的任务，更少的 token</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.55fr 1fr; gap:24px; align-items:center;">
+            <div class="fig">
+              <img src="figures/token-efficiency.png" alt="token 效率：Copilot CLI vs 厂商框架" style="max-height:478px;">
+            </div>
+            <div>
+              <p class="text-muted" style="font-size:14pt;">条形为同一任务、同一模型下 token 中位数（P50）的相对差异；<strong>负值＝Copilot 更省</strong>。</p>
+              <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+                <span class="chip chip-good"><i class="fa-solid fa-arrow-trend-down"></i> Claude 系列全面更省，最高 −65%</span>
+                <span class="chip chip-good"><i class="fa-solid fa-arrow-trend-down"></i> GPT 系列多数更省（−5% ~ −39%）</span>
+                <span class="chip chip-bad"><i class="fa-solid fa-triangle-exclamation"></i> 唯一例外：SWE-bench Verified +7% / +4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <p class="kicker">任务完成率</p>
+        <h2>完成率与厂商框架基本持平</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:24px; align-items:center;">
+            <div class="fig">
+              <img src="figures/task-resolution.png" alt="任务完成率：Copilot CLI vs 厂商框架" style="max-height:486px;">
+            </div>
+            <div>
+              <p class="text-muted" style="font-size:14pt;">数值为完成率差异（百分点 pp）；<strong>正值＝Copilot 完成更多任务</strong>。</p>
+              <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+                <span class="chip chip-accent"><i class="fa-solid fa-equals"></i> 整体落在随机波动范围内</span>
+                <span class="chip chip-good"><i class="fa-solid fa-check"></i> Win-Hill：各模型持平或更优</span>
+                <span class="chip"><i class="fa-solid fa-arrows-left-right"></i> 逐项有来有回，如 SkillsBench</span>
+              </div>
+              <p style="margin-top:14px; font-size:15pt;">完成率持平 ⟶ 底层模型的<strong class="accent">全部潜力</strong>得以释放。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-11">
+        <p class="kicker">TerminalBench 2</p>
+        <h2>完成率 × 成本 × 方差：越靠左上越好</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:22px; align-items:center;">
+            <div class="fig">
+              <img src="figures/resolution-rate-vs-cost-variance.png" alt="完成率 vs 每任务成本，附 ±1σ 椭圆" style="max-height:460px;">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="gh-card" style="padding:13px 16px;">
+                <h3 style="font-size:18pt;">① 持平或更优</h3>
+                <p class="text-muted" style="font-size:13.5pt; margin:4px 0 0;">紫色 Copilot CLI 点完成率不落后、成本不更高。</p>
+              </div>
+              <div class="gh-card" style="padding:13px 16px;">
+                <h3 style="font-size:18pt;">② 波动可控</h3>
+                <p class="text-muted" style="font-size:13.5pt; margin:4px 0 0;">每个配置≥5 次运行，椭圆为 ±1σ；越小越可复现。</p>
+              </div>
+              <div class="gh-card" style="padding:13px 16px;">
+                <h3 style="font-size:18pt;">③ 模型权衡</h3>
+                <p class="text-muted" style="font-size:13.5pt; margin:4px 0 0;">GPT 成本最低、性价比高；Opus 完成率最高但更贵——都能选。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-3" class="section-divider" data-state="is-section-divider">
+        <p class="kicker">PART 03</p>
+        <h1>灵活性与结论</h1>
+        <p>一套框架，多种模型</p>
+      </section>
+
+      <section id="slide-13">
+        <p class="kicker">灵活性</p>
+        <h2>一套框架，<span class="accent">多种模型</span></h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start;">
+            <div>
+              <h3 style="margin-bottom:12px;"><span class="accent mono" style="background:none; border:none; padding:0;">20+</span> 前沿模型，自由切换</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span class="mono">GPT-5.4 / 5.5</span>
+                <span class="mono">Claude Opus / Sonnet</span>
+                <span class="mono">Gemini</span>
+                <span class="mono">MAI</span>
+                <span class="mono">Bring-your-own-key</span>
+              </div>
+              <p class="text-muted" style="margin-top:16px;">支持开源与本地模型；可按任务手动选择，或交给 <strong>Auto</strong> 自动挑选最合适的模型。</p>
+            </div>
+            <div class="gh-card subtle">
+              <div class="idot"><i class="fa-solid fa-comments"></i></div>
+              <h3 style="margin-top:12px;">跨家族协作：Rubber Duck</h3>
+              <p class="text-muted" style="margin-top:8px;">让一个模型家族去<strong>评审</strong>另一个家族的产出——把单模型做不到的纠错，变成框架自带的能力，结果优于任一单模型。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-14">
+        <p class="kicker">结论</p>
+        <h2>更省、不落后、不锁定</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:4px;">
+            <div class="stat">
+              <span class="stat-num good">−65%</span>
+              <span class="stat-label">Claude 单任务 token<br>最高节省幅度</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num accent" style="font-family:var(--heading-font);">持平</span>
+              <span class="stat-label">任务完成率<br>对比厂商自家框架</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">20+</span>
+              <span class="stat-label">可选前沿模型<br>绝不锁定单一模型</span>
+            </div>
+          </div>
+          <blockquote style="margin-top:28px; font-size:19pt;">GitHub Copilot 在多项配置下以更少 token 拿到与领先厂商框架相当的任务完成度，且凭借多模型架构，不把你锁死在单一模型上。</blockquote>
+        </div>
+      </section>
+
+      <section id="slide-15">
+        <p class="kicker">方法论</p>
+        <h2>评测设置与重要说明</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+            <div class="gh-card subtle">
+              <h3>受控设置</h3>
+              <ul style="margin-top:8px;">
+                <li>2 小时超时，非交互式单轮执行</li>
+                <li>禁用 Web 工具，放开其余全部工具</li>
+                <li>归一化上下文窗口与推理强度（中）</li>
+                <li>指标统一为 <span class="mono">pass@1</span>；小型基准跑 5 次取最佳</li>
+              </ul>
+            </div>
+            <div class="gh-card subtle">
+              <h3>读数前须知</h3>
+              <ul style="margin-top:8px;">
+                <li>受控实验，<strong>不同于公开榜单</strong>成绩</li>
+                <li>榜单常用更高推理强度与调优设置</li>
+                <li>排除基础设施异常与网络影响以求公平</li>
+                <li>基准只是<strong>众多信号之一</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-16">
+        <p class="kicker">动手试试</p>
+        <h2>用你选的模型，跑一遍日常任务</h2>
+        <div class="content">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:6px;">
+            <div class="gh-card text-center">
+              <div class="idot" style="margin:0 auto;"><i class="fa-solid fa-terminal"></i></div>
+              <h3 style="margin-top:12px;">Copilot CLI</h3>
+              <p class="text-muted">终端里的智能体</p>
+            </div>
+            <div class="gh-card text-center">
+              <div class="idot" style="margin:0 auto;"><i class="fa-solid fa-window-maximize"></i></div>
+              <h3 style="margin-top:12px;">Copilot App</h3>
+              <p class="text-muted">对话与智能体</p>
+            </div>
+            <div class="gh-card text-center">
+              <div class="idot" style="margin:0 auto;"><i class="fa-solid fa-code"></i></div>
+              <h3 style="margin-top:12px;">Copilot SDK</h3>
+              <p class="text-muted">把框架编进你的工具</p>
+            </div>
+          </div>
+          <p class="text-center text-xl" style="margin-top:30px;">同一套 agentic harness 驱动以上全部体验——<strong class="accent">在你的环境里</strong>对比模型与策略。</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
