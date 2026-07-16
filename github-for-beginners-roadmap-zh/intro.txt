@@ -1,0 +1,15 @@
+中文标题：GitHub 新手上路：掌握核心要领的路线图
+English Title: GitHub for Beginners: Your Roadmap to Mastering the Essentials
+标签：GitHub，Git，版本控制，Pull Request，GitHub Actions，开源，编程入门，代码协作
+
+Source: https://github.blog/developer-skills/github/github-for-beginners-your-roadmap-to-mastering-the-github-essentials/
+Output: https://github.com/isomoes-video/ai-video/tree/main/github-for-beginners-roadmap-zh
+
+这是一条写给 GitHub 新手的完整学习路线图，把官方「GitHub for Beginners」系列浓缩成循序渐进的四步。视频从最基础的版本控制讲起，厘清 Git 与 GitHub 的区别、Git 的工作区／暂存区／本地仓库三个区域，以及账号两步验证等安全设置和十个每天都会用到的必备命令；接着带你动手建立第一个项目——创建仓库、认识 README 与 .gitignore、用 Markdown 排版，并走通「克隆→建分支→改动→提交→推送→开 PR」这条 GitHub 工作流。随后进入协作环节，讲解 Pull Request 如何把改动摆上台面评审、合并与冲突的化解，以及用 Issues 和 Projects 管理任务和进度。最后一部分让项目更上一层楼，涵盖 GitHub Actions 自动化、GitHub Pages 免费托管、Secret scanning／Dependabot／CodeQL 三道代码安全防线，以及 Fork 与 Branch 的区别和参与开源的第一步。全程中文讲解，适合零基础入门，帮助你从第一个仓库、第一次提交开始，把 GitHub 真正用起来。
+
+00:00  开场
+00:41  打好基础
+02:30  第一个项目
+04:11  与他人协作
+05:55  更上一层楼
+08:11  总结

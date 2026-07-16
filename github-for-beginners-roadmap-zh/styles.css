@@ -1,0 +1,421 @@
+/* GitHub for Beginners — roadmap deck.
+ * GitHub Primer identity: clean white content slides, dark #0d1117 dividers as
+ * milestone markers. Blue = structure, green = the "go / create / merge" action
+ * accent that fits a beginner's journey. All font sizes in pt.
+ * No CDN/Google Fonts (DNS-blocked) — system stacks only.
+ */
+
+:root {
+  /* Backgrounds */
+  --background-color: #ffffff;        /* content slides */
+  --section-divider-bg: #0d1117;      /* dark milestone dividers + title */
+
+  /* Typography — web-safe + CJK fallback */
+  --heading-font: -apple-system, "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --body-font: -apple-system, "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --mono-font: "SF Mono", "Cascadia Code", "Consolas", "Liberation Mono", Menlo, monospace;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 48pt;
+  --h2-size: 33pt;
+  --h3-size: 22pt;
+  --footnote-size: 11pt;
+
+  /* Colors — GitHub Primer palette */
+  --primary-color: #0969da;    /* GitHub link/accent blue */
+  --primary-deep: #0a5cc2;
+  --accent-color: #1f883d;     /* GitHub "create / commit / merge" green */
+  --accent-deep: #1a7f37;
+  --purple: #8250df;           /* Copilot */
+  --good: #1a7f37;
+  --bad: #cf222e;              /* merge-conflict red */
+  --warn: #9a6700;
+  --text-color: #1f2328;       /* GitHub fg-default */
+  --muted-color: #656d76;      /* GitHub fg-muted */
+  --border-color: #d0d7de;     /* GitHub border-default */
+  --canvas-subtle: #f6f8fa;    /* GitHub canvas-subtle */
+
+  /* Layout */
+  --slide-padding: 56px;
+  --slide-padding-top: 36px;
+  --watermark-safe-top: 30px;
+  --content-gap: 20px;
+  --box-radius: 12px;
+}
+
+/* ===========================================
+   BASE
+   =========================================== */
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+.reveal strong, .reveal b { font-weight: 700; }
+
+.reveal-viewport { background-color: var(--background-color); }
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1, .reveal h2, .reveal h3,
+.reveal h4, .reveal h5, .reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p, .reveal li, .reveal td, .reveal th, .reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+.reveal ul { list-style: none; padding-left: 0; margin: 10px 0; }
+.reveal ul li { position: relative; padding-left: 26px; margin-bottom: 9px; }
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 2px; top: 0.55em;
+  width: 9px; height: 9px;
+  background: var(--primary-color);
+  border-radius: 2px;          /* GitHub-ish square accent */
+  transform: rotate(45deg);
+}
+.reveal ul ul li::before { background: var(--muted-color); width: 6px; height: 6px; }
+.reveal ul li.ok::before { background: var(--accent-color); }
+.reveal blockquote p { font-size: inherit; }
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* balance lighter slides; can't overflow (checked) */
+  padding-top: var(--content-gap);
+  text-align: left;
+  min-height: 0;
+}
+
+/* Blue→green top accent bar on content slides (brand cue) */
+.reveal .slides section:not(.section-divider)::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+/* Slide title underline accent */
+.reveal .slides section:not(.section-divider) > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Footnotes */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 14px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS — dark, centered milestone markers
+   =========================================== */
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+.reveal .slides section.section-divider h1,
+.reveal .slides section.section-divider h2,
+.reveal .slides section.section-divider p {
+  color: #f0f6fc;
+}
+.reveal .slides section.section-divider h1 { font-size: 52pt; text-align: center; }
+.reveal .slides section.section-divider p { font-size: 19pt; color: #9aa4b2; }
+.reveal .slides section.section-divider .kicker { color: #58a6ff; }
+
+/* ===========================================
+   TEXT UTILITIES
+   =========================================== */
+.text-lg { font-size: 18pt !important; }
+.text-xl { font-size: 20pt !important; }
+.text-2xl { font-size: 24pt !important; }
+.text-3xl { font-size: 28pt !important; }
+.text-4xl { font-size: 32pt !important; }
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.08em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 700; }
+.good { color: var(--good) !important; }
+.bad { color: var(--bad) !important; }
+.accent { color: var(--accent-color) !important; }
+.blue { color: var(--primary-color) !important; }
+.purple { color: var(--purple) !important; }
+
+/* Monospace identifiers (git commit, .gitignore, Closes #42, YAML ...) */
+.mono, .reveal code {
+  font-family: var(--mono-font);
+  font-size: 0.9em;
+  background: var(--canvas-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1px 7px;
+  color: var(--primary-deep);
+  white-space: nowrap;
+}
+
+/* Kicker / eyebrow label above titles */
+.kicker {
+  font-family: var(--mono-font);
+  font-size: 12pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin: 0 0 6px 0;
+}
+
+/* ===========================================
+   COMPONENTS
+   =========================================== */
+
+/* GitHub-style card */
+.gh-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--box-radius);
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(31, 35, 40, 0.06);
+}
+.gh-card.subtle { background: var(--canvas-subtle); }
+.gh-card.accent-top { border-top: 4px solid var(--accent-color); }
+.gh-card.blue-top { border-top: 4px solid var(--primary-color); }
+.gh-card h3 { margin: 0 0 6px 0; }
+.gh-card p { margin: 4px 0; }
+
+/* Roadmap milestone card: number badge + title + blurb */
+.milestone {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--box-radius);
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(31, 35, 40, 0.06);
+}
+.milestone .mnum {
+  font-family: var(--mono-font);
+  font-size: 26pt;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary-color);
+  opacity: 0.55;
+  flex-shrink: 0;
+  min-width: 46px;
+}
+.milestone h3 { margin: 0 0 4px 0; font-size: 20pt; }
+.milestone p { margin: 0; font-size: 13.5pt; color: var(--muted-color); line-height: 1.4; }
+
+/* Stat box: big number + label */
+.stat {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--box-radius);
+  padding: 16px 18px;
+  text-align: center;
+}
+.stat .stat-num {
+  display: block;
+  font-family: var(--mono-font);
+  font-size: 34pt;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary-color);
+}
+.stat .stat-num.good { color: var(--good); }
+.stat .stat-num.accent { color: var(--accent-color); }
+.stat .stat-label {
+  display: block;
+  font-size: 13pt;
+  color: var(--muted-color);
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+/* Pill / chip callout */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14pt;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--canvas-subtle);
+  color: var(--text-color);
+}
+.chip i { font-size: 0.95em; }
+.chip-good { background: #dafbe1; border-color: #aceebb; color: #0f5323; }
+.chip-bad  { background: #ffebe9; border-color: #ffc1bc; color: #a40e26; }
+.chip-accent { background: #ddf4ff; border-color: #b6e3ff; color: #0550ae; }
+.chip-purple { background: #fbefff; border-color: #ecc7ff; color: #6639ba; }
+
+/* Flow step (GitHub flow, git zones): badge + label */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+}
+.flow .step {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  position: relative;
+}
+.flow .step .sicon {
+  font-size: 20pt;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+.flow .step h3 { font-size: 16pt; margin: 0 0 3px 0; }
+.flow .step p { font-size: 12pt; color: var(--muted-color); margin: 0; line-height: 1.3; }
+.flow .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-color);
+  font-size: 18pt;
+  padding: 0 6px;
+  flex-shrink: 0;
+}
+
+/* Numbered step badge */
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: #fff;
+  font-family: var(--mono-font);
+  font-weight: 700;
+  font-size: 16pt;
+  flex-shrink: 0;
+}
+/* NOTE: don't name this ".accent" — the global .accent utility sets
+ * color:green !important, which would hide the white digit (green-on-green). */
+.step-badge.step-green { background: var(--accent-color); }
+
+/* Generic icon dot */
+.idot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 10px;
+  background: #ddf4ff; color: var(--primary-color);
+  font-size: 20pt; flex-shrink: 0;
+}
+.idot.green { background: #dafbe1; color: var(--accent-color); }
+.idot.purple { background: #fbefff; color: var(--purple); }
+.idot.red { background: #ffebe9; color: var(--bad); }
+
+/* Tables */
+.reveal table { border-collapse: collapse; width: 100%; margin: 6px 0; }
+.reveal table th {
+  text-align: left;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary-deep);
+  padding: 10px 14px;
+  font-size: 15pt;
+}
+.reveal table td {
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14pt;
+  vertical-align: middle;
+}
+.reveal table tr:nth-child(even) td { background: var(--canvas-subtle); }
+.reveal table td .mono { font-size: 0.92em; }
+
+/* Blockquote */
+.reveal blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding: 4px 0 4px 22px;
+  margin: 14px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* Lede paragraph */
+.lede { font-size: 20pt; line-height: 1.5; color: var(--text-color); }
+
+/* Code / terminal block */
+.codeblock {
+  font-family: var(--mono-font);
+  font-size: 13.5pt;
+  background: #0d1117;
+  color: #e6edf3;
+  border-radius: 10px;
+  padding: 16px 18px;
+  line-height: 1.65;
+  border: 1px solid #30363d;
+}
+.codeblock .cm { color: #8b949e; }       /* comment / muted */
+.codeblock .kw { color: #ff7b72; }       /* command */
+.codeblock .gn { color: #7ee787; }       /* green highlight */
+.codeblock .bl { color: #79c0ff; }       /* blue value */
+
+/* Comparison tag (fork vs branch) */
+.tag-lg {
+  display: inline-block;
+  font-family: var(--mono-font);
+  font-size: 13pt;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
