@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本体回归：智能体为何重启语义网</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider title-slide" data-state="is-section-divider">
+        <div class="title-mark" aria-hidden="true">
+          <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span>
+          <span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span>
+        </div>
+        <p class="kicker">LATENT.SPACE · AGENTIC SYSTEMS</p>
+        <h1>本体回归</h1>
+        <p class="subtitle">AI 智能体为何重启语义网</p>
+        <p class="byline">概率推理 × 确定性边界 · Richard MacManus · 2026.07.30</p>
+      </section>
+
+      <section id="thesis">
+        <p class="kicker">核心命题</p>
+        <h2>让智能体自由思考，但不能自由越界</h2>
+        <div class="content split-thesis">
+          <div class="pole neural">
+            <p class="pole-label">概率系统</p>
+            <p class="pole-word">LLM</p>
+            <p>擅长语言、推理与生成</p>
+            <p class="muted">开放、灵活、偶尔跑偏</p>
+          </div>
+          <div class="bridge">
+            <p>本体</p>
+            <p class="bridge-arrow">→</p>
+            <p class="bridge-note">逻辑护栏</p>
+          </div>
+          <div class="pole symbolic">
+            <p class="pole-label">确定性系统</p>
+            <p class="pole-word">规则</p>
+            <p>定义实体、关系与约束</p>
+            <p class="muted">可计算、可检查、可执行</p>
+          </div>
+        </div>
+        <p class="takeaway">神经符号 AI：把神经网络接入符号规则，让生成能力运行在可验证边界内。</p>
+      </section>
+
+      <section id="ontology-definition">
+        <p class="kicker">定义</p>
+        <h2>本体不是词典，而是可计算的世界模型</h2>
+        <div class="content" style="display:grid;grid-template-columns:0.92fr 1.35fr;gap:34px;align-items:center;">
+          <div>
+            <p class="lede">描述一个知识领域中的<strong>类、属性与关系</strong>。</p>
+            <div class="quote-card"><p>“data as graphs”</p><p class="quote-source">Frank Coyle</p></div>
+            <p class="muted">概念可追溯至亚里士多德；在 AI 历史中，它一直承担知识表示的角色。</p>
+          </div>
+          <div class="graph-card" aria-label="本体图示：客户下订单，订单包含产品">
+            <div class="g-node customer"><p>客户</p></div>
+            <div class="g-node order"><p>订单</p></div>
+            <div class="g-node product"><p>产品</p></div>
+            <div class="g-rel buys"><p>下单</p></div>
+            <div class="g-rel contains"><p>包含</p></div>
+            <div class="g-line line-a"></div><div class="g-line line-b"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="three-ontologies">
+        <p class="kicker">共享语义底座</p>
+        <h2>企业智能体需要三种本体</h2>
+        <div class="content" style="display:grid;grid-template-columns:0.8fr 1.35fr;gap:28px;align-items:center;">
+          <div class="layer-list">
+            <div class="layer"><p class="layer-num">01</p><p><strong>业务本体</strong><br><span>组织里的关键概念</span></p></div>
+            <div class="layer"><p class="layer-num">02</p><p><strong>技术本体</strong><br><span>数据源与资产的元数据</span></p></div>
+            <div class="layer"><p class="layer-num">03</p><p><strong>执行轨迹</strong><br><span>智能体运行时信号</span></p></div>
+          </div>
+          <figure><img src="figures/semantic-layer.jpeg" alt="Neo4j 基于本体的语义层"><figcaption>Neo4j：Ontology-based semantic layer</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="semantic-web-return">
+        <p class="kicker">旧技术，新杠杆</p>
+        <h2>不要从零发明：语义网已经写进模型</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.25fr 0.75fr;gap:30px;align-items:center;">
+          <figure><img src="figures/web-ontologies.png" alt="Schema.org、FOAF、Dublin Core、RDFS 与 OWL"><figcaption>文章保留图：成熟 Web 本体与增强技术</figcaption></figure>
+          <div>
+            <p class="lede">Schema.org、FOAF、Dublin Core、RDFS、OWL 已存在多年。</p>
+            <div class="signal"><p>关键优势</p><p>它们已经出现在 LLM 的训练数据里。</p></div>
+            <p class="muted">开发者可以直接提示模型采用标准，而不是重新定义整个领域。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="neurosymbolic-loop">
+        <p class="kicker">NEUROSYMBOLIC AI</p>
+        <h2>生成之后，再由本体验证</h2>
+        <div class="content" style="display:grid;grid-template-columns:0.78fr 1.22fr;gap:28px;align-items:center;">
+          <div>
+            <div class="formula"><p>LLM 推理</p><p class="plus">+</p><p>符号检查</p><p class="equals">=</p><p class="result">可控智能体</p></div>
+            <p class="muted">工具执行并不是终点。结果回到本体层，检查类型、关系与规则，再决定继续、修正或停止。</p>
+          </div>
+          <figure><img src="figures/agent-loop.png" alt="使用本体验证 Claude 智能体循环"><figcaption>Frank Coyle：ontology 在工具运行后验证推理</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="rdf-memory">
+        <p class="kicker">结构化记忆</p>
+        <h2>RDF memory：记住事实，也记住关系</h2>
+        <div class="content">
+          <figure class="wide-figure"><img src="figures/rdf-memory.jpeg" alt="Kingsley Idehen 的 agent-rdf-memory 系统"><figcaption>Kingsley Idehen：agent-rdf-memory 架构</figcaption></figure>
+          <div class="caption-band"><p><strong>语言</strong>提供表达力</p><p><strong>本体</strong>提供可计算上下文</p><p><strong>RDF</strong>把记忆变成可查询图</p></div>
+        </div>
+      </section>
+
+      <section id="tradeoffs">
+        <p class="kicker">现实账本</p>
+        <h2>本体解决约束问题，却带来维护问题</h2>
+        <div class="content balance">
+          <div class="balance-card gain"><p class="balance-icon">+</p><h3>获得</h3><ul><li>统一实体与关系</li><li>机器可执行的约束</li><li>跨智能体共享上下文</li><li>更容易审计与解释</li></ul></div>
+          <div class="balance-axis"><p>价值</p><div></div><p>成本</p></div>
+          <div class="balance-card cost"><p class="balance-icon">−</p><h3>付出</h3><ul><li>持续维护定义</li><li>处理领域边界案例</li><li>同步业务变化</li><li>治理冲突与版本</li></ul></div>
+        </div>
+        <p class="takeaway">Semantic Web 当年没有普及的老问题，今天并未自动消失。</p>
+      </section>
+
+      <section id="thin-agents">
+        <p class="kicker">架构迁移</p>
+        <h2>从“厚智能体”转向“薄智能体”</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:30px;align-items:center;">
+          <figure><img src="figures/thin-agents.png" alt="Neo4j 薄智能体概念"><figcaption>Neo4j：thin agents on a smarter shared substrate</figcaption></figure>
+          <div class="before-after">
+            <div><p class="ba-label">过去</p><p class="ba-title">厚智能体</p><p>每个智能体手工接线数据源，重复携带领域知识。</p></div>
+            <div><p class="ba-label active">现在</p><p class="ba-title">薄智能体</p><p>把语义、元数据与轨迹放进共享底座。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bounded-loop">
+        <p class="kicker">LOOP ENGINEERING</p>
+        <h2>给无限循环，套上有限规则</h2>
+        <div class="content" style="display:grid;grid-template-columns:0.72fr 1.28fr;gap:28px;align-items:center;">
+          <div class="loop-visual">
+            <div class="loop-ring"><p>观察<br>思考<br>行动</p></div>
+            <div class="guardrail"><p>有界规则集</p></div>
+            <p class="loop-caption">unbounded loop<br>inside bounded rules</p>
+          </div>
+          <figure><img src="figures/owl-axiom.png" alt="OWL 公理作为机器执行规则"><figcaption>语言可能含糊；OWL axiom 是机器强制执行的规则</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="self-maintaining">
+        <p class="kicker">可能的突破口</p>
+        <h2>让智能体在工作中维护本体</h2>
+        <div class="content maintenance-cycle">
+          <div class="cycle-step"><p class="step-num">1</p><h3>遇到边界案例</h3><p>事实无法匹配现有定义</p></div>
+          <div class="cycle-arrow"><p>→</p></div>
+          <div class="cycle-step"><p class="step-num">2</p><h3>提出本体更新</h3><p>补充类型、关系或约束</p></div>
+          <div class="cycle-arrow"><p>→</p></div>
+          <div class="cycle-step"><p class="step-num">3</p><h3>验证并治理</h3><p>reasoner 检查，人类审批</p></div>
+        </div>
+        <blockquote><p>维护问题并没有消失，但它的性质变了：从离线文档工程，变成智能体运行的一部分。</p></blockquote>
+      </section>
+
+      <section id="blueprint">
+        <p class="kicker">落地蓝图</p>
+        <h2>一个可执行的本体护栏栈</h2>
+        <div class="content blueprint">
+          <div class="bp-row"><p class="bp-num">04</p><div><h3>治理</h3><p>人类审批 · 版本 · 责任边界</p></div></div>
+          <div class="bp-row"><p class="bp-num">03</p><div><h3>Reasoner / Validator</h3><p>OWL 规则 · 一致性检查 · 失败回路</p></div></div>
+          <div class="bp-row"><p class="bp-num">02</p><div><h3>共享语义层</h3><p>业务本体 · 技术元数据 · 执行轨迹</p></div></div>
+          <div class="bp-row"><p class="bp-num">01</p><div><h3>Agent runtime</h3><p>LLM · tools · loop · RDF memory</p></div></div>
+        </div>
+        <p class="footnote">建议：先从一个高风险决策点与一组小型规则开始，而不是建造“全企业本体”。</p>
+      </section>
+
+      <section id="conclusion" class="section-divider conclusion" data-state="is-section-divider">
+        <p class="kicker">结论</p>
+        <h1>更强的智能体，<br>需要更清晰的边界</h1>
+        <div class="closing-grid">
+          <div><p class="closing-num">01</p><p>LLM 提供<br><strong>概率能力</strong></p></div>
+          <div><p class="closing-num">02</p><p>本体提供<br><strong>确定性语境</strong></p></div>
+          <div><p class="closing-num">03</p><p>人类提供<br><strong>治理与责任</strong></p></div>
+        </div>
+        <p class="source-line">来源：Latent.Space · “Ontologies Are So Back”</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: 'c/t',
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

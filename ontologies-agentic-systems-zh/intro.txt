@@ -1,0 +1,21 @@
+中文标题：本体回归：AI 智能体为何重启语义网
+English Title: Ontologies Are Back: Why AI Agents Are Reviving the Semantic Web
+标签：人工智能，AI智能体，本体，语义网，知识图谱，神经符号AI，OWL，RDF
+
+Source: https://www.latent.space/p/ontologies-agentic-systems
+Output: https://github.com/isomoes-video/ai-video/tree/main/ontologies-agentic-systems-zh
+
+当 AI 智能体越来越擅长推理、调用工具和自主循环，如何防止概率模型越过业务与安全边界，正在成为新的工程难题。本视频解读本体与语义网技术为何重新受到 AI 工程师关注：LLM 提供灵活的语言与推理能力，本体则把实体、关系和约束变成机器能够查询、检查和执行的确定性结构，两者结合形成神经符号 AI。
+
+视频进一步介绍企业智能体的三层共享语义底座、Schema.org 与 OWL 等成熟标准的复用价值、RDF memory 的结构化记忆方式，以及从厚智能体转向薄智能体的架构收益。同时也讨论本体持续维护、版本治理和边界案例等现实成本，并给出一个由 Agent runtime、共享语义层、Reasoner 与人类治理组成的渐进式落地蓝图。
+
+00:00  开场
+00:19  核心命题
+00:40  本体定义
+01:05  三层语义
+01:31  语义网复兴
+02:52  收益代价
+03:17  薄智能体
+03:40  循环护栏
+04:05  动态维护
+04:27  落地蓝图
