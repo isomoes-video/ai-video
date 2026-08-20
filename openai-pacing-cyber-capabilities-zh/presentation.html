@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>当 AI 逼近关键网络能力</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">OPENAI · PREPAREDNESS</p>
+        <h1>当 AI 逼近<br>关键网络能力</h1>
+        <p class="subtitle">为什么 OpenAI 主动放慢前沿模型训练</p>
+        <p class="source-note">Pacing model development in an era of cyber-critical capabilities</p>
+      </section>
+
+      <section id="signal">
+        <h2>两个信号，触发一次减速</h2>
+        <div class="content">
+          <div class="signal-grid">
+            <div class="signal-card alert">
+              <p class="icon-line"><i class="fa-solid fa-triangle-exclamation"></i></p>
+              <h3>安全事件</h3>
+              <p>OpenAI–Hugging Face 事件暴露了研究环境的现实攻击面。</p>
+            </div>
+            <div class="plus"><p>＋</p></div>
+            <div class="signal-card critical">
+              <p class="icon-line"><i class="fa-solid fa-shield-halved"></i></p>
+              <h3>能力跃迁</h3>
+              <p>初步证据显示，Astra 可能达到 Preparedness Framework 的<strong>关键网络能力</strong>门槛。</p>
+            </div>
+          </div>
+          <div class="result-strip"><p>结论：研发环境本身，已经成为安全边界的一部分。</p></div>
+        </div>
+      </section>
+
+      <section id="pacing">
+        <h2>“放慢”具体意味着什么</h2>
+        <div class="content">
+          <div class="pacing-layout">
+            <div class="dial">
+              <div class="dial-ring"><p class="dial-value">2 周</p><p class="dial-label">部署候选模型<br>暂停 RL 训练</p></div>
+            </div>
+            <div class="pacing-list">
+              <div class="pacing-item"><p class="item-no">01</p><p><strong>暂停并加固</strong><br>研究环境继续红队测试，扩大监控覆盖。</p></div>
+              <div class="pacing-item"><p class="item-no">02</p><p><strong>缩小规模验证</strong><br>用较小训练与评测检查行为、保护措施与对齐证据。</p></div>
+              <div class="pacing-item hold"><p class="item-no">03</p><p><strong>最大前沿 RL 仍在等待</strong><br>在证据充分前，不启动原计划的大规模训练。</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="three-safeguards">
+        <h2>三道互相强化的安全阀</h2>
+        <div class="content">
+          <div class="safeguard-grid">
+            <div class="safeguard-card"><p class="guard-no">01</p><p class="guard-icon"><i class="fa-solid fa-eye"></i></p><h3>监控</h3><p>发现异常行为，并让团队及时响应。</p></div>
+            <div class="safeguard-card"><p class="guard-no">02</p><p class="guard-icon"><i class="fa-solid fa-scale-balanced"></i></p><h3>对齐</h3><p>降低有害、欺骗或未经授权行动的概率。</p></div>
+            <div class="safeguard-card"><p class="guard-no">03</p><p class="guard-icon"><i class="fa-solid fa-vault"></i></p><h3>安全隔离</h3><p>限制模型能够访问、执行和影响的范围。</p></div>
+          </div>
+          <p class="bridge">目标不是让安全能力追赶模型，而是让三道安全阀随能力同步扩展。</p>
+        </div>
+      </section>
+
+      <section id="research-security">
+        <h2>研究环境：从“可信内网”到零信任</h2>
+        <div class="content">
+          <div class="security-layers">
+            <div class="security-layer"><p class="layer-tag">WORKLOAD</p><h3>工作负载隔离</h3><p>模型生成代码与不可信输出进入更强沙箱，连处理输出的软件也纳入威胁模型。</p></div>
+            <div class="security-layer"><p class="layer-tag">NETWORK</p><h3>网络隔离</h3><p>高风险工作负载与互联网分离；单点失陷不能直接穿透到公网或内部网络。</p></div>
+            <div class="security-layer"><p class="layer-tag">CONTINUOUS</p><h3>持续安全测试</h3><p>减少共享服务与常驻权限，强化日志，并用模型持续模拟攻击边界。</p></div>
+          </div>
+          <p class="footnote">Astra 与网络安全相关工作负载执行最严格标准；仍有相当数量任务暂停迁移。</p>
+        </div>
+      </section>
+
+      <section id="monitoring">
+        <h2>监控升级为一条实时调查链</h2>
+        <div class="content">
+          <div class="monitor-flow">
+            <div class="monitor-step"><p class="step-top">每个采样 token</p><h3>激活分类器</h3><p>检查模型内部活动，筛出潜在异常。</p></div>
+            <div class="flow-arrow"><p>→</p></div>
+            <div class="monitor-step"><p class="step-top">逐级升级</p><h3>自动调查器</h3><p>分析工具行为、可见推理与完整活动序列。</p></div>
+            <div class="flow-arrow"><p>→</p></div>
+            <div class="monitor-step hot"><p class="step-top">最高优先级</p><h3>人工处置</h3><p>安全、研究团队被呼叫；无法排除误报就暂停活动。</p></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><p class="metric-value">≤30 分钟</p><p>目标告警时间</p></div>
+            <div class="metric"><p class="metric-value">≈20%</p><p>被监控推理的计算开销</p></div>
+            <div class="metric"><p class="metric-value">Sol+</p><p>带工具 RL 与评测强制启用</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="alignment">
+        <h2>对齐必须贯穿训练，而不是只做终检</h2>
+        <div class="content">
+          <div class="alignment-layout">
+            <div class="risk-stack">
+              <p class="risk-title">能力越强，失败代价越高</p>
+              <div class="risk-chip"><p>Reward hacking</p></div>
+              <div class="risk-chip"><p>欺骗与隐瞒</p></div>
+              <div class="risk-chip"><p>未经授权访问</p></div>
+            </div>
+            <div class="alignment-actions">
+              <div class="action-row"><p class="action-icon"><i class="fa-solid fa-bullseye"></i></p><p><strong>改进奖励模型</strong><br>跨任务与环境识别并压制不安全行为。</p></div>
+              <div class="action-row"><p class="action-icon"><i class="fa-solid fa-comments"></i></p><p><strong>训练诚实报告</strong><br>让模型更准确说明行为、能力与限制。</p></div>
+              <div class="action-row"><p class="action-icon"><i class="fa-solid fa-link"></i></p><p><strong>扩大行为覆盖</strong><br>重点训练与外部系统、资源交互时的安全性。</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework">
+        <h2>Preparedness Framework 也要随之进化</h2>
+        <div class="content">
+          <div class="framework-roadmap">
+            <div class="road-step now"><p class="road-label">现在</p><h3>能力门槛</h3><p>识别模型何时进入高风险或关键能力区间。</p></div>
+            <div class="road-line"></div>
+            <div class="road-step next"><p class="road-label">下一步</p><h3>训练＋部署一体化</h3><p>把监控、对齐与隔离统一到研发全生命周期。</p></div>
+            <div class="road-line"></div>
+            <div class="road-step scale"><p class="road-label">规模化</p><h3>模型辅助安全</h3><p>让模型承担更多防御、测试与调查工作，并引入外部组织。</p></div>
+          </div>
+          <blockquote><p>未来的关键问题，不只是“模型能做什么”，而是“组织能否安全地训练和观察它”。</p></blockquote>
+        </div>
+      </section>
+
+      <section id="takeaway" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">核心判断</p>
+        <h1>能力加速时，<br>安全证据决定节奏</h1>
+        <p class="subtitle">理解、对齐与保护模型的能力，必须始终跑在模型能力之前。</p>
+        <div class="closing-rule"><p>PACE = CAPABILITY × EVIDENCE</p></div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

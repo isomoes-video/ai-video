@@ -1,0 +1,20 @@
+中文标题：关键网络能力前，OpenAI为何踩下刹车
+English Title: Why OpenAI Slowed Down Before Critical Cyber Capabilities
+标签：OpenAI，人工智能，网络安全，AI安全，模型对齐，Astra，前沿模型
+
+Source: https://openai.com/index/pacing-model-development-cyber-capabilities/
+Output: https://github.com/isomoes-video/ai-video/tree/main/openai-pacing-cyber-capabilities-zh
+
+当即将推出的 Astra 模型可能触及关键网络安全能力门槛，OpenAI 选择暂时放慢前沿训练。本视频解读这一决定背后的两个触发信号、为期两周的强化学习暂停，以及为什么研究环境本身已经成为必须严守的安全边界。
+
+视频进一步拆解 OpenAI 的三层防线：通过沙箱、网络隔离和持续安全测试限制模型可触及的范围；以逐 token 检测和自动调查构成实时监控链；把模型对齐从训练终点前移到全过程。最后讨论 Preparedness Framework 如何覆盖训练与部署全生命周期，以及为何前沿模型的发展速度必须由可验证的安全证据共同决定。
+
+00:00  核心问题
+00:16  双重信号
+00:44  主动减速
+01:11  三层防线
+01:36  安全隔离
+02:08  实时监控
+02:41  全程对齐
+03:11  框架演进
+03:34  最终判断
