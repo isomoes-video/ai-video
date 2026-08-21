@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 8·17 宕机复盘</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">GitHub Engineering · 2026-08-17</p>
+        <h1>GitHub 8·17 宕机复盘</h1>
+        <p class="subtitle">一次容量峰值，如何沿着服务网格、负载均衡与客户端重试，演变成持续 7 小时 47 分钟的全站故障。</p>
+        <p class="source">来源：https://github.blog/news-insights/company-news/the-august-17-outage-and-the-work-ahead/</p>
+      </section>
+
+      <section id="impact">
+        <h2>先看影响：错误率最高达 50%</h2>
+        <div class="content">
+          <div class="stat-grid">
+            <div class="stat"><p class="value">7h 47m</p><p class="label">13:28–21:15 UTC</p></div>
+            <div class="stat"><p class="value">≈20%</p><p class="label">Web 与 API 峰值错误率</p></div>
+            <div class="stat"><p class="value">≈50%</p><p class="label">归档与 Raw 内容下载错误率</p></div>
+          </div>
+          <div class="callout"><p>这不是单点页面故障：认证链路受阻后，Issues、Pull Requests、Actions、Copilot 与企业身份服务一起承压。</p></div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <h2>恢复并非同一时刻完成</h2>
+        <div class="content">
+          <div class="timeline">
+            <div class="event"><p class="time">13:28</p><p><strong>故障开始</strong><br>Central US 负载均衡器网络饱和。</p></div>
+            <div class="event recovered"><p class="time">16:36</p><p><strong>多数服务恢复</strong><br>Central US 数据中心回稳。</p></div>
+            <div class="event recovered"><p class="time">18:03</p><p><strong>Actions 恢复</strong><br>工作流执行不再持续降级。</p></div>
+            <div class="event recovered"><p class="time">21:02</p><p><strong>Copilot Token</strong><br>令牌服务完全恢复。</p></div>
+            <div class="event recovered"><p class="time">21:15</p><p><strong>事件结束</strong><br>整体状态窗口关闭。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="blast-radius">
+        <h2>认证路径把影响面连在了一起</h2>
+        <div class="content">
+          <div class="card-grid">
+            <div class="card"><p class="icon"><i class="fa-solid fa-code-pull-request"></i></p><p><strong>协作与 API</strong></p><p>Issues、Pull Requests、Web/API 请求出现错误与高延迟。</p></div>
+            <div class="card"><p class="icon"><i class="fa-solid fa-box-archive"></i></p><p><strong>内容下载</strong></p><p>Archive、codeload 与 raw-content 的失败率更高。</p></div>
+            <div class="card"><p class="icon"><i class="fa-solid fa-id-card"></i></p><p><strong>企业身份</strong></p><p>SAML/OIDC、SCIM 与 Team Sync 同步受到影响。</p></div>
+            <div class="card"><p class="icon"><i class="fa-solid fa-gears"></i></p><p><strong>GitHub Actions</strong></p><p>Actions 降级持续更久，公共步骤定义成为依赖点。</p></div>
+            <div class="card"><p class="icon"><i class="fa-solid fa-building-shield"></i></p><p><strong>数据驻留</strong></p><p>GHEC Data Residency 工作流依赖 GitHub.com 上的公共定义。</p></div>
+            <div class="card"><p class="icon"><i class="fa-solid fa-robot"></i></p><p><strong>GitHub Copilot</strong></p><p>Token Service 被客户端重试风暴拖入延迟恢复。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="regional-failover">
+        <h2>区域转移有效，但没有切断放大回路</h2>
+        <div class="content">
+          <div class="route">
+            <div class="region bad"><p><i class="fa-solid fa-triangle-exclamation"></i></p><h3>Central US</h3><p>网络饱和、HAProxy flow 耗尽；部分失败流量被迁出。</p></div>
+            <div class="route-arrow"><p><i class="fa-solid fa-arrow-right"></i></p></div>
+            <div class="region good"><p class="text-success"><i class="fa-solid fa-circle-check"></i></p><h3> Northern Virginia</h3><p>迁入流量最初成功承接，证明跨区服务路径可用。</p></div>
+          </div>
+          <div class="retry-banner"><p>但 Copilot 的失败响应触发客户端重试，压力随后在 Northern VA 重新聚集。</p></div>
+        </div>
+      </section>
+
+      <section id="root-cause">
+        <h2>根因是一条容量级联链</h2>
+        <div class="content">
+          <div class="cascade">
+            <div class="step"><p class="num">01</p><h3>新流量峰值</h3><p>Central US 的入口负载超过历史容量包络。</p></div>
+            <div class="step"><p class="num">02</p><h3>Istio sidecar 满载</h3><p>Pod 达到并发上限，成为最先显现的瓶颈。</p></div>
+            <div class="step"><p class="num">03</p><h3>扩容策略看错指标</h3><p>策略监控 host service，却没有监控 sidecar 限制。</p></div>
+            <div class="step"><p class="num">04</p><h3>4 台 HAProxy 耗尽 flow</h3><p>网关认证路径延迟飙升，故障扩散到更多产品。</p></div>
+          </div>
+          <div class="callout"><p>关键点：高可用节点仍然在线，并不等于它们还有可用的流量处理余量。</p></div>
+        </div>
+      </section>
+
+      <section id="retry-amplification">
+        <h2>重试把局部过载变成正反馈</h2>
+        <div class="content amplifier">
+          <div class="equation">
+            <p class="formula">总请求 = 原始请求 × (1 + 重试)</p>
+            <p class="caption">当失败概率随负载上升时，“再试一次”会制造更多失败，而不是提高成功率。</p>
+          </div>
+          <div class="insight">
+            <p><strong class="text-danger">乐观网关重试</strong>继续向内部负载均衡器施压。</p>
+            <p><strong class="text-danger">延迟响应</strong>让客户端误判请求未完成，重复发送。</p>
+            <p><strong class="text-danger">缺少抖动与预算</strong>会让大量调用方同步重试，形成脉冲流量。</p>
+          </div>
+        </div>
+        <p class="footnote">补充解释：健康的重试应设置总预算、指数退避、随机抖动，并只针对明确可重试的错误。</p>
+      </section>
+
+      <section id="copilot-storm">
+        <h2>Copilot Token Service：流量被放大约 10×</h2>
+        <div class="content traffic-layout">
+          <div class="bar-panel">
+            <div class="bar-row"><p>正常</p><div class="track"><div class="fill"></div></div><p>7–9K RPS</p></div>
+            <div class="bar-row"><p>故障峰值</p><div class="track"><div class="fill peak"></div></div><p>70–100K RPS</p></div>
+            <div class="callout"><p>单个失败的 token 操作可能产生许多额外请求，并进入循环。</p></div>
+          </div>
+          <div class="bar-panel side-stat">
+            <p class="ratio">≈10×</p>
+            <p>VS Code 潜在重试 bug 带来的请求放大</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="recovery">
+        <h2>恢复策略：先止血，再逐站点放量</h2>
+        <div class="content">
+          <div class="recovery">
+            <div class="step"><p class="num">01</p><h3>暂停异常节点</h3><p>同时暂停 4 台 HAProxy，立即带来广泛恢复。</p></div>
+            <div class="step"><p class="num">02</p><h3>减少网关重试</h3><p>通过 PR 临时降低 gateway retry logic。</p></div>
+            <div class="step"><p class="num">03</p><h3>返回明确的 403</h3><p>在负载均衡器阻断 token 请求，避免触发更危险的响应路径。</p></div>
+            <div class="step"><p class="num">04</p><h3>渐进恢复流量</h3><p>按站点逐步 ramp up，让调用方先恢复成功。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="complicating-factors">
+        <h2>为什么恢复花了更久</h2>
+        <div class="content complications">
+          <div class="insight">
+            <h3>外部噪声：抓取攻击</h3>
+            <p>针对 codeload 端点的多次 scraping attacks 与真实用户流量叠加，使容量判断和恢复更困难。</p>
+            <ul class="mini-list">
+              <li>下载请求单位成本较高</li>
+              <li>峰值期间更容易争抢连接与带宽</li>
+              <li>恶意与故障放大流量需要分别识别</li>
+            </ul>
+          </div>
+          <div class="insight">
+            <h3>内部盲点：监控对象不完整</h3>
+            <p>系统看见 host service 的指标，却没有把 sidecar 与 flow 容量视为同一条端到端路径。</p>
+            <ul class="mini-list">
+              <li>组件健康不代表路径健康</li>
+              <li>区域切换也必须设置接收上限</li>
+              <li>恢复操作需要防止客户端继续放大</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="actions">
+        <h2>后续工作：把容量、重试与故障域一起治理</h2>
+        <div class="content">
+          <div class="action-grid">
+            <div class="action"><p class="icon"><i class="fa-solid fa-chart-line"></i></p><p><strong>修正扩容策略</strong></p><p>把 sidecar 并发与容量纳入 autoscaling。</p></div>
+            <div class="action"><p class="icon"><i class="fa-solid fa-magnifying-glass-chart"></i></p><p><strong>审计 Istio 限制</strong></p><p>检查 request、concurrency 与 scaling 配置。</p></div>
+            <div class="action"><p class="icon"><i class="fa-solid fa-rotate"></i></p><p><strong>约束重试行为</strong></p><p>复核网关与客户端的预算、退避和抖动。</p></div>
+            <div class="action"><p class="icon"><i class="fa-solid fa-code"></i></p><p><strong>修复 VS Code</strong></p><p>消除放大 Copilot token 流量的潜在循环。</p></div>
+            <div class="action"><p class="icon"><i class="fa-solid fa-network-wired"></i></p><p><strong>强化区域防护</strong></p><p>改进 LB 容量监控与区域 failover safeguards。</p></div>
+          </div>
+          <div class="takeaway"><p>真正的韧性，不是“还能重试”，而是过载时能主动减载、隔离并受控恢复。</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

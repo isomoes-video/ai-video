@@ -1,0 +1,21 @@
+中文标题：GitHub 8·17 宕机复盘：10倍重试风暴如何拖垮全站
+English Title: GitHub August 17 Outage: How a 10x Retry Storm Delayed Recovery
+标签：GitHub，故障复盘，系统可靠性，负载均衡，Istio，Copilot，重试风暴，SRE
+
+Source: https://github.blog/news-insights/company-news/the-august-17-outage-and-the-work-ahead/
+Output: https://github.com/isomoes-video/ai-video/tree/main/github-august-17-outage-zh
+
+这个视频复盘 GitHub 在 2026 年 8 月 17 日持续 7 小时 47 分钟的服务中断。事件峰值期间，Web 与 API 错误率约为 20%，归档和 Raw 内容下载错误率约为 50%，影响 Issues、Pull Requests、Actions、Copilot，以及 SAML/OIDC、SCIM、Team Sync 等企业身份服务。
+
+视频沿着故障链解释根因：Central US 的新流量峰值首先让 Istio sidecar pod 达到并发上限，而自动扩容策略只监控 host service，没有覆盖 sidecar 容量；随后四台 HAProxy 节点耗尽 flow，认证网关延迟扩散。区域流量转移一度有效，但 VS Code 的潜在重试 bug 将 Copilot Token Service 从正常 7–9K RPS 放大到 70–100K RPS，导致恢复继续延迟。视频还补充重试预算、指数退避、随机抖动、端到端容量监控和受控放量等 SRE 工程要点，并梳理 GitHub 的后续改进计划。
+
+00:00  开场
+00:18  影响
+00:42  时间线
+01:04  爆炸半径
+01:34  区域转移
+01:59  根因
+02:22  重试风暴
+02:48  Copilot
+03:14  恢复
+04:06  后续工作
