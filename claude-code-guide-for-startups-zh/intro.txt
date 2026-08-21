@@ -1,0 +1,21 @@
+中文标题：Claude Code 创业团队指南：五条 AI 原生运营原则
+English Title: The Claude Code Guide for Startups: Five AI-Native Operating Principles
+标签：Claude Code，创业公司，AI编程，Agent，工作流，软件工程，人工智能
+
+Source: https://claude.com/blog/claude-code-guide-for-startups
+Output: https://github.com/isomoes-video/ai-video/tree/main/claude-code-guide-for-startups-zh
+
+这个视频解读 Anthropic 对十多家高速增长创业公司的调研，说明 ClickHouse、Omni、Clay、Artemis Security 等团队如何围绕 Claude Code 重构产品开发生命周期。内容围绕五条运营原则展开：让最懂问题的人直接交付第一版方案；让 Agent 接管机械性的 80%；通过 CLAUDE.md、不变量、golden eval sets、独立验证者与人工审核建立可靠闭环；用 git worktree 和评测降低架构重建成本；最后通过内部原型、持续 dogfood 与产品化形成组织飞轮。
+
+视频保留并讲解原博客中的 Claude 连接器目录、Slack 事故响应、可判定目标循环和 git worktree 示意图，并给出一份可立即执行的创业团队落地清单。核心结论是：真正的竞争优势不只是生成代码的速度，而是组织学习、验证和重建的速度。
+
+00:00  开场
+00:27  五条原则
+01:00  人人交付
+02:07  自动化
+03:27  验证闭环
+04:44  为重建设计
+05:25  产品化
+06:05  组织飞轮
+06:39  落地清单
+07:19  总结

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 创业团队指南</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic 官方创业团队调研</p>
+        <h1>Claude Code<br><span class="accent">创业团队指南</span></h1>
+        <p>十倍组织如何更快交付：五条 AI 原生运营原则</p>
+        <div style="width:100px;height:8px;background:#D97757;margin:24px auto;"></div>
+        <p style="font-size:12pt;">源自十余家高速增长创业公司的实践</p>
+      </section>
+
+      <section id="frontier">
+        <h2>他们像<span class="accent">十倍规模</span>的组织一样交付</h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+            <div class="stat"><strong>30%</strong><p>ClickHouse<br>更多功能交付</p></div>
+            <div class="stat"><strong>2–3×</strong><p>Omni<br>工程生产力</p></div>
+            <div class="stat"><strong>100%</strong><p>Clay<br>Bug 分诊自动化</p></div>
+            <div class="stat"><strong>6,000+</strong><p>Artemis Security<br>每周 PR</p></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:34px;flex:1;margin-top:24px;align-items:center;">
+            <p class="text-xl">真正的变化不只是“代码写得更快”，而是把产品开发生命周期从头按 <strong>Claude Code</strong> 重构。</p>
+            <div>
+              <div class="five-rule"><p class="num">01</p><p><strong>人人都能交付</strong></p></div>
+              <div class="five-rule"><p class="num">02</p><p><strong>自动化繁琐工作</strong></p></div>
+              <div class="five-rule"><p class="num">03</p><p><strong>信任，但要验证</strong></p></div>
+              <div class="five-rule"><p class="num">04</p><p><strong>为重建而设计</strong></p></div>
+              <div class="five-rule"><p class="num">05</p><p><strong>原型 → 内测 → 产品化</strong></p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="everyone-ships">
+        <h2><span class="rule-number">RULE 01</span> 人人都能交付</h2>
+        <div class="content">
+          <div class="quote"><p>最懂问题的人，应该能直接交付第一个可工作的解决方案。</p></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:25px;flex:1;">
+            <div class="card coral"><h3>连接工具</h3><p>不是把律师、销售拉进 IDE，而是把 Claude 带进他们每天使用的系统与数据。</p></div>
+            <div class="card teal-card"><h3>展示原型</h3><p>设置季度评审或专用 Slack 频道，让非技术成员的原型进入正式路线图。</p></div>
+            <div class="card green"><h3>共享 Skills</h3><p>用设计系统、领域知识与流程规范，让“人人交付”仍保持产品一致性。</p></div>
+          </div>
+          <p class="text-muted" style="margin-top:14px;">边界没有消失：非技术成员负责从 0 到 1，设计师和工程师在专业节点接力。</p>
+        </div>
+      </section>
+
+      <section id="connections">
+        <h2>把 Claude Code <span class="accent">带到问题现场</span></h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1.55fr .75fr;gap:28px;flex:1;min-height:0;">
+            <div style="display:flex;flex-direction:column;min-height:0;">
+              <div class="figure" style="flex:1;"><img src="figures/fig-connections.png" alt="Claude connectors directory"></div>
+              <p class="figure-caption">原博客图：Claude 连接器目录，可接入 Google Drive、Gmail、Figma、Notion、Slack、HubSpot 等工作系统。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;">
+              <div class="card coral"><h3>领域上下文</h3><p>连接业务文件、客户反馈、设计稿与团队沟通。</p></div>
+              <div class="card teal-card"><h3>降低门槛</h3><p>员工留在熟悉的工具里，也能完成真实工作。</p></div>
+              <div class="card green"><h3>制度化贡献</h3><p>把偶然的个人尝试，变成可复用的组织能力。</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="automate">
+        <h2><span class="rule-number">RULE 02</span> 自动化机械性的 80%</h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:.8fr 1.4fr;gap:30px;flex:1;min-height:0;">
+            <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;">
+              <div class="card coral"><h3>AI 原生 SDLC</h3><p>入职、写代码、Code Review、测试、CI 与修复，逐步变成闭环。</p></div>
+              <div class="card teal-card"><h3>专用 Agent</h3><p>数据分析、Bug 分诊、反馈归类、法律文档与医疗数据检查端到端运行。</p></div>
+              <p class="text-lg"><strong>目的不是替代判断，</strong><br>而是把人的时间留给真正需要判断的 20%。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;min-height:0;">
+              <div class="figure" style="flex:1;"><img src="figures/fig-sdlc-loop.png" alt="Claude investigates checkout incident in Slack"></div>
+              <p class="figure-caption">原博客图：在 Slack 事故线程中，Claude 自动拉取 GitHub diff、查询 Datadog、关联数据库超时，并形成回滚建议。</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Figure © Anthropic · 自动化必须连接代码、监控与协作系统，才可能拥有完整闭环。</p>
+      </section>
+
+      <section id="native-sdlc">
+        <h2>从“辅助写代码”到<span class="accent">拥有流程</span></h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+            <div class="card coral"><p class="rule-number">COMMURE</p><h3>13 个工单并行</h3><p>一名工程师编排 Claude subagents，每个智能体独立负责一个 ticket 与 PR。</p></div>
+            <div class="card teal-card"><p class="rule-number">CLICKHOUSE</p><h3>自主修复循环</h3><p>修复 flaky test 与补齐测试覆盖的两个 Agent，已经成为仓库第 2、3 大贡献者。</p></div>
+            <div class="card green"><p class="rule-number">CLAY</p><h3>Bug 分诊闭环</h3><p>从首次分析到建议修复代码，重复流程由 Agent 接手。</p></div>
+          </div>
+          <div class="quote" style="margin-top:28px;"><p>先把最频繁、最机械、又能验证结果的流程，做成端到端 Agent。</p></div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:25px;">
+            <div class="flow-step"><p>触发</p></div><div class="flow-step"><p>取上下文</p></div><div class="flow-step"><p>执行</p></div><div class="flow-step"><p>验证</p></div><div class="flow-step"><p>反馈学习</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="verify">
+        <h2><span class="rule-number">RULE 03</span> 信任，但要验证</h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;">
+            <div>
+              <p class="text-xl">自动化的前提不是“模型很聪明”，而是<strong>结果可监控、可审计、可回归</strong>。</p>
+              <ul class="checklist" style="margin-top:25px;">
+                <li>根目录 <code>CLAUDE.md</code> 写下架构不变量、安全边界与不可妥协项</li>
+                <li>每次改动跑 golden set 与随机样本，提前发现回归</li>
+                <li>专家审核模型的推理与修正，所有版本留痕</li>
+                <li>修复原则，而不是记住单个例子</li>
+              </ul>
+            </div>
+            <div class="card coral" style="display:flex;flex-direction:column;justify-content:center;">
+              <p class="rule-number">CAINEX 医疗编码闭环</p>
+              <h3>错误不是 typo，而是合规事件</h3>
+              <p>Agent 处理批次 → 审计员检查代码与推理 → Claude 读取纠正 → 修改版本化指令 → 用 golden set 回测 → 只把难例交给工程师。</p>
+              <p class="text-lg" style="margin-top:20px;color:var(--primary-color);"><strong>“Fix the principle, not the example.”</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="goal-loop">
+        <h2>给 Agent 一个<span class="accent">可判定的停止条件</span></h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1.45fr .65fr;gap:28px;flex:1;min-height:0;">
+            <div style="display:flex;flex-direction:column;min-height:0;">
+              <div class="figure" style="flex:1;"><img src="figures/fig-trust-verify.png" alt="Goal loop with evaluator model"></div>
+              <p class="figure-caption">原博客图：Evaluator 检查条件；未达标就把任务送回，达标或达到轮次上限才结束。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;">
+              <div class="card coral"><h3>目标</h3><p><code>Lighthouse ≥ 90</code></p></div>
+              <div class="card teal-card"><h3>护栏</h3><p>最多尝试 5 次</p></div>
+              <div class="card green"><h3>验证者</h3><p>独立判断是否满足条件</p></div>
+              <p>这比“把首页优化一下”更容易形成可靠闭环。</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Figure © Anthropic · 把成功标准写成机器可检查的条件。</p>
+      </section>
+
+      <section id="rebuild">
+        <h2><span class="rule-number">RULE 04</span> 为重建而设计</h2>
+        <div class="content">
+          <div class="quote"><p>模型能力一直在移动，今天的架构很可能半年后就该推倒重来。</p></div>
+          <div style="display:grid;grid-template-columns:.8fr 1.35fr;gap:30px;flex:1;min-height:0;margin-top:20px;">
+            <div style="display:flex;flex-direction:column;justify-content:center;gap:15px;">
+              <div class="card coral"><h3>Clay：建四遍</h3><p>每次重建都带着更清晰的需求，第四次才真正知道系统需要什么。</p></div>
+              <div class="card teal-card"><h3>Commure：拆旧也自动化</h3><p>用 Skill 扫描已全量发布的 feature flags，并行创建删除旧代码的 PR。</p></div>
+              <div class="card green"><h3>Harvey：敢于 Agent-native</h3><p>新一波模型能力到来时，完整重构平台，而不是守着沉没成本。</p></div>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;min-height:0;">
+              <div class="figure"><img src="figures/fig-worktrees.png" alt="Git worktrees for isolated rebuilds"></div>
+              <p class="figure-caption">原博客图：一个仓库、共享对象库，三个独立 worktree 可同时运行 main、feature 与 hotfix。</p>
+              <p class="text-lg" style="margin-top:22px;"><strong>低成本重建方法：</strong>在隔离 worktree 中跑 v2，与 v1 并列评测，只有新版本胜出才合并。</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Figure © Anthropic · 对非平凡重写，先用 <code>--plan</code> 审查路径，再开始改代码。</p>
+      </section>
+
+      <section id="dogfood">
+        <h2><span class="rule-number">RULE 05</span> 原型 → 内测 → 产品化</h2>
+        <div class="content">
+          <p class="text-xl">用 AI 构建内部 Agent，会反过来提升团队对模型能力、Harness 与产品体验的理解。</p>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:28px;">
+            <div class="flow-step"><p class="rule-number">01</p><h3>内部原型</h3><p>用 Claude Code 快速搭一个 Agent</p></div>
+            <div class="flow-step"><p class="rule-number">02</p><h3>团队内测</h3><p>真实工作中持续 dogfood</p></div>
+            <div class="flow-step"><p class="rule-number">03</p><h3>读懂反馈</h3><p>区分模型问题与 Harness 问题</p></div>
+            <div class="flow-step"><p class="rule-number">04</p><h3>客户产品</h3><p>成熟后迁移到 API / SDK</p></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:30px;">
+            <div class="card coral"><h3>Omni</h3><p>从 Claude Code 的文件式上下文与并行交互获得启发，简化自己的产品设计。</p></div>
+            <div class="card teal-card"><h3>ClickHouse</h3><p>用 Claude Code 构建并迭代客户直接使用的 SQL Agent 与 AI SRE。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="flywheel">
+        <h2>五条规则组成一个<span class="accent">组织飞轮</span></h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;flex:1;align-items:center;">
+            <div style="position:relative;height:430px;">
+              <div class="card coral" style="position:absolute;left:130px;top:0;width:280px;text-align:center;"><p><strong>人人都能交付</strong></p></div>
+              <div class="card teal-card" style="position:absolute;right:0;top:130px;width:280px;text-align:center;"><p><strong>自动化繁琐工作</strong></p></div>
+              <div class="card green" style="position:absolute;right:60px;bottom:0;width:280px;text-align:center;"><p><strong>信任，但要验证</strong></p></div>
+              <div class="card coral" style="position:absolute;left:0;bottom:0;width:280px;text-align:center;"><p><strong>为重建而设计</strong></p></div>
+              <div class="card teal-card" style="position:absolute;left:0;top:130px;width:280px;text-align:center;"><p><strong>原型到产品化</strong></p></div>
+              <div style="position:absolute;left:190px;top:170px;width:150px;height:100px;border-radius:50%;background:#1E1E1B;display:flex;align-items:center;justify-content:center;"><p style="color:#fff;text-align:center;"><strong>更快学习<br>更快交付</strong></p></div>
+            </div>
+            <div>
+              <p class="text-2xl"><strong>速度不是“少做检查”，</strong><br>而是让上下文、执行、验证与学习彼此连接。</p>
+              <ul style="margin-top:25px;">
+                <li>更多人能把真实问题变成原型</li>
+                <li>Agent 接管机械流程并积累反馈</li>
+                <li>评测与不变量控制风险</li>
+                <li>低成本重建吸收下一代模型能力</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <h2>创业团队的<span class="accent">落地清单</span></h2>
+        <div class="content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;flex:1;">
+            <div class="card coral">
+              <p class="rule-number">本周就能开始</p>
+              <ul class="checklist">
+                <li>选择一个高频、机械、结果可验证的流程</li>
+                <li>连接 Claude 所需的代码、数据与协作工具</li>
+                <li>在根目录记录架构、安全与业务不变量</li>
+                <li>给非技术成员一个展示原型的正式入口</li>
+                <li>把团队最佳实践封装成可共享 Skill</li>
+              </ul>
+            </div>
+            <div class="card teal-card">
+              <p class="rule-number">规模化之前</p>
+              <ul class="checklist">
+                <li>建立并持续更新多个 golden eval sets</li>
+                <li>重要闭环加入独立验证者与人工审核</li>
+                <li>用 worktree 隔离并行任务与架构重写</li>
+                <li>把成功条件、最大轮次与回滚写清楚</li>
+                <li>先内部 dogfood，再决定是否客户产品化</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xl" style="text-align:center;margin-top:22px;"><strong>从一个闭环开始，不要从“全公司自动化”开始。</strong></p>
+        </div>
+      </section>
+
+      <section id="closing" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">THE OPERATING SYSTEM</p>
+        <h1>真正的护城河<br>是<span class="accent">自我改进的速度</span></h1>
+        <p>结构化上下文 · 可验证闭环 · 可重建架构</p>
+        <p class="source-link" style="margin-top:32px;">https://claude.com/blog/claude-code-guide-for-startups</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

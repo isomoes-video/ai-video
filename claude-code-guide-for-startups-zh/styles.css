@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+/* ===========================================
+   CSS VARIABLES - Customize these for each presentation
+   =========================================== */
+:root {
+  --background-color: #F5F1E8;
+  --section-divider-bg: #1E1E1B;
+  --heading-font: "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  --body-font: "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  --mono-font: "JetBrains Mono", Consolas, monospace;
+  --base-font-size: 32px;
+  --text-size: 16pt;
+  --h1-size: 48pt;
+  --h2-size: 34pt;
+  --h3-size: 21pt;
+  --footnote-size: 10pt;
+  --primary-color: #D97757;
+  --secondary-color: #315B63;
+  --safe-color: #527A55;
+  --text-color: #20201D;
+  --muted-color: #6D685F;
+  --line-color: #CFC7B8;
+  --card-bg: #FFFDF8;
+  --slide-padding: 58px;
+  --slide-padding-top: 38px;
+  --watermark-safe-top: 0px;
+  --content-gap: 22px;
+  --box-radius: 12px;
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* Bottom decorative line */
+/*
+.reveal .slides section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  height: 2px;
+  background: var(--line-color);
+}
+*/
+
+.reveal code { font-family: var(--mono-font); color: var(--secondary-color); }
+.reveal .slides section:not(.section-divider)::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(90deg, var(--primary-color) 0 27%, var(--secondary-color) 27% 36%, transparent 36%);
+}
+.reveal .slides section.section-divider h1,
+.reveal .slides section.section-divider p { color: #F8F3EA; }
+.reveal .slides section.section-divider .eyebrow { color: #E6A58E; }
+.eyebrow { font-size: 12pt !important; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; }
+.accent { color: var(--primary-color); }
+.teal { color: var(--secondary-color); }
+.card { background: var(--card-bg); border: 1px solid var(--line-color); border-radius: var(--box-radius); padding: 20px 22px; box-sizing: border-box; }
+.card.coral { border-top: 6px solid var(--primary-color); }
+.card.teal-card { border-top: 6px solid var(--secondary-color); }
+.card.green { border-top: 6px solid var(--safe-color); }
+.stat { background: #FFFDF8; border-left: 7px solid var(--primary-color); padding: 15px 18px; }
+.stat strong { display: block; font-size: 26pt; color: var(--primary-color); line-height: 1.05; }
+.stat p { margin: 4px 0 0; font-size: 12pt; color: var(--muted-color); }
+.rule-number { font-family: var(--mono-font); font-size: 11pt !important; color: var(--primary-color); letter-spacing: .08em; }
+.figure { background:#fff; border:1px solid var(--line-color); border-radius:12px; padding:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.figure img { display:block; max-width:100%; max-height:100%; object-fit:contain; margin:0; border:0; box-shadow:none; }
+.figure-caption { font-size: 10pt !important; color: var(--muted-color) !important; margin: 7px 0 0 !important; }
+.quote { border-left: 6px solid var(--primary-color); padding: 12px 20px; background: rgba(255,255,255,.45); }
+.quote p { font-size: 18pt; margin: 0; }
+.flow-step { position:relative; background:var(--card-bg); border:1px solid var(--line-color); padding:18px; border-radius:12px; text-align:center; }
+.flow-step:not(:last-child)::after { content:'→'; position:absolute; right:-27px; top:35%; color:var(--primary-color); font-size:24pt; font-weight:700; }
+.checklist li { margin-bottom: 15px !important; }
+.checklist li::before { border-radius:2px !important; background:var(--safe-color) !important; transform:rotate(45deg); }
+.source-link { font-family: var(--mono-font); font-size: 9pt !important; word-break: break-all; color:#BDB6AA !important; }
+.five-rule { display:grid; grid-template-columns: 40px 1fr; gap:12px; align-items:center; padding:8px 0; border-bottom:1px solid var(--line-color); }
+.five-rule p { margin:0; }
+.five-rule .num { font-family:var(--mono-font); color:var(--primary-color); font-size:14pt; font-weight:700; }
+
