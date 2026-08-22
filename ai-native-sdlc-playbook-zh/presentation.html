@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 原生 SDLC 实战手册</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">Anthropic · AI-Native SDLC Playbook</p>
+        <h1>AI 原生 SDLC<br>实战手册</h1>
+        <p>当代码不再是瓶颈，重写整个软件交付循环</p>
+      </section>
+
+      <section id="bottleneck-shift">
+        <h2>代码不再是瓶颈</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;">
+          <div>
+            <p class="big-idea">Build 被压缩到小时，<br>但 Plan、Review、Deploy 仍按“人类速度”运行。</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;">
+              <div class="card"><p class="metric">←</p><p>瓶颈向两侧迁移</p></div>
+              <div class="card"><p class="metric">≠</p><p>逐行审查跟不上</p></div>
+              <div class="card"><p class="metric">↑</p><p>治理成本上升</p></div>
+            </div>
+          </div>
+          <div class="card accent"><h3>核心问题</h3><p class="text-2xl">不能只让“写代码”变快；计划、控制与交付也必须一起重构。</p></div>
+        </div>
+      </section>
+
+      <section id="before-after-figure">
+        <h2>构建变快之后，约束暴露出来</h2>
+        <div class="content" style="align-items:center;justify-content:center;">
+          <img class="figure" src="assets/source-figure-1.png" alt="构建阶段从长周期缩短到极短时间，瓶颈转移到需求、审查与发布">
+          <p class="source-note">原图保留：Anthropic《The AI-Native SDLC playbook》</p>
+        </div>
+      </section>
+
+      <section id="loop-not-line">
+        <h2>从“流水线”变成“循环”</h2>
+        <div class="content" style="align-items:center;justify-content:center;">
+          <img class="figure" src="assets/source-figure-2.png" alt="传统线性 SDLC 与 AI 原生循环式 SDLC 对比">
+          <p class="source-note">人的位置不是退出循环，而是上移到循环之上：发起、指导、治理。</p>
+        </div>
+      </section>
+
+      <section id="artifact-chain">
+        <h2>真正的主线：可提交的工件</h2>
+        <div class="content">
+          <p class="kicker">Human-readable · Machine-actionable · Auditable</p>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:stretch;margin-top:28px;">
+            <div class="card"><p class="artifact">intent.md</p><p>为什么做</p></div>
+            <div class="card"><p class="artifact">spec.md</p><p>做成什么</p></div>
+            <div class="card"><p class="artifact">plan.md</p><p>怎么实现</p></div>
+            <div class="card"><p class="artifact">diff + tests</p><p>实际改变</p></div>
+            <div class="card"><p class="artifact">PR</p><p>审查与批准</p></div>
+            <div class="card"><p class="artifact">incident</p><p>生产反馈</p></div>
+          </div>
+          <div class="stage-row">
+            <div class="stage"><p>计划</p></div><div class="stage"><p>设计</p></div><div class="stage"><p>构建</p></div><div class="stage"><p>测试</p></div><div class="stage"><p>部署</p></div><div class="stage"><p>维护</p></div>
+          </div>
+          <p class="text-xl" style="margin-top:34px;">每个阶段以一次 commit 收尾，也用这次 commit 触发下一道门；Git 历史自然成为审计轨迹。</p>
+        </div>
+      </section>
+
+      <section id="plan-design">
+        <h2>01–02 · 计划与设计：压缩需求传递</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 70px 1fr;gap:20px;align-items:center;">
+          <div class="card accent"><p class="kicker">PLAN</p><h3>Capture as intent.md</h3><p class="text-xl">创意提出者直接与 Claude 澄清问题、用户、边界和成功标准。</p><p class="artifact" style="margin-top:22px;">idea → intent.md</p></div>
+          <p class="arrow">→</p>
+          <div class="card dark"><p class="kicker">DESIGN</p><h3>Requirements &amp; design</h3><p class="text-xl">组织的品牌、安全、合规与 UX Skills 在写 spec 时就作为约束生效。</p><p class="artifact" style="margin-top:22px;">intent.md → spec.md</p></div>
+          <p style="grid-column:1 / -1;">人仍然负责判断：产品负责人修正意图、解决被标记的风险，并决定是否进入构建。</p>
+        </div>
+      </section>
+
+      <section id="build-plan-mode">
+        <h2>03 · 构建：默认从 Plan mode 开始</h2>
+        <div class="content" style="display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;">
+          <div class="card dark"><p class="kicker">BEFORE CODE</p><p class="big-idea" style="color:#f7f4ed !important;">先把风险暴露在文档里，改变方向只需改字，而不是返工代码。</p></div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+            <div class="card"><h3>1 · 输入</h3><p><span class="artifact">intent.md</span> + <span class="artifact">spec.md</span></p></div>
+            <div class="card"><h3>2 · 追问</h3><p>会破坏什么？最危险哪一步？有哪些备选？</p></div>
+            <div class="card"><h3>3 · 提交</h3><p><span class="artifact">plan.md</span> 写明文件、顺序与验证。</p></div>
+            <div class="card accent"><h3>4 · 执行</h3><p>批准后一次实现；偏离计划时同步更新计划。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="knowledge-guardrails">
+        <h2>把知识与控制写进仓库</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;">
+          <div class="card"><p class="kicker">CONTEXT</p><h3>CLAUDE.md</h3><p>命令、约定、架构与常犯错误。</p><p class="text-xl" style="margin-top:20px;">“同一个错误出现两次，就写进去。”</p></div>
+          <div class="card accent"><p class="kicker">KNOWLEDGE</p><h3>Skills</h3><p>把安全标准、API 规范、品牌规则变成可触发的组织能力。</p><p class="text-xl" style="margin-top:20px;">建议性控制</p></div>
+          <div class="card dark"><p class="kicker">ENFORCEMENT</p><h3>Hooks</h3><p>保护路径、格式化、凭据扫描与审批门禁。</p><p class="text-xl" style="margin-top:20px;">确定性控制</p></div>
+          <p style="grid-column:1 / -1;">Skill 让违规变少；Hook 让关键违规几乎不可能发生。两者变更都像代码一样审查。</p>
+        </div>
+      </section>
+
+      <section id="parallel-feedback">
+        <h2>并行化之前，先让验证闭环</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+          <div class="card"><p class="kicker">PARALLELISM</p><h3>Worktrees + Subagents</h3><ul><li>独立任务进入独立 worktree</li><li>重复验证工作封装为 subagent</li><li>从 2–3 个并行 session 起步</li></ul></div>
+          <div class="card accent"><p class="kicker">FEEDBACK</p><h3>Agent 自己检查自己</h3><ul><li>统一的 test / build / screenshot 命令</li><li>Bug 先写失败测试，再修复</li><li>UI 用截图反复比较</li></ul></div>
+          <div class="quote" style="grid-column:1 / -1;"><p class="text-2xl">并行上限不是能启动多少 Agent，而是人还能认真审查多少条工作流。</p></div>
+        </div>
+      </section>
+
+      <section id="test-evals">
+        <h2>04 · 测试：从阶段门变成持续 Evals</h2>
+        <div class="content" style="display:grid;grid-template-columns:.75fr 1.25fr;gap:28px;align-items:center;">
+          <div class="card accent"><p class="metric">20–50</p><p class="text-xl">个真实任务起步</p><p>每个任务包含 prompt 与可接受结果的检查条件。</p></div>
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+              <div class="card"><h3>何时运行</h3><p>模型、prompt、CLAUDE.md、Skills 或 Hooks 变化时。</p></div>
+              <div class="card"><h3>检查什么</h3><p>测试、Lint、行为、政策与回归基线。</p></div>
+              <div class="card"><h3>如何门禁</h3><p>Pass rate 降低就阻止配置变更合并。</p></div>
+              <div class="card dark"><h3>如何学习</h3><p>每次生产事故都新增一个 Eval。</p></div>
+            </div>
+            <p class="text-xl" style="margin-top:20px;">QA 不再追赶 Agent 产量，而是维护一套能跟上速度的活测试系统。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="deploy-gates">
+        <h2>05 · 部署：AI 审查，但人类批准</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;">
+          <div class="card"><p class="kicker">REVIEW</p><h3>REVIEW.md</h3><p>按 Bug、安全、合规、spec 与 plan 分轮审查；PR 保留完整记录。</p></div>
+          <div class="card accent"><p class="kicker">GATE</p><h3>Hooks</h3><p>每次都执行 allow / ask / block；不可绕过的规则放入 managed settings。</p></div>
+          <div class="card dark"><p class="kicker">DELIVERY</p><h3>CI/CD + MCP</h3><p>Agent 可准备发布、调用受限工具；生产权限止步于明确门禁。</p></div>
+          <p class="big-idea" style="grid-column:1 / -1;text-align:center;margin-top:20px;">Agent 可以走到生产门前，<span style="color:#d97757;">但不能自己跨过去。</span></p>
+        </div>
+      </section>
+
+      <section id="maintain-loop">
+        <h2>06 · 维护：用确定性信号启动 Agent</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.1fr .9fr;gap:26px;">
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+              <div class="card"><p class="metric">1σ</p><p>只记录</p></div>
+              <div class="card accent"><p class="metric" style="color:#171715 !important;">2σ</p><p>只读诊断</p></div>
+              <div class="card dark"><p class="metric">3σ</p><p>开 PR 或触发预批 runbook</p></div>
+            </div>
+            <p class="text-xl" style="margin-top:26px;">检测必须由版本化、单元测试过的脚本完成；模型不负责判断是否越线，只负责越线后的诊断与行动。</p>
+          </div>
+          <div class="card"><h3>闭环输出</h3><p class="artifact">anomaly → intent.md</p><p style="margin-top:18px;">修复仍然经过需求、计划、构建、测试、PR 与发布门禁。</p><p style="margin-top:18px;">上线后把事故写成 Eval，防止再次发生。</p></div>
+        </div>
+      </section>
+
+      <section id="claude-on-call">
+        <h2>事故频道也能成为循环入口</h2>
+        <div class="content" style="align-items:center;justify-content:center;">
+          <img class="figure" src="assets/source-figure-4.png" alt="Claude 在事故频道中诊断、请求授权、回滚并记录复盘">
+          <p class="source-note">原图保留：Claude 以独立身份参与事故频道；诊断、授权、回滚、复盘都留在审计轨迹中。</p>
+        </div>
+      </section>
+
+      <section id="adoption-order">
+        <h2>采用顺序 ≠ 生命周期顺序</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr .42fr;gap:28px;align-items:center;">
+          <img class="figure tall" src="assets/source-figure-3.png" alt="AI 原生 SDLC 各项实践的依赖关系和采用顺序">
+          <div>
+            <p class="kicker">START ANYWHERE</p>
+            <p class="text-2xl">从没有入边的珊瑚色 play 开始；箭头表示依赖，不是阶段顺序。</p>
+            <div class="card accent" style="margin-top:24px;"><h3>推荐最小起步</h3><p>intent.md</p><p>CLAUDE.md</p><p>反馈循环</p><p>部署 Hooks</p><p>Plan mode</p></div>
+            <p class="source-note">颜色表示所属阶段，连线表示先决条件。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="closing" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">THE OPERATING MODEL</p>
+        <h1>让 Agent 加速执行<br>让工件承载上下文<br>让门禁守住判断</h1>
+        <p>AI 原生，不是去掉治理；而是把治理改造成能与 Agent 同速运行的系统。</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

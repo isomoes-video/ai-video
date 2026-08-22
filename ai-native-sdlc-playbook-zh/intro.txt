@@ -1,0 +1,21 @@
+中文标题：AI 原生 SDLC 实战手册：重写整个软件交付循环
+English Title: The AI-Native SDLC Playbook: Rebuilding the Software Delivery Loop
+标签：AI原生SDLC，Claude Code，软件工程，Agent，DevOps，企业治理，持续评估
+
+Source: https://claude.com/blog/the-ai-native-sdlc-playbook
+Output: https://github.com/isomoes-video/ai-video/tree/main/ai-native-sdlc-playbook-zh
+
+这期视频解读 Anthropic 的《The AI-Native SDLC playbook》。当 Agent 将编码阶段从数周压缩到数小时，真正的瓶颈会转移到计划、审查、测试、部署与治理。视频介绍 AI 原生 SDLC 如何把线性流程重构为由工件驱动的闭环：从 intent.md、spec.md、plan.md，到代码与测试、PR 审查和生产事故记录，每个可提交工件既传递上下文，也触发下一道门，并自然形成审计轨迹。
+
+视频沿 Plan、Design、Build、Test、Deploy、Maintain 六个阶段展开，说明如何用 CLAUDE.md 沉淀仓库知识，用 Skills 编码组织政策，用 Hooks 提供确定性控制，以 Worktrees 和 Subagents 扩大并行，并通过持续 Evals、REVIEW.md、分级权限与生产控制带保障质量和问责。最终目标不是移除人类，而是让 Agent 加速执行、让工件承载上下文、让人类在高价值门禁中继续负责判断。
+
+00:00  开场
+00:22  瓶颈迁移
+01:10  闭环工件
+02:02  计划设计
+02:30  构建护栏
+03:28  验证评估
+04:28  部署门禁
+04:56  生产闭环
+05:51  采用顺序
+06:22  总结
