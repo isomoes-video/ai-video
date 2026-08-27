@@ -1,0 +1,379 @@
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+/* ===========================================
+   CSS VARIABLES - Customize these for each presentation
+   =========================================== */
+:root {
+  /* ===========================================
+     BACKGROUND COLORS
+     For dark presentations, change to dark colors (e.g., #1a1a2e, #0d1117)
+     Then update --text-color and --muted-color to light colors below.
+     =========================================== */
+  --background-color: #f6f0e8;              /* warm editorial canvas */
+  --section-divider-bg: #17151a;
+
+  /* Typography - ALWAYS use pt for font sizes */
+  --heading-font: Arial, "Noto Sans CJK SC", sans-serif;
+  --body-font: Arial, "Noto Sans CJK SC", sans-serif;
+  --base-font-size: 32px;   /* Only px value - sets reveal.js base */
+  --text-size: 17pt;
+  --h1-size: 48pt;
+  --h2-size: 32pt;
+  --h3-size: 23pt;
+  --footnote-size: 11pt;
+
+  /* Colors - CUSTOMIZE THESE */
+  --primary-color: #ff5c8a;
+  --secondary-color: #ff8a5b;
+  --text-color: #17151a;
+  --muted-color: #6d6670;
+  --line-color: #17151a;
+
+  /* Layout */
+  --slide-padding: 68px;
+  --slide-padding-top: 46px;
+  --watermark-safe-top: 0px;
+  --content-gap: 28px;
+
+  /* Border radius for custom components */
+  --box-radius: 18px;           /* Set to 0 for sharp corners */
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* Bottom decorative line */
+/*
+.reveal .slides section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  height: 2px;
+  background: var(--line-color);
+}
+*/
+
+/* Lovable editorial blueprint theme */
+.reveal .slides section:not(.section-divider) { background: linear-gradient(135deg, #f8f3ec 0%, #f3ece3 100%); }
+.reveal .slides section:not(.section-divider)::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
+.reveal h2 { max-width: 1080px; letter-spacing: -0.035em; }
+.reveal h2::after { content: ''; display: block; width: 74px; height: 6px; margin-top: 16px; background: var(--primary-color); border-radius: 99px; }
+.reveal i { color: var(--primary-color); }
+.reveal small { display: block; font-size: 13pt; color: var(--muted-color); margin-top: 6px; }
+.hero { position: relative; overflow: hidden; background: radial-gradient(circle at 78% 28%, #4d2034 0%, #17151a 36%, #0f0e11 100%); }
+.hero::before, .hero::after { content: ''; position: absolute; border: 2px solid rgba(255,92,138,.35); border-radius: 50%; }
+.hero::before { width: 260px; height: 260px; right: 24px; top: 24px; }
+.hero::after { width: 150px; height: 150px; left: 24px; bottom: 24px; }
+.reveal .hero h1 { color: #fff8f3; font-size: 52pt; letter-spacing: -0.05em; margin: 12px 0 18px; z-index: 1; }
+.reveal .hero h1 strong, .closing h2 strong { color: var(--primary-color); }
+.reveal .hero p { color: #fff8f3; z-index: 1; }
+.eyebrow { font-size: 12pt !important; font-weight: 700; letter-spacing: .22em; color: var(--primary-color) !important; margin: 0 0 8px; }
+.hero-sub { font-size: 20pt !important; color: #d9cbd0 !important; }
+.dual-badge { display: flex; align-items: center; gap: 18px; margin-top: 24px; padding: 8px 22px; border: 1px solid rgba(255,255,255,.25); border-radius: 99px; z-index: 1; }
+.dual-badge p { font-size: 13pt !important; margin: 0; }
+.app-shell, .cap-card, .mini-card, .metric-card, .versus-card, .async-step { border: 2px solid #241f25; background: #fffaf5; box-shadow: 7px 7px 0 #241f25; border-radius: var(--box-radius); }
+.app-shell { padding: 28px; min-height: 300px; }
+.app-label { font-weight: 700; border-bottom: 2px solid #241f25; padding-bottom: 14px; }
+.window-lines p { padding: 13px 16px; background: #efe6dc; border-radius: 10px; margin: 14px 0; }
+.cap-stack { display: grid; gap: 18px; }
+.cap-card { padding: 17px 24px; border-color: #842444; box-shadow: 7px 7px 0 #ff8a5b; }
+.cap-card p { font-size: 20pt; font-weight: 700; margin: 0; }
+.arrow { font-size: 34pt !important; color: var(--primary-color) !important; }
+.takeaway { margin: 24px 0 0; padding: 14px 22px; background: #17151a; color: #fff8f3 !important; border-radius: 12px; text-align: center; font-weight: 700; }
+.interface-map { display: grid; grid-template-columns: 1fr 1.25fr 1.35fr 1fr 1fr; align-items: center; gap: 0; flex: 1; }
+.actor, .core-app { text-align: center; padding: 30px 12px; border: 2px solid #241f25; border-radius: 50%; background: #fffaf5; }
+.actor i, .core-app i { font-size: 34pt; }
+.actor p, .core-app p { font-weight: 700; margin-bottom: 0; }
+.core-app { border-radius: 18px; background: #17151a; }
+.core-app p { color: #fff8f3; }
+.connector { height: 5px; background: #241f25; position: relative; }
+.connector p { position: absolute; top: -48px; width: 100%; text-align: center; font-size: 11pt; color: var(--muted-color); }
+.connector.accent { background: var(--primary-color); }
+.mini-card { padding: 14px 18px; box-shadow: 4px 4px 0 #241f25; }
+.mini-card p { margin: 2px; text-align: center; font-size: 14pt; }
+.timeline { display: grid; grid-template-columns: 1fr .28fr 1fr .28fr 1.25fr .28fr 1.1fr; align-items: center; flex: 1; }
+.time-node { text-align: center; padding: 24px 12px; border: 2px solid #241f25; border-radius: 18px; background: #fffaf5; min-height: 230px; }
+.time-node.hot { background: #ffdae5; }
+.time-node i { font-size: 30pt; margin: 14px 0; }
+.time-node p { font-size: 14pt; margin: 7px 0; }
+.time-node .year { font-size: 12pt; color: var(--muted-color); }
+.time-line { height: 4px; background: #241f25; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; flex: 1; align-items: stretch; }
+.metric-card { padding: 30px 18px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.metric-card.primary { background: #17151a; }
+.metric-card.primary p { color: #fff8f3; }
+.metric { font-size: 31pt !important; font-weight: 800; color: #b51f56; margin: 0 0 15px; }
+.funding-strip { display: flex; justify-content: space-around; margin-top: 24px; background: #ffccd9; border: 2px solid #241f25; border-radius: 14px; }
+.funding-strip p { margin: 13px; }
+.brain-map { position: relative; flex: 1; min-height: 380px; }
+.brain-center { position: absolute; left: 50%; top: 50%; width: 250px; height: 250px; transform: translate(-50%,-50%); border-radius: 50%; background: #17151a; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 0 15px #ffccd9, 0 0 0 17px #17151a; }
+.brain-center i { font-size: 44pt; }
+.brain-center p { color: #fff8f3; margin: 4px; }
+.orbit { position: absolute; background: #fffaf5; border: 2px solid #241f25; border-radius: 99px; padding: 9px 22px; box-shadow: 4px 4px 0 #ff8a5b; }
+.orbit p { margin: 0; font-weight: 700; }
+.o1 { left: 10%; top: 12%; } .o2 { right: 10%; top: 12%; } .o3 { left: 8%; bottom: 12%; } .o4 { right: 8%; bottom: 12%; }
+.reveal blockquote { font-style: normal; background: #fffaf5; border: 0; border-left: 7px solid var(--primary-color); padding: 10px 20px; margin: 8px 0 0; box-sizing: border-box; }
+.async-flow { display: grid; grid-template-columns: 1fr .25fr 1fr .25fr 1fr .25fr 1fr; align-items: center; flex: 1; }
+.async-step { padding: 22px 13px; min-height: 245px; text-align: center; box-shadow: 5px 5px 0 #241f25; }
+.async-step.sleep { background: #ece5ef; }.async-step.result { background: #ffd3de; }
+.async-step i { font-size: 30pt; margin: 15px; }
+.async-step p { font-size: 13pt; margin: 5px; }
+.async-step .step-no { font-size: 11pt; color: var(--muted-color); text-align: left; }
+.flow-arrow p { text-align: center; font-size: 25pt; color: var(--primary-color); }
+.versus-card { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.versus-card.lovable { background: #ffd3de; }
+.versus-label { font-size: 12pt !important; letter-spacing: .2em; color: var(--muted-color) !important; }
+.big-symbol { font-size: 46pt !important; font-weight: 800; margin: 22px; }
+.big-symbol i { font-size: 46pt; }
+.security-diagram { display: grid; grid-template-columns: 1fr .9fr 1.4fr 1fr; gap: 18px; align-items: stretch; flex: 1; }
+.identity, .key, .gateway, .systems { border: 2px solid #241f25; border-radius: 18px; background: #fffaf5; padding: 23px 14px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.gateway { background: #17151a; }.gateway p { color: #fff8f3; }
+.identity i, .key i, .gateway i { font-size: 33pt; margin-bottom: 12px; }
+.systems { gap: 12px; background: #ffdae5; }
+.systems p { border: 1px solid #241f25; background: #fffaf5; padding: 8px; margin: 0; border-radius: 8px; }
+.risk-callout { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 18px; }
+.risk-callout p { margin: 0; font-weight: 700; }
+.closing { background: #17151a !important; color: #fff8f3; }
+.closing h2 { color: #fff8f3; font-size: 43pt; }
+.closing h2::after { display: none; }
+.future-formula { display: flex; justify-content: center; align-items: center; gap: 28px; margin: 25px 0 30px; }
+.future-formula div { width: 220px; text-align: center; padding: 18px; border: 1px solid #6e5961; border-radius: 15px; }
+.future-formula div p { color: #fff8f3; font-size: 22pt; font-weight: 700; margin: 0; }
+.multiply { color: var(--primary-color) !important; font-size: 28pt !important; }
+.final-line { color: #fff8f3 !important; font-size: 24pt !important; line-height: 1.55 !important; text-align: center; }
+.final-line strong { color: var(--primary-color); }
+.source-line { color: #9e8d94 !important; text-align: center; font-size: 11pt !important; margin-top: auto; }
+

@@ -1,0 +1,21 @@
+中文标题：SaaS 的未来：让 Agent 直接使用应用
+English Title: The Future of SaaS: Apps That Agents Can Use
+标签：Lovable，SaaS，AI Agent，MCP，Company Brain，人工智能
+
+Source: https://www.latent.space/p/lovable-future-of-saas
+Output: https://github.com/isomoes-video/ai-video/tree/main/lovable-future-of-saas-zh
+
+这个视频解读 Lovable CTO Fabian Hedin 对未来 SaaS 的判断：应用不会消失，但 UI 将不再是唯一入口。Lovable 正把应用中的有用功能变成可被 Agent 直接调用的 capabilities，并通过 hosted MCP server 同时提供 Human UI 与 Agent Interface。视频回顾 Lovable 从 GPT Engineer、原型工具、生产应用到企业内部系统和 Agent Platform 的快速演进，也梳理其超过 5 亿美元年化收入运行率、6000 万项目和 9 亿月访问量等增长数据。
+
+视频进一步解释 Lovable 的 Company Brain 愿景：用一个统一入口连接组织上下文、个人上下文、通用能力和专属能力，并支持 Agent 暂停、定时恢复和异步交付结果。面对 Vercel @v 等竞争者，Lovable 的差异化不只是编排 Agent，而是成为构建可靠 capabilities 的平台。最后，视频重点分析 Permission Graph、App User Connector、服务端加密凭证与 user-bound short-lived key 等安全设计，并指出未来 SaaS 的新护城河将来自 Context、Permission 与 Reliability。
+
+00:00  未来入口
+00:28  能力拆解
+00:56  双重界面
+01:24  产品演进
+01:56  增长规模
+02:24  公司大脑
+02:54  异步工作
+03:25  平台竞争
+03:54  权限安全
+04:26  未来SaaS

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS 的未来：让 Agent 直接使用应用</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider hero" data-state="is-section-divider">
+        <p class="eyebrow">LOVABLE × AGENTIC SAAS</p>
+        <h1>SaaS 的未来<br><strong>不是更多 App</strong></h1>
+        <p class="hero-sub">而是让 Agent 直接调用应用能力</p>
+        <div class="dual-badge"><p>Human UI</p><p>+</p><p>Agent Interface</p></div>
+      </section>
+
+      <section id="thesis">
+        <h2>应用，正在拆成可调用的“能力”</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 26px; align-items: center; flex: 1;">
+            <div class="app-shell">
+              <p class="app-label">传统 App</p>
+              <div class="window-lines"><p>打开界面</p><p>寻找功能</p><p>手动操作</p></div>
+            </div>
+            <p class="arrow">→</p>
+            <div class="cap-stack">
+              <div class="cap-card"><p>查数据</p></div>
+              <div class="cap-card"><p>批量处理</p></div>
+              <div class="cap-card"><p>触发工作流</p></div>
+            </div>
+          </div>
+          <p class="takeaway">Capability：应用中可被 Agent 直接调用的有用功能</p>
+        </div>
+      </section>
+
+      <section id="dual-interface">
+        <h2>一个应用，两种入口</h2>
+        <div class="content">
+          <div class="interface-map">
+            <div class="actor human"><i class="fa-solid fa-user"></i><p>人</p></div>
+            <div class="connector"><p>点击 · 输入 · 浏览</p></div>
+            <div class="core-app"><i class="fa-solid fa-cube"></i><p>Lovable App</p></div>
+            <div class="connector accent"><p>MCP tools</p></div>
+            <div class="actor agent"><i class="fa-solid fa-wand-magic-sparkles"></i><p>Agent</p></div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+            <div class="mini-card"><p><strong>发布</strong></p><p>选择应用功能</p></div>
+            <div class="mini-card"><p><strong>暴露</strong></p><p>Hosted MCP Server</p></div>
+            <div class="mini-card"><p><strong>调用</strong></p><p>ChatGPT · Claude</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="evolution">
+        <h2>三年内，产品边界连续外扩</h2>
+        <div class="content">
+          <div class="timeline">
+            <div class="time-node"><p class="year">2023</p><i class="fa-solid fa-code"></i><p><strong>GPT Engineer</strong></p><p>开源原型工具</p></div>
+            <div class="time-line"></div>
+            <div class="time-node"><p class="year">2024</p><i class="fa-solid fa-rocket"></i><p><strong>Lovable</strong></p><p>商业化 App Builder</p></div>
+            <div class="time-line"></div>
+            <div class="time-node"><p class="year">随后</p><i class="fa-solid fa-building"></i><p><strong>生产与内部系统</strong></p><p>CRM · Admin · Support</p></div>
+            <div class="time-line"></div>
+            <div class="time-node hot"><p class="year">现在</p><i class="fa-solid fa-puzzle-piece"></i><p><strong>Agent Platform</strong></p><p>Capabilities · Connectors</p></div>
+          </div>
+          <p class="takeaway">模型能力与应用层创新，每几个月叠加一次</p>
+        </div>
+      </section>
+
+      <section id="scale">
+        <h2>这次转向，建立在惊人的规模之上</h2>
+        <div class="content">
+          <div class="metric-grid">
+            <div class="metric-card primary"><p class="metric">$500M</p><p>年化收入运行率</p></div>
+            <div class="metric-card"><p class="metric">60M+</p><p>已创建项目</p></div>
+            <div class="metric-card"><p class="metric">900M</p><p>月访问量</p></div>
+            <div class="metric-card"><p class="metric">近 2/3</p><p>Fortune 500 企业员工使用</p></div>
+          </div>
+          <div class="funding-strip"><p><strong>$400M Series C</strong></p><p>估值 <strong>$13.3B</strong></p></div>
+          <p class="footnote">文章引述 Menlo Ventures 合伙人 Deedy Das 与 Lovable 数据</p>
+        </div>
+      </section>
+
+      <section id="company-brain">
+        <h2>“公司大脑”不是一个员工，而是一层连接</h2>
+        <div class="content">
+          <div class="brain-map">
+            <div class="brain-center"><i class="fa-solid fa-brain"></i><p><strong>Company Brain</strong></p><p>统一入口</p></div>
+            <div class="orbit o1"><p>公司上下文</p></div>
+            <div class="orbit o2"><p>个人上下文</p></div>
+            <div class="orbit o3"><p>通用能力</p></div>
+            <div class="orbit o4"><p>专属能力</p></div>
+          </div>
+          <blockquote><p>关键不是为每个任务造一个 Agent，而是把正确的上下文与能力接到同一个入口。</p></blockquote>
+        </div>
+      </section>
+
+      <section id="async-work">
+        <h2>Agent 入口，还要能跨越时间工作</h2>
+        <div class="content">
+          <div class="async-flow">
+            <div class="async-step"><p class="step-no">01</p><i class="fa-solid fa-play"></i><p><strong>发起任务</strong></p><p>部署、检查或监控</p></div>
+            <div class="flow-arrow"><p>→</p></div>
+            <div class="async-step sleep"><p class="step-no">02</p><i class="fa-regular fa-clock"></i><p><strong>计划恢复</strong></p><p>等待条件或下一周期</p></div>
+            <div class="flow-arrow"><p>→</p></div>
+            <div class="async-step"><p class="step-no">03</p><i class="fa-solid fa-arrow-rotate-right"></i><p><strong>自动续做</strong></p><p>检查结果并继续</p></div>
+            <div class="flow-arrow"><p>→</p></div>
+            <div class="async-step result"><p class="step-no">04</p><i class="fa-solid fa-comment-dots"></i><p><strong>回到对话</strong></p><p>同一上下文交付结果</p></div>
+          </div>
+          <p class="takeaway">界面从“我现在操作”变成“系统持续替我推进”</p>
+        </div>
+      </section>
+
+      <section id="competition">
+        <h2>竞争焦点：不是谁会编排，而是谁能供给能力</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1;">
+            <div class="versus-card">
+              <p class="versus-label">VERCEL</p>
+              <p class="big-symbol">@𝚟</p>
+              <p>内部 Agent 进入日常工作</p>
+            </div>
+            <div class="versus-card lovable">
+              <p class="versus-label">LOVABLE</p>
+              <p class="big-symbol"><i class="fa-solid fa-toolbox"></i></p>
+              <p>成为 Agent 能力的最佳构建地</p>
+            </div>
+          </div>
+          <blockquote><p>“编排这些能力是容易的；让它们连接良好、构建正确且可靠，才是困难的。”</p></blockquote>
+        </div>
+      </section>
+
+      <section id="security">
+        <h2>最大难题：能力越多，权限图越重要</h2>
+        <div class="content">
+          <div class="security-diagram">
+            <div class="identity"><i class="fa-solid fa-id-badge"></i><p><strong>用户身份</strong></p><p>保留源系统权限</p></div>
+            <div class="key"><i class="fa-solid fa-key"></i><p><strong>短期密钥</strong></p><p>User-bound</p></div>
+            <div class="gateway"><i class="fa-solid fa-shield-halved"></i><p><strong>Connector Gateway</strong></p><p>凭证服务端加密</p></div>
+            <div class="systems"><p>Slack</p><p>CRM</p><p>Internal API</p></div>
+          </div>
+          <div class="risk-callout"><i class="fa-solid fa-triangle-exclamation"></i><p>生成的应用代码永远不直接接触长期凭证</p></div>
+          <p class="takeaway">安全边界：谁，以什么身份，能调用哪项能力</p>
+        </div>
+      </section>
+
+      <section id="future" class="closing">
+        <p class="eyebrow">THE FUTURE OF SAAS</p>
+        <h2>从“界面产品”到<strong>能力网络</strong></h2>
+        <div class="content">
+          <div class="future-formula">
+            <div><p>Context</p><small>理解组织</small></div>
+            <p class="multiply">×</p>
+            <div><p>Permission</p><small>安全授权</small></div>
+            <p class="multiply">×</p>
+            <div><p>Reliability</p><small>稳定执行</small></div>
+          </div>
+          <p class="final-line">未来的护城河，不只是更好的 UI<br>而是让 Agent <strong>发现、授权、组合并可靠调用</strong>业务能力</p>
+          <p class="source-line">Source · latent.space / Lovable CTO Fabian Hedin</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

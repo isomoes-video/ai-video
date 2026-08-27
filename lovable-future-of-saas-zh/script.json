@@ -1,0 +1,42 @@
+[
+  {
+    "slide_number": 1,
+    "narration": "如果未来的软件，主要用户不再只是人，会发生什么？Lovable CTO Fabian Hedin 给出的答案是：SaaS 不会消失，但入口正在改变。人仍然可以打开应用、点击界面；与此同时，Agent 会绕过界面，直接调用应用里的业务能力。这意味着 SaaS 的下一阶段，不只是做出更多 App，而是让每个 App 都能被 Agent 使用。"
+  },
+  {
+    "slide_number": 2,
+    "narration": "要理解这次转向，先看一个关键词：Capability，也就是能力。Lovable 把它定义为应用中一个有用、可以独立执行，并且能被 Agent 直接调用的功能。过去，人要打开界面、寻找入口、完成操作；现在，查数据、批量处理、触发工作流，都可以成为结构化工具。应用没有消失，而是被拆成了可调用的能力集合。"
+  },
+  {
+    "slide_number": 3,
+    "narration": "这些能力如何交给 Agent？Lovable 可以把已发布应用中选定的功能，通过托管的 MCP Server 暴露为 tools。于是，同一个应用拥有两种入口：左边是给人的 Human UI，右边是给 ChatGPT、Claude 等 MCP 客户端的 Agent Interface。一次构建，同时服务人和 Agent，这正是未来 SaaS 的基本形态。"
+  },
+  {
+    "slide_number": 4,
+    "narration": "这种愿景并不是突然出现的。Lovable 起源于二零二三年的开源项目 GPT Engineer，最初专注快速原型。二零二四年商业化并更名 Lovable 后，用户开始用它构建真正服务客户的生产应用。接着，使用范围又进入企业内部，覆盖 CRM、管理后台和客服控制台。如今再向 Capabilities 和 Connectors 延伸，产品边界在不到三年里连续外扩。"
+  },
+  {
+    "slide_number": 5,
+    "narration": "这次平台转向，建立在相当可观的规模之上。文章援引的数据包括：超过五亿美元的年化收入运行率，六千万个已创建项目，以及 Lovable 应用每月超过九亿次访问。Lovable 还表示，接近三分之二的 Fortune 500 企业已有员工使用其平台。最新一轮四亿美元 Series C，则把公司估值推到一百三十三亿美元。"
+  },
+  {
+    "slide_number": 6,
+    "narration": "规模之外，Lovable 想建设的是所谓 Company Brain，也就是公司大脑。它不是把 Agent 想象成一个数字员工，而是建立一层连接：一边汇集关于个人、公司和外部环境的上下文，另一边连接通用能力与组织专属能力。重点不是每个任务都造一个 Agent，而是通过一个统一入口，把正确的上下文和正确的能力组合起来。"
+  },
+  {
+    "slide_number": 7,
+    "narration": "当能力都连接到统一入口，工作也不必被限制在一次同步对话里。Lovable 希望 Agent 能够异步执行：发起部署或监控任务后，先等待条件满足，在预定时间恢复，继续检查结果，最后回到同一个对话交付结论。界面因此从“我现在亲自操作”，变成“系统在后台持续替我推进”，Agent 也从即时助手变成长时间运行的执行者。"
+  },
+  {
+    "slide_number": 8,
+    "narration": "Lovable 并不是唯一追逐 Company Brain 的公司。Vercel 已经推出内部 Agent，名字是 @v，并让它进入越来越多日常工作。Lovable 认为自己的切入点不同：它要成为构建 Agent 所需能力的最佳平台。Hedin 的判断很直接，编排能力相对容易；真正困难的是让这些能力连接良好、构建正确，而且长期可靠。"
+  },
+  {
+    "slide_number": 9,
+    "narration": "能力连接得越多，安全就越关键。假设员工创建的应用连接公司 Slack，系统必须避免把私人消息错误暴露给公司大脑。Lovable 因此需要一张 Permission Graph，明确谁能以什么身份调用哪些资源。App User Connector 会保留用户在源系统中的身份和权限；长期凭证由 Connector Gateway 在服务端加密管理，生成的应用只拿到与用户绑定的短期密钥。"
+  },
+  {
+    "slide_number": 10,
+    "narration": "由此可以看到未来 SaaS 的新形态：UI 仍然重要，但不再是唯一入口；应用逐渐成为一组可以被发现、授权、组合和可靠调用的能力。用户可能只面对一个 Company Brain，背后则连接许多内部工具与外部 SaaS。新的护城河，不只是更漂亮的界面，而是 Context、Permission 和 Reliability，也就是理解组织、安全授权与稳定执行的乘积。"
+  }
+]
