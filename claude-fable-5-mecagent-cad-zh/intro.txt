@@ -1,0 +1,23 @@
+中文标题：Claude Fable 5 × MecAgent：CAD 工程实测
+English Title: Claude Fable 5 × MecAgent: CAD Engineering Test
+标签：Claude Fable 5，MecAgent，CAD，OpenSCAD，SOLIDWORKS，参数化设计，AI 工程
+
+Source: https://mecagent.com/blog/claude-fable-5-x-mecagent-1.2.0-on-cad
+Output: https://github.com/isomoes-video/ai-video/tree/main/claude-fable-5-mecagent-cad-zh
+
+这个视频基于 MecAgent 的原始博客，解读 Claude Fable 5 与 MecAgent Copilot 1.2.0 在 CAD 设计和自动化工作流中的表现。视频保留原文中的 CAD 模型、OpenSCAD 迭代截图、SolidWorks 装配界面以及快速与后台制图图纸，重点观察 AI 是否真正理解参数关系、空间约束、工业 API 和自我校验，而不只是生成一个看起来正确的形状。
+
+内容覆盖 OpenSCAD NEMA 17 与 V8 引擎案例、BenchCAD 与 FrontierCode 指标、SOLIDWORKS 水瓶装配宏，以及两种二维制图路径：约十秒完成的概念预览和约十五小时运行的生产级后台任务。结论保持克制：Fable 5 + MecAgent 是工程加速器，能够减少重复劳动和迭代成本，但复杂几何、COM 资源清理、FEA 与真实物理测试仍需要工程师负责。
+
+00:00  从会画到会验证
+00:21  Fable 5 与 MecAgent
+00:44  全局指标
+01:11  OpenSCAD 实测
+01:32  NEMA 17 进化
+01:51  V8 自我校验
+02:27  四个 CAD 支点
+02:59  水瓶装配宏
+03:27  宏质量与风险
+03:59  快速制图
+04:19  后台工程图
+04:45  工程师拍板

@@ -1,0 +1,14 @@
+[
+  {"slide_number":1,"narration":"大家好。今天不只看 Claude Fable 5 能不能生成漂亮几何，而是把它放进 MecAgent Copilot 1.2.0 和真实的代码驱动 CAD 工作流里，看看它能不能把设计意图、参数关系和验证一起交付。结论先留到最后：AI 提案，工程师拍板。"},
+  {"slide_number":2,"narration":"这套组合分成两层。Claude Fable 5 负责理解长上下文、技术代码和空间意图；MecAgent 则把这些能力接到 SOLIDWORKS、Inventor 等工业软件的 API。于是 AI 不再只是文档助手，而能生成宏、驱动渲染，并参与参数模型的验证。"},
+  {"slide_number":3,"narration":"先看全局。原文给出的 BenchCAD IoU 是 0.384，覆盖一万七千九百个零件和一百零六个工业族；在 FrontierCode Diamond 上，Fable 5 达到 29.3%，超过 Opus 4.8 的 13.4%。这些数字说明，CAD 相关的编程和空间理解，已经成为真正的主战场。"},
+  {"slide_number":4,"narration":"把模型放进 OpenSCAD 这个可复现的试验场，Fable 5 总分最高，达到 33.75 分；但它不是最快的，平均响应是五分五十五秒。标准也已经从单纯看外形，收紧为工业审计：要看原生参数化、代码整洁度和自诊断能力。"},
+  {"slide_number":5,"narration":"先看 NEMA 17。Opus 4.6 第一眼很像成功：外形正确，代码也能运行。但孔位采用固定坐标，一旦改变板子的尺寸，装配关系就会失效。它证明了自己会画形状，却还没有真正理解参数化设计。"},
+  {"slide_number":6,"narration":"接着看 V8 引擎。4.6 的模型可以编译甚至会动，但活塞跑出缸体，连杆也失去正确锚点。4.7 把 safety_check 写进模型，虽然仍有 deck-height 错误，却会在控制台主动报告。4.8 又用动态派生变量校准几何，从自我诊断走向自适应。Fable 5 进一步把点火顺序、bank offset 和 361.9 cc 排量计算写进脚本。重点不只是动画，而是可复核的引擎逻辑。"},
+  {"slide_number":7,"narration":"这些案例最终汇成四个进入 CAD 日常的支点。第一是生成和维护 SOLIDWORKS、Inventor 宏；第二是把自然语言翻译成可编辑的 Text-to-CAD 模型；第三是理解二维图纸并协助放置视图、修改尺寸；第四是作为工程助手，解释规则、验证概念并支持选型。目标不是替代工程师，而是把重复劳动交给系统。"},
+  {"slide_number":8,"narration":"在复杂装配测试里，水瓶的瓶身、瓶盖和约束由宏端到端生成。Fable 5 大约用十次提示和一小时引导，相比 Opus 4.8 的二十次提示和两小时引导，工作量减少了一半。深度 API 调用、启发式几何选择和螺纹组合记忆，都让结果更接近可复用的工业宏，但上线前仍需要人工审查。"},
+  {"slide_number":9,"narration":"宏质量的差异也可以量化。Fable 5 在 API 集成、代码稳健性、CAD 逻辑以及文档遥测四项都高于 Opus 4.8，尤其会使用原生 OpenDoc6、finally 关闭文档，并输出 START、INFO、SUCCESS 日志。不过，COM 对象没有显式 Release，生产环境仍可能留下 ghost SolidWorks 进程，这是必须人工补上的低层风险。"},
+  {"slide_number":10,"narration":"二维制图提供了两种节奏。Fast 路径大约十秒就能生成标准三视图和等轴视图，适合快速沟通，但完整度只有三分。它不是生产图纸，而是设计预览：先让人看懂形状，再决定是否投入更长的计算时间。"},
+  {"slide_number":11,"narration":"如果目标是制造交付，就可以让 Background Agent 在后台深度分析。它能生成 SECTION R-R、VIEW U-U 等剖视和辅助视图，提取 PMI、MBD 与 GD&T，保留 3D 到 2D 的关联更新。虽然大约需要十五小时，但完整度达到 9.1 分，而且设计师的工作站不会被冻结。"},
+  {"slide_number":12,"narration":"所以，Claude Fable 5 加 MecAgent 1.2 更适合被看作工程加速器，而不是自动驾驶。它让重复 CAD 任务更快，让参数化、诊断和 API 逻辑更稳，但复杂曲面、COM 清理仍需人来把关。软件模拟也不是强度证明，只有 FEA 或真实物理测试之后，工程师才能签字。AI proposes, engineer decides。"}
+]
