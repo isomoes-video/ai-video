@@ -1,0 +1,19 @@
+中文标题：AI 编码降本不降质：GitHub Copilot 的四个优化
+English Title: Making AI Coding More Cost-Efficient Without Sacrificing Quality
+标签：GitHub Copilot，AI编程，智能体，Token效率，成本优化，Agent
+
+Source: https://github.blog/ai-and-ml/github-copilot/how-we-make-ai-coding-more-cost-efficient-without-sacrificing-task-quality/
+Output: https://github.com/isomoes-video/ai-video/tree/main/github-copilot-cost-efficiency-zh
+
+这个视频解读 GitHub Copilot 工程团队关于 AI 编码成本优化的实践。核心观点是：单次工具响应更短，不代表完整任务更便宜；如果模型因为缺失信息而重读、重跑或增加推理轮次，局部节省就会变成全局浪费。视频梳理四项经过基准测试和线上实验验证的改进：选择性压缩重复日志、删除文件读取中的无用行号前缀、在测试行为的前提下精简提示词，以及在后台任务完成时直接交付结果。最后总结如何用端到端指标、恢复信号和工作流本地化实验，构建降本不降质的 AI 编码智能体。
+
+00:00  核心命题
+00:50  四项实验
+01:23  局部陷阱
+01:59  选择性压缩
+03:30  删除格式
+04:08  精简提示
+04:49  后台结果
+05:28  工作流重测
+06:03  五条经验
+06:37  落地闭环

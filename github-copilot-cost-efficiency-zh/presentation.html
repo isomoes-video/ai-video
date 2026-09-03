@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Copilot 如何降低 AI 编码成本</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="title" class="dark-slide">
+        <p class="eyebrow">GITHUB COPILOT · ENGINEERING</p>
+        <h1>AI 编码如何<br><span class="green">降本不降质</span></h1>
+        <p class="subtitle">真正该优化的不是单次 token，而是完整任务</p>
+        <div class="title-rule"></div>
+        <p class="byline">Erik Kristensen &amp; Napalys Klicius · 2026.09.02</p>
+      </section>
+
+      <section id="wrong-metric">
+        <p class="eyebrow">核心命题</p>
+        <h2>输出更短，为什么反而可能更贵？</h2>
+        <div class="content center-content">
+          <div class="equation">
+            <div class="metric-card muted-card"><i class="fa-solid fa-compress"></i><p>单次响应<br><strong>更短</strong></p></div>
+            <p class="operator">≠</p>
+            <div class="metric-card"><i class="fa-solid fa-gauge-high"></i><p>完整任务<br><strong>更高效</strong></p></div>
+          </div>
+          <blockquote>缺失的信息会迫使智能体重读、重跑、增加轮次，并把更多上下文一路带下去。</blockquote>
+        </div>
+      </section>
+
+      <section id="four-results">
+        <p class="eyebrow">四项线上实验</p>
+        <h2>优化结果，而不是优化一次工具调用</h2>
+        <div class="content">
+          <img class="wide-figure" src="figures/four-experiments.png" alt="四项独立实验的成本降幅">
+          <div class="stats-row">
+            <div class="mini-stat"><strong>3.1%</strong><p>去除读取前缀</p></div>
+            <div class="mini-stat"><strong>5.5%</strong><p>选择性压缩</p></div>
+            <div class="mini-stat"><strong>2.9%</strong><p>精简任务提示</p></div>
+            <div class="mini-stat"><strong>2.3%</strong><p>减少通知往返</p></div>
+          </div>
+          <p class="note">四组 A/B 实验使用相同 AI Credits 指标，效果不一定严格相加。</p>
+        </div>
+      </section>
+
+      <section id="local-trap">
+        <p class="eyebrow">局部指标陷阱</p>
+        <h2>省在工具输出，花在恢复路径</h2>
+        <div class="content figure-split">
+          <img src="figures/local-metric-trap.png" alt="局部压缩导致恢复工作增加">
+          <div class="side-copy">
+            <p class="lead">RTK 确实缩短了部分 shell 输出，但省略的细节有时正是下一步所需。</p>
+            <div class="flow-text"><span>信息丢失</span><i class="fa-solid fa-arrow-right"></i><span>重读或重跑</span><i class="fa-solid fa-arrow-right"></i><span>成本上升</span></div>
+            <p class="callout">结论只适用于被测集成与负载，但足以推翻“每次调用越短越好”的目标。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider" class="dark-slide">
+        <p class="eyebrow">FOUR CHANGES</p>
+        <h1>减少无用工作<br>保留必要信息</h1>
+        <p class="subtitle">压缩输出 · 删除格式 · 精简提示 · 消除往返</p>
+      </section>
+
+      <section id="selective-compression">
+        <p class="eyebrow">改进 01</p>
+        <h2>按输出“代表什么”决定是否压缩</h2>
+        <div class="content figure-split compression-layout">
+          <img src="figures/selective-compression.png" alt="选择性输出压缩的三条路径">
+          <div class="policy-list">
+            <div class="policy"><span>01</span><p><strong>原样保留</strong><br>cat、git diff、git show 与任意脚本输出</p></div>
+            <div class="policy"><span>02</span><p><strong>无损重排</strong><br>grep 等搜索结果分组，但不丢任何匹配</p></div>
+            <div class="policy"><span>03</span><p><strong>选择压缩</strong><br>仅压缩 install、build、test 的重复噪声</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="recovery-signal">
+        <p class="eyebrow">安全机制</p>
+        <h2>恢复路径既是保险，也是评估信号</h2>
+        <div class="content">
+          <div class="signal-grid">
+            <div class="signal"><i class="fa-solid fa-file-arrow-up"></i><p>打开完整原始输出</p></div>
+            <div class="signal"><i class="fa-solid fa-rotate"></i><p>重新运行命令</p></div>
+            <div class="signal"><i class="fa-solid fa-magnifying-glass"></i><p>重复或缩窄搜索</p></div>
+            <div class="signal"><i class="fa-solid fa-comments"></i><p>增加模型轮次</p></div>
+          </div>
+          <div class="result-banner"><strong>离线：</strong>未检测到任务成功率显著下降，智能体极少打开原始输出　<span>·</span>　<strong>线上：</strong>平均成本小幅下降，质量指标无实质回退</div>
+          <p class="big-line">频繁恢复 = 压缩器删掉了有价值的信息</p>
+        </div>
+      </section>
+
+      <section id="remove-formatting">
+        <p class="eyebrow">改进 02</p>
+        <h2>先删格式，不删信息</h2>
+        <div class="content">
+          <img class="wide-figure prefix-image" src="figures/remove-prefixes.png" alt="移除 view 工具的行号前缀">
+          <div class="two-results">
+            <div><strong>约 5%</strong><p>离线基准推理成本下降</p></div>
+            <div><strong>约 3%</strong><p>CLI 用户日均推理成本下降</p></div>
+          </div>
+          <blockquote>行号仍适合 diff 和短代码片段，却不该附着在每次完整文件读取上。</blockquote>
+        </div>
+      </section>
+
+      <section id="prompt-compression">
+        <p class="eyebrow">改进 03</p>
+        <h2>压缩提示词，但不能压缩意图</h2>
+        <div class="content figure-split">
+          <img src="figures/prompt-compression.png" alt="提示词压缩、回归与修复">
+          <div class="side-copy">
+            <p class="lead">元提示循环把 task 工具提示缩短约一半，却意外把谨慎建议改成硬性调度规则。</p>
+            <div class="quote-box">“独立智能体可以并行运行；考虑副作用。”</div>
+            <p class="callout">新增回归测试后，这一句恢复了并行行为，同时每轮减少约 <strong>1,300</strong> 个提示 token。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="background-results">
+        <p class="eyebrow">改进 04</p>
+        <h2>任务完成时，直接把结果送回来</h2>
+        <div class="content figure-split">
+          <img src="figures/background-results.png" alt="后台任务通知优化前后">
+          <div class="side-copy">
+            <div class="before-after"><p><span>以前</span><strong>4 次模型调用</strong><small>取 shell 结果、处理结果、取子智能体结果、再处理</small></p><p><span>现在</span><strong>1 次模型调用</strong><small>批量通知，直接附带完整结果</small></p></div>
+            <p class="callout">不压缩、不总结、不扣留信息，只移除纯检索往返，AI Credits 平均降低约 <strong>2.3%</strong>。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="measure-context">
+        <p class="eyebrow">实验方法</p>
+        <h2>证据是局部的：每个工作流都要重测</h2>
+        <div class="content">
+          <div class="context-cards">
+            <div class="context-card reject"><p class="status">未上线</p><h3>更紧的文件工具指令</h3><p>在 code review 中有效，却在 Copilot CLI 在线实验中增加成本。</p></div>
+            <div class="context-card ship"><p class="status">已上线</p><h3>去行号 + 选择性压缩</h3><p>在大规模 code review 评估中，各自减少约 5% 平均提示 token，质量无实质变化。</p></div>
+          </div>
+          <p class="big-line">同一项优化，换一个产品表面，就可能得出相反结论。</p>
+        </div>
+      </section>
+
+      <section id="five-lessons">
+        <p class="eyebrow">五条经验</p>
+        <h2>构建高效 AI 编码智能体的原则</h2>
+        <div class="content lessons">
+          <div><span>1</span><p><strong>优化完整任务</strong><br>不是单次工具调用</p></div>
+          <div><span>2</span><p><strong>优化编排</strong><br>消除确定性的模型往返</p></div>
+          <div><span>3</span><p><strong>按语义压缩</strong><br>优先无损，并保留恢复路径</p></div>
+          <div><span>4</span><p><strong>测试提示行为</strong><br>防止精简时悄悄删掉意图</p></div>
+          <div><span>5</span><p><strong>在本地验证证据</strong><br>跨基准、线上实验和产品重测</p></div>
+        </div>
+      </section>
+
+      <section id="practical-checklist">
+        <p class="eyebrow">落地清单</p>
+        <h2>把成本优化变成工程闭环</h2>
+        <div class="content checklist-wrap">
+          <div class="loop">
+            <div><i class="fa-solid fa-bullseye"></i><p>定义端到端指标</p></div><i class="fa-solid fa-arrow-right"></i>
+            <div><i class="fa-solid fa-flask"></i><p>离线基准筛选</p></div><i class="fa-solid fa-arrow-right"></i>
+            <div><i class="fa-solid fa-vials"></i><p>线上 A/B 验证</p></div><i class="fa-solid fa-arrow-right"></i>
+            <div><i class="fa-solid fa-chart-line"></i><p>追踪恢复信号</p></div>
+          </div>
+          <div class="question-strip"><p>每次准备“省 token”之前，先问：</p><strong>这会不会让智能体之后重新找回来？</strong></div>
+        </div>
+      </section>
+
+      <section id="closing" class="dark-slide">
+        <p class="eyebrow">TAKEAWAY</p>
+        <h1>模型没有变聪明<br><span class="green">只是少做了无用功</span></h1>
+        <p class="subtitle">高效，不是让上下文更少，而是让每一份上下文都推动任务向前。</p>
+        <div class="closing-tags"><span>完整任务</span><span>保留信息</span><span>减少往返</span><span>持续验证</span></div>
+      </section>
+    </div>
+  </div>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({ width: 1280, height: 720, margin: 0, controls: true, progress: true, slideNumber: false, hash: true, transition: 'fade', center: false });
+  </script>
+</body>
+</html>
