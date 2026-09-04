@@ -1,0 +1,20 @@
+中文标题：GPT-6 Astra：从更聪明到更可靠地完成
+English Title: GPT-6 Astra: From Smarter to More Reliable Work
+标签：GPT-6 Astra，OpenAI，AI Agent，计算机使用，软件工程，网络安全，模型评测
+
+Source: https://openai.com/index/gpt-6-astra/
+Output: https://github.com/isomoes-video/ai-video/tree/main/gpt-6-astra-zh
+
+这个视频基于 OpenAI 官方文章，解读 GPT-6 Astra 如何把模型能力从“回答问题”延伸到真实工作环境。视频首先梳理它在计算机使用、专业工作和编码方面的表现，包括 OSWorld 2.0、BenchCAD、BrowseComp、Terminal-Bench 等评测，以及文章宣称的时间效率提升。随后介绍 Codex 的跨上下文记忆、Astra 在数学与科学发现中的应用，并重点讨论网络安全能力跃升带来的双重影响。
+
+视频也单独拆解了 Astra 的对齐与部署边界：它在不可能任务、Auto-Review 绕过和能力幻觉评测中的结果，以及研究配置和默认产品体验之间的区别。最后总结 API、ChatGPT、Azure、Bedrock 的可用性与价格，并提醒读者正确理解最大评测分数、不同 harness 和安全配置等实验条件。
+
+00:00  发布主张
+00:45  计算机使用
+01:52  编码与记忆
+02:28  科学发现
+03:32  网络安全
+04:02  对齐边界
+04:36  评测方法
+05:10  可用性
+05:44  总结

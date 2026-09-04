@@ -1,0 +1,349 @@
+/* Base reveal.js styles
+ *
+ * Copy this file as styles.css for each new presentation.
+ * Customize the CSS variables (especially colors) for your theme.
+ *
+ * IMPORTANT: All font sizes use pt (points) for predictable sizing.
+ * Base text is intentionally small (16pt) to fit content-heavy slides.
+ * Use .text-lg, .text-xl, etc. classes when slides have less content.
+ */
+
+/* ===========================================
+   CSS VARIABLES - Customize these for each presentation
+   =========================================== */
+:root {
+  /* ===========================================
+     BACKGROUND COLORS
+     For dark presentations, change to dark colors (e.g., #1a1a2e, #0d1117)
+     Then update --text-color and --muted-color to light colors below.
+     =========================================== */
+  --background-color: #ffffff;              /* Main slide background */
+  --section-divider-bg: #ffffff;            /* Section divider background (set different for contrast) */
+
+  /* Typography - ALWAYS use pt for font sizes */
+  --heading-font: "Source Sans Pro", Helvetica, sans-serif;
+  --body-font: "Source Sans Pro", Helvetica, sans-serif;
+  --base-font-size: 32px;   /* Only px value - sets reveal.js base */
+  --text-size: 16pt;        /* Base body text - intentionally small */
+  --h1-size: 48pt;
+  --h2-size: 36pt;
+  --h3-size: 24pt;
+  --footnote-size: 11pt;
+
+  /* Colors - CUSTOMIZE THESE */
+  --primary-color: #2196F3;    /* Main accent color */
+  --secondary-color: #ff9800;  /* Secondary accent */
+  --text-color: #222;          /* Main text - use light color (e.g., #f0f0f0) for dark backgrounds */
+  --muted-color: #666;         /* Secondary text - use lighter color for dark backgrounds */
+  --line-color: #333;          /* Decorative lines */
+
+  /* Layout */
+  --slide-padding: 60px;
+  --slide-padding-top: 40px;
+  --watermark-safe-top: 0px;   /* Extra top reserve; only set >0 (e.g. 44px) if a logo/watermark overlays the top edge */
+  --content-gap: 30px;
+
+  /* Border radius for custom components */
+  --box-radius: 8px;           /* Set to 0 for sharp corners */
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 { font-size: var(--h1-size); }
+.reveal h2 { font-size: var(--h2-size); margin-bottom: 0; }
+.reveal h3 { font-size: var(--h3-size); }
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: calc(var(--slide-padding-top) + var(--watermark-safe-top)) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section > .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section > .footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   TEXT SIZE UTILITIES
+
+   Base text is 16pt - use these to scale UP when
+   slides have less content and you want to fill space.
+   =========================================== */
+
+.text-lg { font-size: 18pt !important; }   /* Slightly larger */
+.text-xl { font-size: 20pt !important; }   /* Medium emphasis */
+.text-2xl { font-size: 24pt !important; }  /* Strong emphasis */
+.text-3xl { font-size: 28pt !important; }  /* Very large */
+.text-4xl { font-size: 32pt !important; }  /* Maximum body text */
+
+/* Other text utilities */
+.text-muted { color: var(--muted-color) !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+.font-light { font-weight: 300; }
+.font-bold { font-weight: 600; }
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+ */
+
+:root {
+  --background-color: #f3efe6;
+  --section-divider-bg: #1d2521;
+  --heading-font: Georgia, "Times New Roman", serif;
+  --body-font: Arial, Helvetica, sans-serif;
+  --text-color: #1d2521;
+  --muted-color: #67716c;
+  --primary-color: #e85d2a;
+  --secondary-color: #a9cbb7;
+  --line-color: #c9c1b4;
+  --slide-padding: 62px;
+  --content-gap: 24px;
+}
+
+.reveal .slides section { background: var(--background-color); }
+.reveal h1, .reveal h2, .reveal h3 { letter-spacing: -0.03em; }
+.reveal h2 { font-size: 34pt; border-left: 7px solid var(--primary-color); padding-left: 18px; }
+.reveal p, .reveal li { font-size: 15pt; line-height: 1.42; }
+.eyebrow { color: #e85d2a !important; font-size: 13pt !important; letter-spacing: .18em; font-weight: bold; }
+.hero h1 { color: #f3efe6; font-size: 76pt; margin: 18px 0 8px; }
+.hero-subtitle { color: #d9e2dc !important; font-size: 25pt !important; }
+.source-label { color: #9eaba3 !important; font-size: 12pt !important; margin-top: 40px; }
+.hero, .closing { background: #1d2521 !important; }
+.content { gap: 22px; }
+.thesis-grid, .metric-row, .scoreboard, .alignment-grid, .mini-stats, .reading-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.big-number, .metric, .alignment-card, .reading-grid > div { border-top: 4px solid #e85d2a; padding: 15px 17px; background: #fffdf8; }
+.big-number p, .metric p, .alignment-card p, .reading-grid p { margin: 0 0 8px; }
+.number, .metric-value, .alignment-number, .reading-num, .score { font-size: 31pt !important; font-weight: bold; color: #e85d2a !important; }
+.label, .metric-label, .reading-title { font-weight: bold; }
+.callout { background: #dbe9df; border-left: 5px solid #5b9275; padding: 16px 20px; margin: 0; }
+.callout.small { font-size: 13pt !important; }
+.two-col, .risk-split, .availability, .science-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.panel { padding: 20px; background: #fffdf8; border: 1px solid #d8d0c2; }
+.panel.dark { background: #1d2521; border-color: #1d2521; }
+.panel.dark p { color: #f3efe6; }
+.panel-kicker, .risk-heading, .availability-label { color: #e85d2a !important; font-size: 12pt !important; letter-spacing: .12em; font-weight: bold; text-transform: uppercase; }
+.panel-title { font-size: 20pt !important; font-weight: bold; margin: 4px 0 8px !important; }
+.metric { text-align: center; border-top-color: #5b9275; }
+.metric.accent { background: #e85d2a; border-color: #e85d2a; }
+.metric.accent p { color: #fffdf8 !important; }
+.footnote { font-size: 10pt !important; color: var(--muted-color) !important; }
+.workflow { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.workflow-step { flex: 1; background: #fffdf8; padding: 18px; border-bottom: 4px solid #a9cbb7; }
+.arrow { color: #e85d2a !important; font-size: 28pt !important; }
+.scoreboard { background: #1d2521; color: #f3efe6; padding: 22px; text-align: center; }
+.scoreboard p { color: #f3efe6; margin: 0; }
+.scoreboard .score { color: #f2b27c !important; }
+.code-card { background: #222b27; padding: 22px 28px; border-left: 7px solid #e85d2a; }
+.code-card p { color: #d9e2dc; font-family: "Courier New", monospace; margin: 7px 0; }
+.code-card .orange { color: #f2b27c; }.code-card .muted { color: #9eaba3; }.code-card .success { color: #a9cbb7; }
+.bar-list p { display: grid; grid-template-columns: 230px 1fr 75px; align-items: center; gap: 12px; margin: 13px 0; }
+.bar-list em { font-style: normal; text-align: right; color: #e85d2a; font-weight: bold; }
+.bar { height: 14px; background: #d8d0c2; }.bar i { display: block; height: 100%; background: #5b9275; }
+.context-diagram { display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center; gap: 18px; }.context-node { background: #fffdf8; padding: 18px 24px; border: 1px solid #d8d0c2; }.context-node.highlighted { border: 3px solid #5b9275; }.node-tag { color: #e85d2a !important; font-weight: bold; }.context-divider { text-align: center; color: #e85d2a; font-size: 24pt; font-weight: bold; }.muted { color: #9eaba3 !important; }.warning { color: #b24a30 !important; }.success { color: #43785d !important; }
+.science-quote { background: #e85d2a; padding: 24px; }.science-quote p { color: #fffdf8; }.quote-mark { font-size: 46pt !important; margin: 0 !important; }.attribution { font-size: 11pt !important; }
+.science-list { padding: 8px 0; }.science-list p { border-bottom: 1px solid #c9c1b4; padding: 11px 0; margin: 0; }.mini-stats { margin-top: 6px; background: #dbe9df; padding: 15px 20px; }.mini-stats p { margin: 0; }
+.risk-column { padding: 22px; background: #f6d7c8; }.risk-column.guarded { background: #dbe9df; }.risk-value { font-size: 29pt !important; font-weight: bold; color: #b24a30 !important; margin: 5px 0 0 !important; }.guarded .risk-value { color: #43785d !important; }
+.alignment-card { text-align: center; }.alignment-card.muted-card { opacity: .65; }.alignment-card small { color: var(--muted-color); }
+.caution { border-left: 5px solid #e85d2a; }.reading-grid > div { border-top-color: #5b9275; }.reading-num { color: #5b9275 !important; }.source-note { padding: 15px; color: #67716c !important; border-top: 1px solid #c9c1b4; }
+.availability-main { background: #1d2521; padding: 25px; }.availability-main p { color: #f3efe6; }.api-name { font-family: "Courier New", monospace; font-size: 24pt !important; color: #f2b27c !important; }.availability-list { padding: 8px 0; }.availability-list p { border-bottom: 1px solid #c9c1b4; padding: 11px 0; margin: 0; }
+.closing h1 { color: #f3efe6; font-size: 49pt; max-width: 950px; }.closing-text { color: #d9e2dc !important; font-size: 21pt !important; }.closing .source-label { margin-top: 34px; }
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* Bottom decorative line */
+/*
+.reveal .slides section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  height: 2px;
+  background: var(--line-color);
+}
+*/

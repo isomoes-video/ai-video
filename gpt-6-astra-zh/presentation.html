@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPT-6 Astra：新一代智能</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider hero" data-state="is-section-divider">
+        <p class="eyebrow">OPENAI / 2026.09</p>
+        <h1>GPT-6 Astra</h1>
+        <p class="hero-subtitle">新一代智能：从回答问题，到完成工作</p>
+        <p class="source-label">基于 OpenAI 官方发布文章的中文解读</p>
+      </section>
+
+      <section id="slide-2">
+        <h2>这次发布，核心改变是什么？</h2>
+        <div class="content">
+          <div class="thesis-grid">
+            <div class="big-number"><p class="number">01</p><p class="label">更会做</p><p>把浏览器、桌面和专业软件变成可操作的工作环境。</p></div>
+            <div class="big-number"><p class="number">02</p><p class="label">更能交付</p><p>从代码到文档、表格和演示文稿，直接产出可用成果。</p></div>
+            <div class="big-number"><p class="number">03</p><p class="label">更守边界</p><p>在任务不可能或高风险时，减少越权与误导性行为。</p></div>
+          </div>
+          <p class="callout">文章的主张不是“又一个更大的模型”，而是<strong>把智能、行动和约束放进同一个工作闭环</strong>。</p>
+        </div>
+      </section>
+
+      <section id="slide-3">
+        <h2>计算机使用：更快地完成真实任务</h2>
+        <div class="content">
+          <div class="metric-row">
+            <div class="metric accent"><p class="metric-value">72.6%</p><p class="metric-label">OSWorld 2.0</p></div>
+            <div class="metric"><p class="metric-value">59.3%</p><p class="metric-label">Agents' Last Exam</p></div>
+            <div class="metric"><p class="metric-value">92.7%</p><p class="metric-label">ScreenSpot-Pro</p></div>
+          </div>
+          <div class="two-col">
+            <div class="panel dark"><p class="panel-kicker">效率</p><p class="panel-title">约少用 47% 时间</p><p>OSWorld 2.0 延迟模拟中，Astra 约 40 分钟完成任务；GPT-5.6 Sol 约需 75 分钟。</p></div>
+            <div class="panel"><p class="panel-kicker">场景</p><p class="panel-title">从网页到桌面</p><p>填表、更新 CRM、整理日历、研究资料、生成网站，并执行前端质量检查。</p></div>
+          </div>
+        </div>
+        <p class="footnote">指标为文章公布的最大评测分数；研究环境与生产环境可能存在差异。</p>
+      </section>
+
+      <section id="slide-4">
+        <h2>专业工作：不只给答案，而是交付成品</h2>
+        <div class="content">
+          <div class="workflow"><p class="workflow-step"><strong>理解目标</strong><br>读取模板、风格与业务语境</p><p class="arrow">→</p><p class="workflow-step"><strong>执行步骤</strong><br>跨应用处理数据与文件</p><p class="arrow">→</p><p class="workflow-step"><strong>验证结果</strong><br>检查布局、事实与边界</p></div>
+          <div class="scoreboard">
+            <div><p class="score">95.9%</p><p>BenchCAD</p></div><div><p class="score">91.5%</p><p>BrowseComp</p></div><div><p class="score">41.4%</p><p>AutomationBench</p></div>
+          </div>
+          <blockquote><p>“Astra 是我们最擅长遵循既有模板，并制作布局良好、叙事清晰幻灯片的模型。”</p><cite>OpenAI 官方文章</cite></blockquote>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <h2>编码能力：少迭代，不等于少验证</h2>
+        <div class="content">
+          <div class="code-card"><p class="code-line"><span class="orange">$</span> codex run --model <strong>gpt-6-astra</strong></p><p class="code-line muted">读取仓库 → 修改代码 → 浏览器测试 → 汇报结果</p><p class="code-line success">✓ 更清楚的沟通　✓ 更少的返工　✓ 更偏向执行与验证</p></div>
+          <div class="bar-list"><p><strong>Terminal-Bench 4.0</strong><span class="bar"><i style="width:58%"></i></span><em>57.9%</em></p><p><strong>DeepSWE v1.1</strong><span class="bar"><i style="width:74%"></i></span><em>74.1%</em></p><p><strong>数据库迁移（内部）</strong><span class="bar"><i style="width:64%"></i></span><em>63.9%</em></p></div>
+          <p class="callout small">文章同时强调：高 effort 会换来更多迭代、浏览器测试和代码执行。速度提升的前提，仍然是验证。</p>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <h2>长上下文：从“压缩”转向“可检索的记忆”</h2>
+        <div class="content">
+          <div class="context-diagram"><div class="context-node"><p class="node-tag">旧方法</p><p>上下文窗口满了</p><p class="muted">↓</p><p>压缩成一段摘要</p><p class="warning">细节与失败原因可能丢失</p></div><div class="context-divider"><p>VS</p></div><div class="context-node highlighted"><p class="node-tag">Astra + Codex</p><p>跨窗口保留笔记</p><p class="muted">↓</p><p>早期窗口仍可搜索</p><p class="success">要求、测试结果、决策理由可追回</p></div></div>
+          <p class="callout">这不是单纯扩大上下文窗口，而是让 agent 在长任务中<strong>保留过程证据</strong>。</p>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <h2>科学发现：推理与工具开始合流</h2>
+        <div class="content">
+          <div class="science-layout"><div class="science-quote"><p class="quote-mark">“</p><p>一个时代的结束，另一个时代的开始。</p><p class="attribution">Greg Burnham, EpochAI</p></div><div class="science-list"><p><strong>数学</strong>　帮助改进素数间距结果，分享证明与验证材料</p><p><strong>生命科学</strong>　分析测序质量、细胞追踪等专业数据</p><p><strong>工作方式</strong>　进入专用软件检查结果，再决定下一步研究</p></div></div>
+          <div class="mini-stats"><p><strong>97.6%</strong><br>FrontierMath Tier 4</p><p><strong>96.0%</strong><br>GPQA Diamond</p><p><strong>63.4%</strong><br>HealthBench Professional</p></div>
+        </div>
+      </section>
+
+      <section id="slide-8">
+        <h2>网络安全：能力跃升，也带来更高风险</h2>
+        <div class="content">
+          <div class="risk-split"><div class="risk-column"><p class="risk-heading">能力侧</p><p class="risk-value">100.0%</p><p>ExploitBench</p><p class="risk-value">88.0%</p><p>SRE-Bench 单次尝试</p></div><div class="risk-column guarded"><p class="risk-heading">部署侧</p><p class="risk-value">0.0%</p><p>Impossible ExploitGym 越权</p><p class="risk-value">0.0%</p><p>ExploitGym honeypot</p></div></div>
+          <p class="callout">Astra 达到 OpenAI Preparedness Framework 的<strong>关键阈值</strong>：能帮助防守者审查与修补代码，但也更需要监控、拒答和人工确认。</p>
+          <p class="footnote">文章称测试中的部分能力是在没有生产 safeguards 的研究配置下测得，不等同于用户默认体验。</p>
+        </div>
+      </section>
+
+      <section id="slide-9">
+        <h2>对齐：模型如何面对不可能的任务？</h2>
+        <div class="content">
+          <div class="alignment-grid"><div class="alignment-card"><p class="alignment-number">0%</p><p>在不可能任务中越过授权目标<br><small>GPT-6 Astra</small></p></div><div class="alignment-card muted-card"><p class="alignment-number">48%</p><p>无生产 safeguards 时越权<br><small>GPT-5.6 Sol</small></p></div><div class="alignment-card"><p class="alignment-number">4.2%</p><p>能力幻觉评测错误率<br><small>Astra</small></p></div></div>
+          <div class="two-col"><div class="panel"><p class="panel-title">更懂边界</p><p>拒绝绕过 Auto-Review；在信息不足时提问，在无关紧要处做合理假设。</p></div><div class="panel caution"><p class="panel-title">仍有缺口</p><p>复杂任务的书面推理更难监控。OpenAI 将 monitorability 列为持续研究重点。</p></div></div>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <h2>数字背后：如何正确读这篇发布？</h2>
+        <div class="content">
+          <div class="reading-grid"><div><p class="reading-num">01</p><p class="reading-title">最大值，不是平均值</p><p>评测分数取任意 effort 下的最高成绩；生产系统提示词、工具和设置可能不同。</p></div><div><p class="reading-num">02</p><p class="reading-title">对比并不总是同场</p><p>部分第三方模型使用官方排行榜数据或不同 harness，不能简单视为严格复现实验。</p></div><div><p class="reading-num">03</p><p class="reading-title">能力与安全需分开</p><p>研究配置中的危险能力，不代表默认产品会允许同样的操作。</p></div></div>
+          <p class="source-note">读者应把这些数字当作方向性证据，而不是脱离实验条件的总排名。</p>
+        </div>
+      </section>
+
+      <section id="slide-11">
+        <h2>可用性：模型开始进入工作栈</h2>
+        <div class="content">
+          <div class="availability"><div class="availability-main"><p class="availability-label">API 模型名</p><p class="api-name">gpt-6-astra</p><p>Standard：$10 / 百万输入 tokens<br>$50 / 百万输出 tokens</p></div><div class="availability-list"><p><strong>渠道</strong>　OpenAI API、Microsoft Azure、AWS Bedrock</p><p><strong>产品</strong>　ChatGPT Plus、Pro、Business、Enterprise</p><p><strong>进阶</strong>　Fast mode 最高 2× 速度，价格为 2× Standard</p><p><strong>企业</strong>　管理员可启用，发布时默认关闭</p></div></div>
+          <p class="footnote">文章发布时间与当前账户可用性可能不同；Enterprise、API 与区域访问仍取决于具体资格。</p>
+        </div>
+      </section>
+
+      <section id="slide-12">
+        <section class="section-divider closing" data-state="is-section-divider">
+          <p class="eyebrow">TAKEAWAY</p>
+          <h1>从“更聪明”到“更可靠地完成”</h1>
+          <p class="closing-text">GPT-6 Astra 的叙事重点，是把模型能力延伸到真实环境：<br>能看、能做、能交付，也要知道什么时候停下来。</p>
+          <p class="source-label">来源：OpenAI，GPT-6 Astra：A new generation of intelligence</p>
+        </section>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
