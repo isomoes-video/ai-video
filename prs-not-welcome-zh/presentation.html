@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR 不再受欢迎</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">LATENT.SPACE · 2026.09</p>
+        <h1>PR 不再受欢迎</h1>
+        <p class="title-sub">AI 原生开源项目，正在重写社区贡献规则</p>
+        <p class="title-source">基于 Richard MacManus《PRs NOT Welcome》</p>
+      </section>
+
+      <section id="slide-2">
+        <h2>一个反常识的转向</h2>
+        <div class="content">
+          <div class="hero-claim"><p>开源项目，开始主动关闭外部 Pull Request。</p></div>
+          <div class="split-stat">
+            <div class="stat"><p class="number">1,000+</p><p>AI SDK 待处理 issue</p></div>
+            <div class="stat"><p class="number">800</p><p>几乎同时积压的 PR</p></div>
+            <div class="stat accent"><p class="number">软件工厂</p><p>把贡献变成可编排的生产线</p></div>
+          </div>
+          <p class="text-muted text-lg">问题不再是“有没有人愿意写代码”，而是“谁能让维护者信任这段代码”。</p>
+        </div>
+      </section>
+
+      <section id="slide-3">
+        <h2>为什么 Drive-by PR 失效了</h2>
+        <div class="content">
+          <div class="flow-row">
+            <div class="flow-box"><p class="kicker">过去</p><p>社区提交 PR</p><p class="small">维护者阅读、复现、讨论、修改</p></div>
+            <p class="arrow">→</p>
+            <div class="flow-box danger"><p class="kicker">现在</p><p>大量 AI 生成的“看似完整”改动</p><p class="small">上下文不足，维护成本转移给项目方</p></div>
+          </div>
+          <blockquote><p>外部代码的边际成本，可能已经高于维护者自己让 agent 写一遍。</p><cite>这是贡献机制的变化，不是简单的“拒绝社区”。</cite></blockquote>
+        </div>
+      </section>
+
+      <section id="slide-4">
+        <h2>Vercel：把 backlog 变成软件工厂</h2>
+        <div class="content">
+          <div class="figure-wrap"><img src="figures/vercel-factory.jpg" alt="Vercel AI SDK 软件工厂工作流原图"></div>
+          <div class="caption"><p>一组专职 agent 分工：分诊、复现、实现、审查，再交给人类合并。</p></div>
+        </div>
+        <p class="footnote">原图：Vercel AI SDK / Latent.Space 注释；来源：latent.space/p/pr-not-welcome</p>
+      </section>
+
+      <section id="slide-5">
+        <h2>工厂的关键，不是“一个更聪明的 agent”</h2>
+        <div class="content">
+          <div class="pipeline">
+            <div><p class="step-no">01</p><p>识别与分诊</p><p class="small">把请求归类，判断是否值得进入流水线</p></div>
+            <div><p class="step-no">02</p><p>沙箱复现</p><p class="small">先证明 bug 存在，再写修复</p></div>
+            <div><p class="step-no">03</p><p>实现与审查</p><p class="small">专门化 agent 彼此制衡</p></div>
+            <div><p class="step-no">04</p><p>人类合并</p><p class="small">最后的信任与责任仍在维护者</p></div>
+          </div>
+          <div class="quote-band"><p>“我们信任的是经过特定提示词优化、长期验证过的 agent 配置。”</p><p class="small">— Lars Grammel，Vercel</p></div>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <h2>它也需要一套新的基础设施</h2>
+        <div class="content">
+          <div class="figure-wrap architecture"><img src="figures/vercel-architecture.jpg" alt="Vercel 软件工厂部署架构原图"></div>
+          <div class="three-notes"><p><strong>界面</strong><br>让人选择、观察、介入</p><p><strong>执行空间</strong><br>隔离上下文与权限</p><p><strong>GitHub 触发器</strong><br>把 issue、PR、检查串起来</p></div>
+        </div>
+        <p class="footnote">原图：Lars Grammel；来源：latent.space/p/pr-not-welcome</p>
+      </section>
+
+      <section id="slide-7">
+        <h2>结果：维护者重新拿回节奏</h2>
+        <div class="content">
+          <div class="result-grid"><div class="result"><p class="number">25–35%</p><p>Vercel 合并的 PR<br>由工厂 agent 撰写</p></div><div class="result hot"><p class="number">70–80%</p><p>issue<br>被自动关闭</p></div></div>
+          <div class="astro-card"><p class="kicker">ASTRO · 62,000 STARS</p><p class="text-2xl">先让 bot 复现，让用户验证，维护者最后看。</p><p class="text-muted">Astro 的 auto-triage 把“每周必须处理的优先队列”变得可执行。</p></div>
+        </div>
+      </section>
+
+      <section id="slide-8">
+        <h2>Flue：PR 自动关闭，但讨论留下</h2>
+        <div class="content">
+          <div class="figure-wrap flue"><img src="figures/flue-guide.jpg" alt="Flue 贡献指南原图"></div>
+          <div class="two-col"><div class="choice closed"><p class="kicker">代码请求</p><p>PR → 自动关闭</p><p class="small">转成 issue 或 discussion</p></div><div class="choice open"><p class="kicker">人的判断</p><p>报告、讨论、视角、关怀</p><p class="small">先决定“做什么”，再让 agent 做“怎么做”</p></div></div>
+        </div>
+        <p class="footnote">原图：Flue contributor guide；来源：latent.space/p/pr-not-welcome</p>
+      </section>
+
+      <section id="slide-9">
+        <h2>tldraw：贡献代码，不再是默认入口</h2>
+        <div class="content">
+          <div class="figure-pair"><div><img src="figures/tldraw-issue-pr.jpg" alt="tldraw issue 转 PR 原图"><p class="small">一个 issue，仍然可以成为 PR</p></div><div><img src="figures/tldraw-flow.jpg" alt="tldraw 贡献流程原图"><p class="small">但入口是讨论与问题，而不是陌生代码</p></div></div>
+          <blockquote><p>把社区贡献限制在仍然重要的地方：报告、讨论、视角与关怀。</p><cite>— Steve Ruiz，tldraw</cite></blockquote>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <h2>开放式问题：社区还剩下什么位置？</h2>
+        <div class="content">
+          <div class="question-mark"><p>如果 agent 写完了大部分代码，PR 还承担什么社会功能？</p></div>
+          <div class="balance"><div><p class="kicker">获得</p><ul><li>更快的分诊与复现</li><li>更稳定的质量边界</li><li>维护者可控的上下文</li></ul></div><div><p class="kicker">失去</p><ul><li>通过 review 培养新维护者</li><li>偶然发现与外部视角</li><li>贡献者的归属感</li></ul></div></div>
+        </div>
+      </section>
+
+      <section id="slide-11">
+        <h2>结论：PR 不是消失，而是换了位置</h2>
+        <div class="content end-slide">
+          <p class="closing">未来的开源贡献，更像一条<strong>信任阶梯</strong>：</p>
+          <div class="ladder"><p>报告真实问题</p><p>参与高质量讨论</p><p>在 agent 生产线上协作</p><p>成为值得信任的维护者</p></div>
+          <p class="text-muted text-lg">代码可以被 agent 重写，但方向、判断和责任仍然需要一个社区。</p>
+        </div>
+        <p class="footnote">来源：Richard MacManus，《PRs NOT Welcome》，2026-09-01</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

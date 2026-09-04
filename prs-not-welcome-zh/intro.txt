@@ -1,0 +1,20 @@
+中文标题：PR 不再受欢迎：AI 开源项目如何重写贡献规则
+English Title: PRs Are Not Welcome: How AI-Native Open Source Is Rewriting Contribution
+标签：开源社区，Pull Request，AI Agent，软件工厂，Vercel，Astro，Flue，tldraw
+
+Source: https://www.latent.space/p/pr-not-welcome
+Output: https://github.com/isomoes-video/ai-video/tree/main/prs-not-welcome-zh
+
+这个视频解读 Latent.Space 关于 AI 原生开源项目贡献机制变化的报道：Vercel 的 AI SDK、Astro、Flue 与 tldraw 正在用软件工厂和专门化 agent 管理 issue、复现 bug、实现功能与初步审查。随着 AI 生成的“drive-by PR”增加，部分项目开始关闭外部 Pull Request，把代码请求转换为 issue 或 discussion，让维护者重新掌控上下文、质量边界与发布节奏。
+
+视频同时讨论这种转向的代价。传统 PR 不只是交付代码，也帮助维护者发现、教育并培养未来的项目成员。如果代码越来越由项目内部的 agent 完成，社区如何通过报告、讨论、视角与关怀建立信任，最终走上维护者阶梯，成为仍未解决的问题。
+
+00:00  反常识转向
+00:16  Drive-by PR
+00:37  Vercel 工厂
+00:59  工厂分工
+01:20  基础设施
+01:46  维护者节奏
+02:07  Flue 与 tldraw
+02:50  社区空洞
+03:33  信任阶梯
