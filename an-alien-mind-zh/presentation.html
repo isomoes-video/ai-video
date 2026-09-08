@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>异质智能：如何守住人的选择权</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">文章速读 · AI 安全</p>
+        <h1>异质智能<br>如何守住人的选择权</h1>
+        <div class="content hero-layout">
+          <p class="lead">从能力增长，走向可信的行动</p>
+          <div class="orbit" aria-hidden="true"><div></div><div></div><div></div></div>
+        </div>
+        <p class="credit">解读 OpenAI《An Alien Mind》<br>Jakub Pachocki · 2026 年 9 月 6 日</p>
+      </section>
+
+      <section id="slide-2">
+        <p class="eyebrow">01 · 理解差异</p>
+        <h2>能力很强，仍需理解行为</h2>
+        <div class="content">
+          <p class="lead">原文视角：AI 通过训练形成，内部机制仍难完全解释。</p>
+          <div class="path"><div><p class="num">输入</p><p>训练与环境</p></div><p class="arrow">→</p><div class="dark"><p class="num">系统</p><p>学到的行为</p></div><p class="arrow">→</p><div><p class="num">结果</p><p>现实中的影响</p></div></div>
+          <p class="note">理解类比：仅凭温室中的长势，无法判断植物在野外的表现。</p>
+        </div>
+      </section>
+
+      <section id="slide-3">
+        <p class="eyebrow">02 · 对齐</p>
+        <h2>完成任务，也要理解边界</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+          <div class="card"><p class="tag">目标对齐</p><h3>任务做成了吗？</h3><p>理解并执行人的目标</p><div class="rule"></div><p class="example">教学例子：订到便宜机票</p></div>
+          <div class="card dark"><p class="tag">价值对齐</p><h3>做法合理吗？</h3><p>在模糊处作出合宜判断</p><div class="rule"></div><p class="example">教学例子：先确认过夜转机</p></div>
+        </div>
+      </section>
+
+      <section id="slide-4">
+        <p class="eyebrow">03 · 泛化 / 教学示例</p>
+        <h2>把同一个任务，放进新情境</h2>
+        <div class="content">
+          <div class="test-row"><p class="num">A</p><h3>要求清楚</h3><p>按预算订票</p></div>
+          <div class="test-row"><p class="num">B</p><h3>要求冲突</h3><p>更便宜，但无法准时到达</p></div>
+          <div class="test-row"><p class="num">C</p><h3>来源可疑</h3><p>网页要求上传证件到陌生网站</p></div>
+          <p class="note">观察：系统会澄清、暂停，还是直接替人决定？</p>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <p class="eyebrow">04 · 监测</p>
+        <h2>解释是一条线索</h2>
+        <div class="content">
+          <p class="lead">原文提醒：推理链监测的可靠性正面临挑战。</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+            <div class="card"><h3>它怎么解释</h3><p>“已经检查过来源”</p></div>
+            <div class="card"><h3>它实际做了什么</h3><p>访问记录 · 文件变化 · 收款方</p></div>
+          </div>
+          <p class="note">教学示例：核对解释与操作记录，识别二者是否一致。</p>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <p class="eyebrow">05 · 防御</p>
+        <h2>更强的工具，需要可靠防护</h2>
+        <div class="content" style="display:grid;grid-template-columns:0.9fr 1.4fr;gap:42px;align-items:center">
+          <div class="shield"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><p>原文：发展 AI 防御<br>同时避免冒进</p></div>
+          <div><p class="tag">教学示例 · 文件整理助手</p><h3>先给有限权限</h3><p>只访问指定文件夹</p><h3>保留恢复路径</h3><p>先预览改动，再应用并记录</p></div>
+        </div>
+      </section>
+
+      <section id="slide-7">
+        <p class="eyebrow">06 · 递归自我改进（RSI）</p>
+        <h2>当 AI 参与改进 AI</h2>
+        <div class="content">
+          <div class="path"><div><p class="num">研究</p><p>提出改进</p></div><p class="arrow">→</p><div><p class="num">评估</p><p>检查影响</p></div><p class="arrow">→</p><div class="dark"><p class="num">决策</p><p>继续或暂停</p></div></div>
+          <p class="lead">原文主张：扩展速度应受安全把握约束，并加强协调。</p>
+          <p class="note">理解示意：每轮改进都留下可审查、可停止的决策点。</p>
+        </div>
+      </section>
+
+      <section id="slide-8">
+        <p class="eyebrow">带走三个问题 · 本片归纳</p>
+        <h2>把人的选择留在过程里</h2>
+        <div class="content">
+          <p class="closing"><strong>01</strong> 目标不清时，谁来澄清？</p>
+          <p class="closing"><strong>02</strong> 出现异常时，如何发现？</p>
+          <p class="closing"><strong>03</strong> 需要停下时，谁有权限？</p>
+          <p class="source">原文：<a href="https://openai.com/index/an-alien-mind/">openai.com/index/an-alien-mind/</a><br>本文为观点文章；教学例子与问题清单由本片补充。</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: false,
+      progress: false,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+中文标题：异质智能：如何守住人的选择权
+English Title: An Alien Mind: Keeping Humans in Control
+标签：人工智能，OpenAI，AI安全，对齐，递归自我改进
+
+Source: https://openai.com/index/an-alien-mind/
+Output: https://github.com/isomoes-video/ai-video/tree/main/an-alien-mind-zh
+
+本片简要解读 Jakub Pachocki 的观点文章《An Alien Mind》，并用植物生长、订机票和文件整理等教学例子，帮助理解 AI 行为、安全监测与人的决策。片中的假设情境和三个收尾问题由本片补充，不是原文报告的实验。适合希望建立基本概念、再进一步阅读原文的观众。
+
+00:00  开场
+00:18  理解差异
+00:45  对齐与泛化
+01:38  监测
+02:05  防御
+02:32  自我改进
+02:57  三个问题

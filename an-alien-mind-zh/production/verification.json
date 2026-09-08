@@ -1,0 +1,68 @@
+{
+  "slides": 8,
+  "slide_checks": [
+    {
+      "slide": 1,
+      "narration_seconds": 18.703625,
+      "video_seconds": 18.966667,
+      "audio_seconds": 18.953605,
+      "cues": 10
+    },
+    {
+      "slide": 2,
+      "narration_seconds": 26.592625,
+      "video_seconds": 26.866667,
+      "audio_seconds": 26.866667,
+      "cues": 12
+    },
+    {
+      "slide": 3,
+      "narration_seconds": 23.118313,
+      "video_seconds": 23.4,
+      "audio_seconds": 23.4,
+      "cues": 10
+    },
+    {
+      "slide": 4,
+      "narration_seconds": 28.604063,
+      "video_seconds": 28.866667,
+      "audio_seconds": 28.854059,
+      "cues": 13
+    },
+    {
+      "slide": 5,
+      "narration_seconds": 27.480813,
+      "video_seconds": 27.733333,
+      "audio_seconds": 27.730794,
+      "cues": 14
+    },
+    {
+      "slide": 6,
+      "narration_seconds": 25.913438,
+      "video_seconds": 26.166667,
+      "audio_seconds": 26.163447,
+      "cues": 11
+    },
+    {
+      "slide": 7,
+      "narration_seconds": 25.23425,
+      "video_seconds": 25.5,
+      "audio_seconds": 25.484263,
+      "cues": 12
+    },
+    {
+      "slide": 8,
+      "narration_seconds": 27.062813,
+      "video_seconds": 27.066667,
+      "audio_seconds": 27.062812,
+      "cues": 13
+    }
+  ],
+  "duration_seconds": 204.633333,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "bytes": 5580634,
+  "faststart": true,
+  "status": "passed"
+}
