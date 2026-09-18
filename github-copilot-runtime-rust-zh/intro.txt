@@ -1,0 +1,17 @@
+中文标题：Copilot 的 Rust 迁移
+English Title: Copilot’s Rust Migration: Engineering Beyond Code Generation
+标签：GitHub Copilot，Rust，AI编程，软件工程，代码迁移
+
+Source: https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/
+Output: https://github.com/isomoes-video/ai-video/tree/main/github-copilot-runtime-rust-zh
+
+本片简要介绍 GitHub 借助 Copilot 将智能体运行时迁移到 Rust 的工程案例，并结合独立示例讨论部署边界、逐组件替换、验收契约和分层验证。视频说明内存测试的适用条件，区分 token 支出与完整交付成本，最后提出小范围迁移试点的设计方法。商店、房间和文件索引示例为本片的解释性类比，并非原文事故。
+
+00:00  开场
+00:28  架构
+01:37  迁移
+02:11  验证
+03:18  性能
+03:53  成本
+04:27  试点
+05:03  结语

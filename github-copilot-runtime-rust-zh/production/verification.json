@@ -1,0 +1,75 @@
+{
+  "result": "PASS",
+  "duration_seconds": 334.133333,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": "30/1",
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "slides": [
+    {
+      "slide": 1,
+      "source_audio_seconds": 28.10775,
+      "video_seconds": 28.366667,
+      "subtitle_cues": 10
+    },
+    {
+      "slide": 2,
+      "source_audio_seconds": 34.664438,
+      "video_seconds": 34.933333,
+      "subtitle_cues": 12
+    },
+    {
+      "slide": 3,
+      "source_audio_seconds": 33.593438,
+      "video_seconds": 33.866667,
+      "subtitle_cues": 11
+    },
+    {
+      "slide": 4,
+      "source_audio_seconds": 34.142,
+      "video_seconds": 34.4,
+      "subtitle_cues": 12
+    },
+    {
+      "slide": 5,
+      "source_audio_seconds": 32.182813,
+      "video_seconds": 32.433333,
+      "subtitle_cues": 10
+    },
+    {
+      "slide": 6,
+      "source_audio_seconds": 33.906938,
+      "video_seconds": 34.166667,
+      "subtitle_cues": 12
+    },
+    {
+      "slide": 7,
+      "source_audio_seconds": 35.26525,
+      "video_seconds": 35.533333,
+      "subtitle_cues": 12
+    },
+    {
+      "slide": 8,
+      "source_audio_seconds": 33.828563,
+      "video_seconds": 34.1,
+      "subtitle_cues": 11
+    },
+    {
+      "slide": 9,
+      "source_audio_seconds": 35.47425,
+      "video_seconds": 35.733333,
+      "subtitle_cues": 11
+    },
+    {
+      "slide": 10,
+      "source_audio_seconds": 30.511,
+      "video_seconds": 30.533333,
+      "subtitle_cues": 10
+    }
+  ],
+  "subtitle_timing": "Provider sentence anchors; interpolated short-cue boundaries",
+  "visual_review": "All ten slide screenshots reviewed; PDF render and burned subtitle frame checked"
+}

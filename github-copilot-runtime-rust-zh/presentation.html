@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot 的 Rust 迁移</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section data-background-color="#191d21" id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">GitHub 工程案例 · 2026 年 9 月</p>
+        <h1>用 Copilot，<br>迁移到 <strong>Rust</strong></h1>
+        <p class="lead">从一场大型重写，看 AI 编程的工程边界</p>
+        <div class="hero-stats"><p><b>80 万+</b>生产代码行</p><p><b>128</b>迁移 PR</p></div>
+        <p class="foot">原文：Stephen Toub · GitHub Blog · 2026-09-16</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-2">
+        <p class="eyebrow">01 / 动机</p><h2>先问部署需求，再选语言</h2>
+        <div class="content"><div class="route"><p>应用与 SDK</p><p class="arrow">→</p><p>CLI 子进程</p><p class="arrow">→</p><p>Node.js / V8</p></div>
+        <p class="bigline">共享运行时，也会共享它的成本。</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="card"><h3>启动</h3><p>加载与初始化</p></div><div class="card"><h3>内存</h3><p>每个实例的开销</p></div><div class="card"><h3>集成</h3><p>跨进程通信</p></div></div></div>
+        <p class="foot">案例事实：原架构通过 CLI 子进程承载运行时。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-3">
+        <p class="eyebrow">02 / 架构</p><h2>同一引擎，两种承载方式</h2>
+        <div class="content"><div style="display:grid;grid-template-columns:1fr 1fr;gap:32px"><div class="card"><h3>进程内</h3><p>应用 → FFI → Rust</p><p class="muted">减少进程边界<br>与应用共享故障边界</p></div><div class="card"><h3>进程外</h3><p>应用 → 通信 → Rust 服务</p><p class="muted">保留独立进程<br>仍需通信与进程管理</p></div></div><p class="callout">Rust 重写完成 ≠ 所有客户端默认进程内运行</p></div>
+        <p class="foot">原文说明：进程内模式仍为主动选择；终端 UI 的分层工作仍在继续。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-4">
+        <p class="eyebrow">03 / 迁移</p><h2>让每一步都能交付</h2>
+        <div class="content"><p class="bigline">按组件替换，持续发布。</p><div class="route"><p>选定组件</p><p class="arrow">→</p><p>Rust 实现</p><p class="arrow">→</p><p>接入并验证</p></div><div class="route"><p>删除旧实现</p><p class="arrow">→</p><p>发布与观察</p><p class="arrow">→</p><p>下一个组件</p></div><p class="muted">先处理依赖较少的部分，再靠近有状态的核心。</p></div>
+        <p class="foot">案例事实：原地逐组件替换；小步迁移期间保持主分支可发布。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-5">
+        <p class="eyebrow">04 / 工程解读</p><h2>把任务写成一份验收契约</h2>
+        <div class="content"><div style="display:grid;grid-template-columns:1fr 1.25fr;gap:32px"><div class="statement"><p>“把这个模块<br>改成 Rust”</p><p class="muted">仍然留下太多空白</p></div><div><div class="row"><p><b>范围</b>　入口、依赖、回调、状态</p></div><div class="row"><p><b>行为</b>　正常、失败、取消、恢复</p></div><div class="row"><p><b>证据</b>　测试结果与差异说明</p></div><div class="row"><p><b>完成</b>　旧路径与临时桥接清理</p></div></div></div></div>
+        <p class="foot">本片工程解读：用于理解案例的方法示例，并非原文提示词。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-6">
+        <p class="eyebrow">05 / 正确性</p><h2>能编译，只回答了一部分问题</h2>
+        <div class="content"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="card"><p class="number">01</p><h3>结构成立</h3><p>类型与接口匹配</p></div><div class="card"><p class="number">02</p><h3>行为一致</h3><p>输入与输出契约</p></div><div class="card"><p class="number">03</p><h3>系统可用</h3><p>时序、取消与资源</p></div></div><p class="callout">独立的测试标准，是迁移的参照物。</p></div>
+        <p class="foot">案例启示：编译器接受的程序，仍可能出现行为回归。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-7">
+        <p class="eyebrow">06 / 性能</p><h2>内存收益，放回测试场景中看</h2>
+        <div class="content"><p class="muted">十客户端批次 · 相对基线增加的驻留私有内存峰值</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="metric"><p>迁移前</p><p class="value">1,383</p><p>MB · Node.js</p></div><div class="metric"><p>Rust 进程外</p><p class="value">247</p><p>MB</p></div><div class="metric accent"><p>Rust 进程内</p><p class="value">126</p><p>MB</p></div></div><p class="note">本地确定性响应；排除模型推理与网络延迟。<br>交付系统的前后对比，不能归因于语言单一变量。</p></div>
+        <p class="foot">数据来源：原文性能章节。真实应用的收益取决于工作负载。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-8">
+        <p class="eyebrow">07 / 成本</p><h2>代码生成之后，工作仍在继续</h2>
+        <div class="content"><div style="display:grid;grid-template-columns:1fr 1fr;gap:42px"><div><p class="price">约 12 万美元</p><p>原文披露的 token 支出</p><p class="muted">不等于项目完整成本</p></div><div><div class="row"><p>架构与任务拆分</p></div><div class="row"><p>构建、测试与审查</p></div><div class="row"><p>团队集成与发布判断</p></div></div></div><p class="callout">衡量“可验证的交付”，比统计生成行数更有用。</p></div>
+        <p class="foot">案例由一位开发者主导，仍有团队协作；右侧为成本评估视角。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-9">
+        <p class="eyebrow">08 / 工程解读</p><h2>第一次试点，可以这样设计</h2>
+        <div class="content"><div class="row"><p><b>选小组件</b>　边界清晰，外部依赖少</p></div><div class="row"><p><b>冻结参照</b>　先记录接口、样例与失败行为</p></div><div class="row"><p><b>跑完整链路</b>　构建 → 接入 → 测试 → 发布</p></div><div class="row"><p><b>再做决定</b>　按缺陷与资源收益决定是否扩大</p></div><p class="muted">用试点发现真实成本，也检验团队是否能接手维护。</p></div>
+        <p class="foot">本片提出的试点方法；不是对所有项目的语言迁移建议。</p>
+      </section>
+
+      <section data-background-color="#191d21" id="slide-10">
+        <p class="eyebrow">结语</p><h2>AI 扩大执行能力，<br>工程师定义完成标准。</h2>
+        <div class="content"><p class="bigline">目标清楚 · 边界清楚 · 证据清楚</p><p class="muted">案例摘述与独立工程解读</p><div class="source"><p>Stephen Toub · GitHub Blog · 2026-09-16</p><p><a href="https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/">原文：Migrating the GitHub Copilot runtime to Rust, using Copilot</a></p></div></div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: false,
+      progress: false,
+      slideNumber: false,
+      hash: true,
+      transition: 'none',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
