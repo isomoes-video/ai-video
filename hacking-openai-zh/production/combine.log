@@ -1,0 +1,651 @@
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-01.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x55804f38ba40] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-01.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:19.59, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x55804f38e780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x55804f38e780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x55804f38e780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x55804f38e780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] Using font provider fontconfig
+[libx264 @ 0x55804f3d9000] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x55804f3d9000] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x55804f3d9000] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-01.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] Glyph 0x4E00 not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f7ff4003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  124 fps=0.0 q=29.0 size=       0KiB time=00:00:04.36 bitrate=   0.1kbits/s speed=8.72x elapsed=0:00:00.50
+frame=  306 fps=306 q=29.0 size=     256KiB time=00:00:10.26 bitrate= 204.4kbits/s speed=10.2x elapsed=0:00:01.00
+frame=  497 fps=331 q=29.0 size=     256KiB time=00:00:16.67 bitrate= 125.8kbits/s speed=11.1x elapsed=0:00:01.50
+[out#0/mp4 @ 0x55804f38f500] video:247KiB audio:226KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.660197%
+frame=  595 fps=362 q=-1.0 Lsize=     490KiB time=00:00:19.84 bitrate= 202.3kbits/s speed=12.1x elapsed=0:00:01.64
+[libx264 @ 0x55804f3d9000] frame I:3     Avg QP:12.78  size: 46716
+[libx264 @ 0x55804f3d9000] frame P:150   Avg QP:11.74  size:   504
+[libx264 @ 0x55804f3d9000] frame B:442   Avg QP:15.33  size:    83
+[libx264 @ 0x55804f3d9000] consecutive B-frames:  0.8%  0.3%  0.0% 98.8%
+[libx264 @ 0x55804f3d9000] mb I  I16..4: 52.9% 35.8% 11.2%
+[libx264 @ 0x55804f3d9000] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x55804f3d9000] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.9%  L0:68.3% L1:31.7% BI: 0.0%
+[libx264 @ 0x55804f3d9000] 8x8 transform intra:35.5% inter:24.5%
+[libx264 @ 0x55804f3d9000] coded y,uvDC,uvAC intra: 10.1% 10.0% 7.5% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x55804f3d9000] i16 v,h,dc,p: 88%  9%  3%  0%
+[libx264 @ 0x55804f3d9000] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 77%  8% 15%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x55804f3d9000] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 32% 29% 15%  4%  4%  3%  4%  4%  4%
+[libx264 @ 0x55804f3d9000] i8c dc,h,v,p: 84% 12%  4%  0%
+[libx264 @ 0x55804f3d9000] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x55804f3d9000] ref P L0: 72.8% 12.4% 13.3%  1.5%
+[libx264 @ 0x55804f3d9000] ref B L0: 49.4% 50.4%  0.2%
+[libx264 @ 0x55804f3d9000] ref B L1: 99.7%  0.3%
+[libx264 @ 0x55804f3d9000] kb/s:101.81
+[aac @ 0x55804fcc3080] Qavg: 57980.449
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-02.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x555f3960ddc0] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-02.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:22.83, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x555f39610780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x555f39610780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x555f39610780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x555f39610780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7fc640003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7fc640003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7fc640003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7fc640003a00] Using font provider fontconfig
+[libx264 @ 0x555f39620f40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x555f39620f40] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x555f39620f40] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-02.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7fc640003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7fc640003a00] Glyph 0x5148 not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7fc640003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=   99 fps=0.0 q=29.0 size=       0KiB time=00:00:03.34 bitrate=   0.1kbits/s speed=6.69x elapsed=0:00:00.50
+frame=  259 fps=259 q=29.0 size=       0KiB time=00:00:08.77 bitrate=   0.0kbits/s speed=8.78x elapsed=0:00:01.00
+frame=  442 fps=295 q=29.0 size=     256KiB time=00:00:14.95 bitrate= 140.3kbits/s speed=9.97x elapsed=0:00:01.50
+frame=  627 fps=313 q=29.0 size=     512KiB time=00:00:21.03 bitrate= 199.4kbits/s speed=10.5x elapsed=0:00:02.00
+[out#0/mp4 @ 0x555f39611580] video:280KiB audio:266KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.640382%
+frame=  692 fps=338 q=-1.0 Lsize=     566KiB time=00:00:23.08 bitrate= 201.0kbits/s speed=11.3x elapsed=0:00:02.04
+[libx264 @ 0x555f39620f40] frame I:3     Avg QP:14.16  size: 52694
+[libx264 @ 0x555f39620f40] frame P:174   Avg QP:10.71  size:   493
+[libx264 @ 0x555f39620f40] frame B:515   Avg QP:15.33  size:    83
+[libx264 @ 0x555f39620f40] consecutive B-frames:  0.7%  0.0%  0.4% 98.8%
+[libx264 @ 0x555f39620f40] mb I  I16..4: 45.6% 42.8% 11.5%
+[libx264 @ 0x555f39620f40] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x555f39620f40] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.2%  0.0%  0.0%  direct: 0.0%  skip:99.8%  L0:70.8% L1:29.2% BI: 0.0%
+[libx264 @ 0x555f39620f40] 8x8 transform intra:42.0% inter:39.8%
+[libx264 @ 0x555f39620f40] coded y,uvDC,uvAC intra: 11.5% 10.8% 8.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x555f39620f40] i16 v,h,dc,p: 79% 18%  3%  0%
+[libx264 @ 0x555f39620f40] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 59% 20% 21%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x555f39620f40] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 30% 28% 16%  4%  5%  4%  4%  5%  4%
+[libx264 @ 0x555f39620f40] i8c dc,h,v,p: 85% 11%  3%  0%
+[libx264 @ 0x555f39620f40] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x555f39620f40] ref P L0: 79.8% 11.6%  8.0%  0.6%
+[libx264 @ 0x555f39620f40] ref B L0: 54.5% 45.5%  0.0%
+[libx264 @ 0x555f39620f40] ref B L1: 99.5%  0.5%
+[libx264 @ 0x555f39620f40] kb/s:99.31
+[aac @ 0x555f39633800] Qavg: 55961.414
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-03.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x55e450a35a40] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-03.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:25.31, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x55e450a38780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x55e450a38780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x55e450a38780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x55e450a38780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f3370003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f3370003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f3370003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f3370003a00] Using font provider fontconfig
+[libx264 @ 0x55e450a87200] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x55e450a87200] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x55e450a87200] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-03.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f3370003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f3370003a00] Glyph 0x4ECE not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f3370003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  122 fps=0.0 q=29.0 size=       0KiB time=00:00:04.13 bitrate=   0.1kbits/s speed=8.27x elapsed=0:00:00.50
+frame=  306 fps=306 q=29.0 size=     256KiB time=00:00:10.30 bitrate= 203.5kbits/s speed=10.3x elapsed=0:00:01.00
+frame=  496 fps=331 q=29.0 size=     256KiB time=00:00:16.62 bitrate= 126.2kbits/s speed=11.1x elapsed=0:00:01.50
+frame=  688 fps=344 q=29.0 size=     512KiB time=00:00:23.03 bitrate= 182.1kbits/s speed=11.5x elapsed=0:00:02.00
+[out#0/mp4 @ 0x55e450a39500] video:324KiB audio:294KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.542145%
+frame=  767 fps=368 q=-1.0 Lsize=     640KiB time=00:00:25.56 bitrate= 205.1kbits/s speed=12.3x elapsed=0:00:02.08
+[libx264 @ 0x55e450a87200] frame I:4     Avg QP:13.27  size: 48638
+[libx264 @ 0x55e450a87200] frame P:193   Avg QP:11.66  size:   473
+[libx264 @ 0x55e450a87200] frame B:570   Avg QP:15.34  size:    79
+[libx264 @ 0x55e450a87200] consecutive B-frames:  0.9%  0.0%  0.0% 99.1%
+[libx264 @ 0x55e450a87200] mb I  I16..4: 59.4% 29.7% 11.0%
+[libx264 @ 0x55e450a87200] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x55e450a87200] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.9%  L0:65.1% L1:34.9% BI: 0.0%
+[libx264 @ 0x55e450a87200] 8x8 transform intra:30.0% inter:24.6%
+[libx264 @ 0x55e450a87200] coded y,uvDC,uvAC intra: 9.9% 9.7% 7.1% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x55e450a87200] i16 v,h,dc,p: 83% 14%  3%  0%
+[libx264 @ 0x55e450a87200] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 50% 15% 35%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x55e450a87200] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 30% 26% 18%  4%  4%  4%  5%  5%  4%
+[libx264 @ 0x55e450a87200] i8c dc,h,v,p: 83% 12%  4%  0%
+[libx264 @ 0x55e450a87200] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x55e450a87200] ref P L0: 71.5% 11.7% 14.9%  1.9%
+[libx264 @ 0x55e450a87200] ref B L0: 47.8% 52.1%  0.1%
+[libx264 @ 0x55e450a87200] ref B L1: 99.5%  0.5%
+[libx264 @ 0x55e450a87200] kb/s:103.59
+[aac @ 0x55e451330fc0] Qavg: 56666.324
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-04.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x564d24f2cdc0] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-04.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:25.03, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x564d24f2f780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x564d24f2f780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x564d24f2f780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x564d24f2f780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f27e8003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f27e8003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f27e8003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f27e8003a00] Using font provider fontconfig
+[libx264 @ 0x564d24f3ff40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x564d24f3ff40] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x564d24f3ff40] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-04.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f27e8003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f27e8003a00] Glyph 0x62FF not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f27e8003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  116 fps=0.0 q=29.0 size=       0KiB time=00:00:04.08 bitrate=   0.1kbits/s speed=8.16x elapsed=0:00:00.50
+frame=  303 fps=303 q=29.0 size=     256KiB time=00:00:10.17 bitrate= 206.2kbits/s speed=10.2x elapsed=0:00:01.00
+frame=  492 fps=328 q=29.0 size=     256KiB time=00:00:16.48 bitrate= 127.2kbits/s speed=  11x elapsed=0:00:01.50
+frame=  664 fps=332 q=29.0 size=     512KiB time=00:00:22.19 bitrate= 189.0kbits/s speed=11.1x elapsed=0:00:02.00
+[out#0/mp4 @ 0x564d24f30580] video:353KiB audio:282KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.410038%
+frame=  758 fps=351 q=-1.0 Lsize=     657KiB time=00:00:25.27 bitrate= 212.8kbits/s speed=11.7x elapsed=0:00:02.16
+[libx264 @ 0x564d24f3ff40] frame I:4     Avg QP:12.14  size: 54970
+[libx264 @ 0x564d24f3ff40] frame P:191   Avg QP:11.86  size:   497
+[libx264 @ 0x564d24f3ff40] frame B:563   Avg QP:15.34  size:    82
+[libx264 @ 0x564d24f3ff40] consecutive B-frames:  0.9%  0.0%  0.4% 98.7%
+[libx264 @ 0x564d24f3ff40] mb I  I16..4: 63.6% 24.1% 12.3%
+[libx264 @ 0x564d24f3ff40] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.9%
+[libx264 @ 0x564d24f3ff40] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.9%  L0:65.0% L1:35.0% BI: 0.0%
+[libx264 @ 0x564d24f3ff40] 8x8 transform intra:24.4% inter:23.0%
+[libx264 @ 0x564d24f3ff40] coded y,uvDC,uvAC intra: 11.0% 11.1% 8.8% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x564d24f3ff40] i16 v,h,dc,p: 84% 13%  2%  0%
+[libx264 @ 0x564d24f3ff40] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 58% 14% 27%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x564d24f3ff40] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 30% 29% 16%  4%  4%  4%  4%  5%  4%
+[libx264 @ 0x564d24f3ff40] i8c dc,h,v,p: 85% 12%  3%  0%
+[libx264 @ 0x564d24f3ff40] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x564d24f3ff40] ref P L0: 69.7% 13.9% 15.1%  1.3%
+[libx264 @ 0x564d24f3ff40] ref B L0: 44.6% 55.1%  0.3%
+[libx264 @ 0x564d24f3ff40] ref B L1: 99.7%  0.3%
+[libx264 @ 0x564d24f3ff40] kb/s:114.31
+[aac @ 0x564d25369640] Qavg: 59615.145
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-05.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x559c1e9dfa40] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-05.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:29.31, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x559c1e9e2780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x559c1e9e2780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x559c1e9e2780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x559c1e9e2780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7fb35c003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7fb35c003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7fb35c003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7fb35c003a00] Using font provider fontconfig
+[libx264 @ 0x559c1eef8980] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x559c1eef8980] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x559c1eef8980] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-05.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7fb35c003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7fb35c003a00] Glyph 0x518D not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7fb35c003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  119 fps=0.0 q=29.0 size=       0KiB time=00:00:04.04 bitrate=   0.1kbits/s speed=8.07x elapsed=0:00:00.50
+frame=  306 fps=306 q=29.0 size=     256KiB time=00:00:10.35 bitrate= 202.5kbits/s speed=10.3x elapsed=0:00:01.00
+frame=  498 fps=332 q=29.0 size=     256KiB time=00:00:16.67 bitrate= 125.8kbits/s speed=11.1x elapsed=0:00:01.50
+frame=  689 fps=344 q=29.0 size=     512KiB time=00:00:23.17 bitrate= 181.0kbits/s speed=11.6x elapsed=0:00:02.00
+[out#0/mp4 @ 0x559c1e9e1940] video:348KiB audio:334KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.684265%
+frame=  887 fps=370 q=-1.0 Lsize=     707KiB time=00:00:29.55 bitrate= 195.8kbits/s speed=12.3x elapsed=0:00:02.39
+[libx264 @ 0x559c1eef8980] frame I:4     Avg QP:13.26  size: 49075
+[libx264 @ 0x559c1eef8980] frame P:223   Avg QP:11.76  size:   474
+[libx264 @ 0x559c1eef8980] frame B:660   Avg QP:15.31  size:    81
+[libx264 @ 0x559c1eef8980] consecutive B-frames:  0.8%  0.0%  0.0% 99.2%
+[libx264 @ 0x559c1eef8980] mb I  I16..4: 55.4% 33.0% 11.6%
+[libx264 @ 0x559c1eef8980] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x559c1eef8980] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.8%  L0:63.4% L1:36.6% BI: 0.0%
+[libx264 @ 0x559c1eef8980] 8x8 transform intra:33.2% inter:23.3%
+[libx264 @ 0x559c1eef8980] coded y,uvDC,uvAC intra: 10.3% 10.6% 8.6% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x559c1eef8980] i16 v,h,dc,p: 76% 21%  3%  0%
+[libx264 @ 0x559c1eef8980] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 51% 20% 29%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x559c1eef8980] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 28% 28% 19%  4%  4%  3%  4%  4%  4%
+[libx264 @ 0x559c1eef8980] i8c dc,h,v,p: 78% 17%  5%  0%
+[libx264 @ 0x559c1eef8980] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x559c1eef8980] ref P L0: 74.0% 11.1% 14.5%  0.3%
+[libx264 @ 0x559c1eef8980] ref B L0: 44.5% 55.4%  0.1%
+[libx264 @ 0x559c1eef8980] ref B L1: 99.3%  0.7%
+[libx264 @ 0x559c1eef8980] kb/s:96.19
+[aac @ 0x559c1eefd600] Qavg: 58166.074
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-06.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x55db3ace5dc0] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-06.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:28.34, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x55db3ace8780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x55db3ace8780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x55db3ace8780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x55db3ace8780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f3788003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f3788003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f3788003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f3788003a00] Using font provider fontconfig
+[libx264 @ 0x55db3acf8f40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x55db3acf8f40] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x55db3acf8f40] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-06.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f3788003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f3788003a00] Glyph 0x56E0 not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f3788003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  116 fps=0.0 q=29.0 size=       0KiB time=00:00:03.94 bitrate=   0.1kbits/s speed=7.89x elapsed=0:00:00.50
+frame=  302 fps=302 q=29.0 size=     256KiB time=00:00:10.21 bitrate= 205.3kbits/s speed=10.2x elapsed=0:00:01.00
+frame=  482 fps=321 q=29.0 size=     256KiB time=00:00:16.20 bitrate= 129.4kbits/s speed=10.8x elapsed=0:00:01.50
+frame=  669 fps=334 q=29.0 size=     512KiB time=00:00:22.33 bitrate= 187.8kbits/s speed=11.2x elapsed=0:00:02.00
+[out#0/mp4 @ 0x55db3ace9580] video:432KiB audio:331KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.189971%
+frame=  858 fps=360 q=-1.0 Lsize=     787KiB time=00:00:28.59 bitrate= 225.5kbits/s speed=  12x elapsed=0:00:02.38
+[libx264 @ 0x55db3acf8f40] frame I:4     Avg QP:12.87  size: 69235
+[libx264 @ 0x55db3acf8f40] frame P:216   Avg QP:13.58  size:   517
+[libx264 @ 0x55db3acf8f40] frame B:638   Avg QP:15.32  size:    83
+[libx264 @ 0x55db3acf8f40] consecutive B-frames:  0.8%  0.0%  0.3% 98.8%
+[libx264 @ 0x55db3acf8f40] mb I  I16..4: 54.4% 31.1% 14.5%
+[libx264 @ 0x55db3acf8f40] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x55db3acf8f40] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.9%  L0:69.2% L1:30.8% BI: 0.0%
+[libx264 @ 0x55db3acf8f40] 8x8 transform intra:31.1% inter:35.8%
+[libx264 @ 0x55db3acf8f40] coded y,uvDC,uvAC intra: 12.7% 13.1% 10.8% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x55db3acf8f40] i16 v,h,dc,p: 84% 13%  3%  0%
+[libx264 @ 0x55db3acf8f40] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 62% 13% 25%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x55db3acf8f40] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 32% 29% 14%  4%  4%  4%  5%  5%  4%
+[libx264 @ 0x55db3acf8f40] i8c dc,h,v,p: 83% 13%  4%  1%
+[libx264 @ 0x55db3acf8f40] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x55db3acf8f40] ref P L0: 67.9% 11.0% 19.2%  1.9%
+[libx264 @ 0x55db3acf8f40] ref B L0: 48.6% 51.1%  0.3%
+[libx264 @ 0x55db3acf8f40] ref B L1: 99.6%  0.4%
+[libx264 @ 0x55db3acf8f40] kb/s:123.44
+[aac @ 0x55db3b1223c0] Qavg: 55485.289
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-07.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x55b721ccbdc0] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-07.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:28.79, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x55b721cce780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x55b721cce780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x55b721cce780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x55b721cce780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f4168003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f4168003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f4168003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f4168003a00] Using font provider fontconfig
+[libx264 @ 0x55b721cdef40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x55b721cdef40] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x55b721cdef40] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-07.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f4168003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f4168003a00] Glyph 0x8FD9 not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f4168003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=   98 fps=0.0 q=29.0 size=       0KiB time=00:00:03.39 bitrate=   0.1kbits/s speed=6.77x elapsed=0:00:00.50
+frame=  276 fps=276 q=29.0 size=     256KiB time=00:00:09.38 bitrate= 223.6kbits/s speed=9.37x elapsed=0:00:01.00
+frame=  461 fps=307 q=29.0 size=     256KiB time=00:00:15.51 bitrate= 135.2kbits/s speed=10.3x elapsed=0:00:01.50
+frame=  648 fps=324 q=29.0 size=     512KiB time=00:00:21.64 bitrate= 193.8kbits/s speed=10.8x elapsed=0:00:02.00
+[out#0/mp4 @ 0x55b721ccf580] video:389KiB audio:335KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.407303%
+frame=  871 fps=353 q=-1.0 Lsize=     749KiB time=00:00:29.03 bitrate= 211.3kbits/s speed=11.8x elapsed=0:00:02.46
+[libx264 @ 0x55b721cdef40] frame I:4     Avg QP: 9.06  size: 60032
+[libx264 @ 0x55b721cdef40] frame P:219   Avg QP:11.98  size:   480
+[libx264 @ 0x55b721cdef40] frame B:648   Avg QP:15.34  size:    82
+[libx264 @ 0x55b721cdef40] consecutive B-frames:  0.8%  0.0%  0.0% 99.2%
+[libx264 @ 0x55b721cdef40] mb I  I16..4: 76.1% 10.9% 13.0%
+[libx264 @ 0x55b721cdef40] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x55b721cdef40] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.2%  0.0%  0.0%  direct: 0.0%  skip:99.8%  L0:62.2% L1:37.8% BI: 0.0%
+[libx264 @ 0x55b721cdef40] 8x8 transform intra:11.9% inter:27.9%
+[libx264 @ 0x55b721cdef40] coded y,uvDC,uvAC intra: 12.0% 11.9% 9.6% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x55b721cdef40] i16 v,h,dc,p: 91%  7%  2%  0%
+[libx264 @ 0x55b721cdef40] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 59% 10% 30%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x55b721cdef40] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 29% 30% 16%  4%  4%  4%  4%  5%  4%
+[libx264 @ 0x55b721cdef40] i8c dc,h,v,p: 85% 11%  4%  0%
+[libx264 @ 0x55b721cdef40] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x55b721cdef40] ref P L0: 77.0% 11.7% 10.6%  0.7%
+[libx264 @ 0x55b721cdef40] ref B L0: 45.8% 54.0%  0.2%
+[libx264 @ 0x55b721cdef40] ref B L1: 99.6%  0.4%
+[libx264 @ 0x55b721cdef40] kb/s:109.71
+[aac @ 0x55b722108300] Qavg: 56422.801
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+Input #0, png_pipe, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-08.png':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1920x1080, 30 fps, 30 tbr, 30 tbn
+[in#1/mp3 @ 0x5646bc5e5dc0] Estimating duration from bitrate, this may be inaccurate
+Input #1, mp3, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-08.mp3':
+  Metadata:
+    encoder         : LAME 64bits version 3.100 (http://lame.sf.net)
+    comment         : LAME3.100
+  Duration: 00:00:27.19, start: 0.000000, bitrate: 128 kb/s
+  Stream #1:0: Audio: mp3 (mp3float), 22050 Hz, mono, fltp, 128 kb/s
+[Parsed_subtitles_1 @ 0x5646bc5e8780] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x5646bc5e8780] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x5646bc5e8780] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x5646bc5e8780] Using font provider fontconfig
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[Parsed_subtitles_1 @ 0x7f7a88003a00] libass API version: 0x1705000
+[Parsed_subtitles_1 @ 0x7f7a88003a00] libass source: commit: 0.17.5-0-g4a05d8127f525943ebf45fdc6497c9e665947f0d
+[Parsed_subtitles_1 @ 0x7f7a88003a00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 14.4.0 (COMPLEX)
+[Parsed_subtitles_1 @ 0x7f7a88003a00] Using font provider fontconfig
+[libx264 @ 0x5646bc5f8f40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x5646bc5f8f40] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 0x5646bc5f8f40] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:-3:-3 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=2.00:0.70 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-4 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.20
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/segments/slide-08.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc63.1.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 96 kb/s
+    Metadata:
+      encoder         : Lavc63.1.101 aac
+[Parsed_subtitles_1 @ 0x7f7a88003a00] fontselect: (Arial, 400, 0) -> /usr/share/fonts/wps-fonts/arial.ttf, 0, ArialMT
+[Parsed_subtitles_1 @ 0x7f7a88003a00] Glyph 0x56DE not found, selecting one more font for (Arial, 400, 0)
+[Parsed_subtitles_1 @ 0x7f7a88003a00] fontselect: (Arial, 400, 0) -> /home/isomoes/.local/share/fonts/WindowsFonts/msyh.ttc, 0, MicrosoftYaHei
+frame=  119 fps=0.0 q=29.0 size=       0KiB time=00:00:04.08 bitrate=   0.1kbits/s speed=8.17x elapsed=0:00:00.50
+frame=  306 fps=306 q=29.0 size=     256KiB time=00:00:10.35 bitrate= 202.5kbits/s speed=10.4x elapsed=0:00:01.00
+frame=  496 fps=331 q=29.0 size=     256KiB time=00:00:16.76 bitrate= 125.1kbits/s speed=11.2x elapsed=0:00:01.50
+frame=  687 fps=343 q=29.0 size=     512KiB time=00:00:22.94 bitrate= 182.8kbits/s speed=11.5x elapsed=0:00:02.00
+[out#0/mp4 @ 0x5646bc5e9580] video:364KiB audio:309KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.449902%
+frame=  816 fps=367 q=-1.0 Lsize=     696KiB time=00:00:27.19 bitrate= 209.7kbits/s speed=12.2x elapsed=0:00:02.22
+[libx264 @ 0x5646bc5f8f40] frame I:4     Avg QP:11.72  size: 56526
+[libx264 @ 0x5646bc5f8f40] frame P:206   Avg QP:20.30  size:   470
+[libx264 @ 0x5646bc5f8f40] frame B:606   Avg QP:15.40  size:    81
+[libx264 @ 0x5646bc5f8f40] consecutive B-frames:  1.0%  0.0%  0.0% 99.0%
+[libx264 @ 0x5646bc5f8f40] mb I  I16..4: 58.2% 28.3% 13.5%
+[libx264 @ 0x5646bc5f8f40] mb P  I16..4:  0.0%  0.0%  0.1%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:99.8%
+[libx264 @ 0x5646bc5f8f40] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.1%  0.0%  0.0%  direct: 0.0%  skip:99.9%  L0:69.8% L1:30.2% BI: 0.0%
+[libx264 @ 0x5646bc5f8f40] 8x8 transform intra:28.2% inter:19.4%
+[libx264 @ 0x5646bc5f8f40] coded y,uvDC,uvAC intra: 11.3% 12.2% 9.1% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x5646bc5f8f40] i16 v,h,dc,p: 88%  9%  3%  0%
+[libx264 @ 0x5646bc5f8f40] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 69% 10% 21%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x5646bc5f8f40] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 33% 26% 16%  4%  4%  3%  4%  5%  4%
+[libx264 @ 0x5646bc5f8f40] i8c dc,h,v,p: 83% 13%  4%  0%
+[libx264 @ 0x5646bc5f8f40] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x5646bc5f8f40] ref P L0: 80.9%  8.4% 10.1%  0.6%
+[libx264 @ 0x5646bc5f8f40] ref B L0: 51.5% 48.5%
+[libx264 @ 0x5646bc5f8f40] ref B L1: 98.8%  1.2%
+[libx264 @ 0x5646bc5f8f40] kb/s:109.33
+[aac @ 0x5646bc9e7900] Qavg: 56125.035
+ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16 (GCC)
+  configuration: --prefix=/usr --disable-debug --disable-static --disable-stripping --enable-amf --enable-avisynth --enable-cuda-llvm --enable-lto --enable-fontconfig --enable-frei0r --enable-gmp --enable-gnutls --enable-gpl --enable-ladspa --enable-lcms2 --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libdav1d --enable-libdrm --enable-libdvdnav --enable-libdvdread --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libharfbuzz --enable-libiec61883 --enable-libjack --enable-libjxl --enable-libmodplug --enable-libmp3lame --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libplacebo --enable-libpulse --enable-librav1e --enable-librsvg --enable-librubberband --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpl --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxcb --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-nvdec --enable-nvenc --enable-opencl --enable-opengl --enable-shared --enable-vapoursynth --enable-version3 --enable-vulkan --disable-decoder=magicyuv
+  libavutil      61.  1.101 / 61.  1.101
+  libavcodec     63.  1.101 / 63.  1.101
+  libavformat    63.  1.101 / 63.  1.101
+  libavdevice    63.  1.101 / 63.  1.101
+  libavfilter    12.  1.101 / 12.  1.101
+  libswscale     10.  1.101 / 10.  1.101
+  libswresample   7.  1.101 /  7.  1.101
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/concat.txt':
+  Duration: N/A, start: -0.046440, bitrate: 194 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, 102 kb/s, 30 fps, 30 tbr, 15360 tbn
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc63.1.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 92 kb/s, start -0.046440
+    Metadata:
+      handler_name    : SoundHandler
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/home/isomoes/code/py/md2video/output/hacking-openai-zh/video.mp4':
+  Metadata:
+    encoder         : Lavf63.1.101
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, q=2-31, 102 kb/s, 30 fps, 30 tbr, 15360 tbn
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc63.1.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 92 kb/s
+    Metadata:
+      handler_name    : SoundHandler
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 438272, current: 437512; changing to 438273. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 947464, current: 946448; changing to 947465. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 1510672, current: 1510193; changing to 1510673. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 2068273, current: 2067512; changing to 2068274. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 2719800, current: 2719457; changing to 2719801. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 3350241, current: 3350087; changing to 3350242. This may result in incorrect timestamps in the output file.
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x5603caab1200] Auto-inserting h264_mp4toannexb bitstream filter
+[aost#0:1/copy @ 0x5603caac83c0] Non-monotonic DTS; previous: 3991111, current: 3990351; changing to 3991112. This may result in incorrect timestamps in the output file.
+[mp4 @ 0x5603caab8240] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 0x5603cab00140] video:2739KiB audio:2376KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.300058%
+frame= 6244 fps=0.0 q=-1.0 Lsize=    5284KiB time=00:03:28.20 bitrate= 207.9kbits/s speed=4.41e+03x elapsed=0:00:00.04
+slide 01: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-01.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-01.mp3 (audio=19.592s, gap=0.250s, srt=slide-01.srt (burn))
+slide 02: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-02.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-02.mp3 (audio=22.831s, gap=0.250s, srt=slide-02.srt (burn))
+slide 03: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-03.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-03.mp3 (audio=25.313s, gap=0.250s, srt=slide-03.srt (burn))
+slide 04: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-04.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-04.mp3 (audio=25.025s, gap=0.250s, srt=slide-04.srt (burn))
+slide 05: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-05.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-05.mp3 (audio=29.309s, gap=0.250s, srt=slide-05.srt (burn))
+slide 06: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-06.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-06.mp3 (audio=28.343s, gap=0.250s, srt=slide-06.srt (burn))
+slide 07: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-07.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-07.mp3 (audio=28.787s, gap=0.250s, srt=slide-07.srt (burn))
+slide 08: /home/isomoes/code/py/md2video/output/hacking-openai-zh/video-work/slides/slide-08.png + /home/isomoes/code/py/md2video/output/hacking-openai-zh/audio/slide-08.mp3 (audio=27.193s, gap=0.000s, srt=slide-08.srt (burn))
+/home/isomoes/code/py/md2video/output/hacking-openai-zh/video.mp4
