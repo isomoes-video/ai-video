@@ -1,0 +1,19 @@
+中文标题：AI 驱动代码现代化：先准备，再加速
+English Title: Preparing for AI-Driven Code Modernization
+标签：代码现代化，AI编程，Claude Code，软件工程，企业技术迁移，智能体工作流
+
+Source: https://claude.com/blog/how-to-prepare-for-ai-driven-code-modernization-projects
+Output: https://github.com/isomoes-video/ai-video/tree/main/ai-driven-code-modernization-zh
+
+AI 能更快地产生迁移代码，但关键系统的验证、审查和上线并不会自动提速。本视频依据 Anthropic 的实践文章，梳理企业启动 AI 驱动代码现代化之前需要完成的六步准备：定义目标、建立正确性证书、设定按风险分级的晋级策略、备齐基础设施与组织资源、打磨智能体工作流，以及从端到端试点逐步扩展。
+
+视频比较版本升级、跨栈转换与重新构想三种不同目标，说明如何通过业务规则盘点、差分测试、流量回放、安全扫描和运行遥测积累可信证据；也讨论如何把领域专家的时间留给高风险变更，用试点数据估算成本，并把工作流、证书、晋级策略与证据链沉淀为下一次迁移可复用的资产。
+
+00:00  开场
+00:42  六步路线
+01:08  定义目标
+02:01  验证证书
+02:29  晋级策略
+02:59  前置准备
+03:29  试点扩展
+04:00  总结

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 驱动的代码现代化：先准备，再开跑</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">企业技术迁移 · 实战指南</p>
+        <h1>AI 驱动的<br><em>代码现代化</em></h1>
+        <p class="dek">先定义终点与证据，再让智能体加速</p>
+        <p class="source-note">基于 Anthropic《How to prepare for AI-driven code modernization projects》</p>
+      </section>
+
+      <section id="slide-2">
+        <p class="eyebrow">核心矛盾 / 01</p>
+        <h2>写得更快，不等于上线更快</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center">
+          <div class="panel soft"><p class="icon-mark">↗</p><h3>变快的环节</h3><p class="text-xl">智能体可以批量生成迁移变更</p></div>
+          <div class="panel dark"><p class="icon-mark">⏳</p><h3>真正的瓶颈</h3><p class="text-xl">验证、审批、发布仍按人工节奏运行</p></div>
+        </div>
+        <p class="footnote">关键系统的审计与变更管理不会因代码生成提速而消失。</p>
+      </section>
+
+      <section id="slide-3">
+        <p class="eyebrow">整体路线 / 02</p>
+        <h2>六步，把速度变成交付</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-content:center">
+          <div class="step"><p class="num">01</p><h3>定义目标</h3><p>明确技术栈与行为</p></div>
+          <div class="step"><p class="num">02</p><h3>建立证书</h3><p>自动检查“正确”</p></div>
+          <div class="step"><p class="num">03</p><h3>设定晋级策略</h3><p>按风险决定评审</p></div>
+          <div class="step"><p class="num">04</p><h3>备齐条件</h3><p>环境、测试、团队</p></div>
+          <div class="step"><p class="num">05</p><h3>打磨工作流</h3><p>从小范围迭代</p></div>
+          <div class="step"><p class="num">06</p><h3>试点后扩展</h3><p>端到端证明可行</p></div>
+        </div>
+      </section>
+
+      <section id="slide-4">
+        <p class="eyebrow">第一步 / 定义目标</p>
+        <h2>先选：究竟要改什么？</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch">
+          <div class="panel soft"><p class="badge">Uplift</p><h3>版本升级</h3><p>同一技术栈，升级运行时与依赖</p><p class="small">行为保持不变</p></div>
+          <div class="panel soft"><p class="badge">Transform</p><h3>跨栈转换</h3><p>换语言或框架，保留原有行为</p><p class="small">以旧系统为参照</p></div>
+          <div class="panel accent"><p class="badge">Reimagine</p><h3>重新构想</h3><p>新架构，同时修改业务行为</p><p class="small">需要书面行为规格</p></div>
+        </div>
+        <p class="footnote">如果目标没有共识，“这个改动算不算正确”会反复争论。</p>
+      </section>
+
+      <section id="slide-5">
+        <p class="eyebrow">第一步 / 补足上下文</p>
+        <h2>先把旧系统“说清楚”</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center">
+          <div class="flow"><p>代码依赖与运行轨迹</p><p class="arrow">↓</p><p>抽取业务规则与边界条件</p><p class="arrow">↓</p><p>与用户、开发者、文档交叉核对</p></div>
+          <div class="callout"><p class="big-quote">“不知道旧系统做了什么，<br>就无法定义新系统对不对。”</p><p>AI 可加速发现；业务访谈补足盲区。</p></div>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <p class="eyebrow">第二步 / 定义证书</p>
+        <h2>每个变更都要带着证据</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:22px;align-content:center">
+          <div class="evidence"><h3>功能对等</h3><p>原测试、输入输出对比、流量回放</p></div>
+          <div class="evidence"><h3>非功能约束</h3><p>性能界限、覆盖率、安全扫描</p></div>
+          <div class="evidence"><h3>上线观察</h3><p>暂存环境、错误率、延迟与告警</p></div>
+          <div class="evidence"><h3>独立复核</h3><p>不同上下文的对抗性审查</p></div>
+        </div>
+        <p class="footnote">证书要能自动检查；无法通过时，再交由人判断。</p>
+      </section>
+
+      <section id="slide-7">
+        <p class="eyebrow">第三步 / 晋级策略</p>
+        <h2>按风险分流，而不是逐行审完</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:center">
+          <div class="lane low"><p class="badge">低风险</p><h3>证据充分</h3><p>走标准化快速通道</p></div>
+          <div class="lane mid"><p class="badge">需关注</p><h3>出现标记</h3><p>专家聚焦异常决策</p></div>
+          <div class="lane high"><p class="badge">关键路径</p><h3>高影响变更</h3><p>保留完整人工评审</p></div>
+        </div>
+        <p class="footnote">与审批者提前约定证据格式、风险等级和放行责任。</p>
+      </section>
+
+      <section id="slide-8">
+        <p class="eyebrow">第四步 / 前置条件</p>
+        <h2>开跑前，先把路修好</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-content:center">
+          <div class="evidence"><h3>环境</h3><p>可访问代码的独立主机、测试容量、生产遥测</p></div>
+          <div class="evidence"><h3>代码与流水线</h3><p>依赖图、兼容性校验、冻结与沟通计划</p></div>
+          <div class="evidence"><h3>团队</h3><p>提前锁定领域专家与跨团队审批时间</p></div>
+          <div class="evidence"><h3>安全</h3><p>最小权限、数据脱敏、变更和证据可追溯</p></div>
+        </div>
+      </section>
+
+      <section id="slide-9">
+        <p class="eyebrow">第五、六步 / 工作流与试点</p>
+        <h2>小范围跑通，再规模化</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+          <div class="panel dark"><p class="badge">输入给工作流</p><p class="text-xl">目标 + 证书 + 晋级策略 + 代码与文档</p><p>让并行的智能体处理小块迁移任务</p></div>
+          <div class="flow"><p>选一个小分区</p><p class="arrow">↓</p><p>生成 → 验证 → 评审 → 合并</p><p class="arrow">↓</p><p>修正工作流，测算成本，再扩展</p></div>
+        </div>
+        <p class="footnote">重复问题应修改工作流或证书，而不是逐个手工补救。</p>
+      </section>
+
+      <section id="slide-10">
+        <p class="eyebrow">最后 / 带走一个原则</p>
+        <h2>真正可复用的，不只是新代码</h2>
+        <div class="content" style="display:flex;flex-direction:row;justify-content:center;gap:20px;align-items:center">
+          <div class="result"><p class="result-no">01</p><h3>可复用的工作流</h3></div>
+          <div class="result"><p class="result-no">02</p><h3>可验证的证书</h3></div>
+          <div class="result"><p class="result-no">03</p><h3>可接受的晋级策略</h3></div>
+          <div class="result"><p class="result-no">04</p><h3>可追溯的证据链</h3></div>
+        </div>
+        <p class="closing">先让组织准备好，再让 AI 跑起来。</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>
