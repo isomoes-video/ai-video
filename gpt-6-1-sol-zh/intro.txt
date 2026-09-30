@@ -1,0 +1,19 @@
+中文标题：GPT-6.1 Sol：更强，更省
+English Title: GPT-6.1 Sol: Near-Astra Capability at Lower Cost
+标签：GPT-6.1 Sol，OpenAI，人工智能，AI编程，智能体，模型评测
+
+Source: https://openai.com/index/introducing-gpt-6-1-sol/
+Output: https://github.com/isomoes-video/ai-video/tree/main/gpt-6-1-sol-zh
+
+OpenAI 于 2026 年 9 月 29 日发布 GPT-6.1 Sol，主打在复杂编程、电脑操作与专业工作中接近 GPT-6 Astra 的能力，同时将标准 API 输入与输出单价降到 Astra 的五分之一。这个视频介绍模型定位、每百万 tokens 的标准价格、缓存输入折扣，以及 DeepSWE、OSWorld、AutomationBench 和专业文档任务中的公开评测结论，并解释为什么最难的科学任务仍值得保留 Astra。
+
+我们还梳理模型规格、推理档位与工具调用兼容性，说明长上下文加价、缓存写入、推理和工具费用如何影响真实账单。最后给出选型建议：用自己的任务比较质量、时间和每个成功任务的总成本，而不是把低单价直接等同于低总费用。内容依据 OpenAI 公告的可访问摘录、官方模型文档及公开报道；原公告直接访问受限，评测结论为 OpenAI 报告，非独立实测。权限隔离与人工审批属于应用侧建议。
+
+00:00  定位
+01:01  价格
+02:10  编程
+02:47  工作流
+03:23  边界
+03:58  接入
+04:38  风险
+05:17  选型

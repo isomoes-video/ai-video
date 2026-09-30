@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPT-6.1 Sol：更强，更省</title>
+  <meta name="source" content="https://openai.com/index/introducing-gpt-6-1-sol/">
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="section-divider" data-state="is-section-divider">
+        <p class="eyebrow">OpenAI 新模型解读 · 2026 年 9 月 29 日</p>
+        <h1>GPT-6.1 Sol</h1>
+        <p class="hero-sub">接近 Astra 的能力<br>五分之一的标准单价</p>
+        <p class="attribution">GPT-6.1 Sol</p>
+      </section>
+
+      <section id="slide-2">
+        <p class="eyebrow">01 · 产品定位</p><h2>升级的不是名字，是工作能力</h2>
+        <div class="content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+          <div class="card"><p class="marker">编程</p><h3>理解代码库</h3><p>编写、调试、完成复杂工程任务</p></div>
+          <div class="card"><p class="marker">电脑操作</p><h3>多步执行</h3><p>理解界面，推进工具工作流</p></div>
+          <div class="card"><p class="marker">专业工作</p><h3>处理文档</h3><p>分析资料，执行业务流程</p></div>
+        </div><p class="footnote">定位来自 OpenAI 公告；接近 Astra 不代表所有任务都等同 Astra。</p>
+      </section>
+
+      <section id="slide-3">
+        <p class="eyebrow">02 · 标准 API 价格</p><h2>最重要的数字：1/5</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1.4fr;gap:44px;align-items:center">
+          <div><p class="big-number">1/5</p><p>相对 Astra 的<br>标准输入与输出单价</p></div>
+          <div class="card"><h3>GPT-6.1 Sol</h3><p class="price">输入：$2 / 百万 tokens</p><p class="price">输出：$10 / 百万 tokens</p><p class="muted">不等于每个任务的总账单都降为五分之一</p></div>
+        </div><p class="footnote">标准价；工具调用、推理量、重试和其他计费项会影响实际费用。</p>
+      </section>
+
+      <section id="slide-4">
+        <p class="eyebrow">03 · 重复上下文</p><h2>缓存读取，更适合持续工作的 Agent</h2>
+        <div class="content"><p class="big-number">$0.10</p><p class="lead">每百万缓存输入 tokens</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px"><div class="strip"><h3>比普通输入低 95%</h3><p>反复使用的上下文，缓存命中后更便宜</p></div><div class="strip"><h3>比 GPT-6 Sol 低 50%</h3><p>长期 Agent 的成本优化空间更大</p></div></div>
+        </div><p class="footnote">缓存写入另计：$2.50 / 百万 tokens；折扣不是对所有输入自动生效。</p>
+      </section>
+
+      <section id="slide-5">
+        <p class="eyebrow">04 · 编程评测</p><h2>DeepSWE：更强，也更经济</h2>
+        <div class="content" style="display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center"><div><p class="big-number">+6.4</p><p class="lead">个百分点</p><p>超过 GPT-6 Sol 的最佳成绩<br>同时使用更低推理档位与成本</p></div><div class="card"><h3>DeepSWE v1.1</h3><p>真实代码库中的复杂软件工程任务</p><p class="highlight">与 Astra 表现相当<br>成本约为其五分之一</p></div></div>
+        <p class="footnote">OpenAI 报告的评测结果；以具体评测配置为准，不是所有代码任务的保证。</p>
+      </section>
+
+      <section id="slide-6">
+        <p class="eyebrow">05 · 更广的工作场景</p><h2>能力扩展到电脑操作与专业任务</h2>
+        <div class="content"><div class="strip"><h3>OSWorld 2.0</h3><p>最高推理档位：比 GPT-6 Sol 高约 7 个百分点，成本低于一半</p></div><div class="strip"><h3>AutomationBench 1.0.6</h3><p>中等推理档位：比 GPT-6 Sol 高约 4.8 个百分点</p></div><div class="strip"><h3>GDP.pdf</h3><p>专业文档任务：接近 Astra，单任务成本约为其五分之一</p></div></div>
+        <p class="footnote">OpenAI 公告结果，经公开报道交叉核对；不同测试与推理档位不可直接混比。</p>
+      </section>
+
+      <section id="slide-7">
+        <p class="eyebrow">06 · 不要把“接近”读成“替代”</p><h2>最难的科学任务，Astra 仍领先</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:32px"><div class="card"><h3>GPT-6.1 Sol</h3><p class="big-number small-number">$5.47</p><p>Terminal-Bench Science<br>报告的平均单任务成本</p></div><div class="card dark"><h3>GPT-6 Astra</h3><p class="big-number small-number">68.1%</p><p>该评测最高成绩<br>最难任务仍值得保留 Astra</p></div></div>
+        <p class="footnote">两项数字分别表示成本和成绩，不是同一指标；结果来自 OpenAI 报告。</p>
+      </section>
+
+      <section id="slide-8">
+        <p class="eyebrow">07 · 接入与规格</p><h2>迁移时，先检查这三个地方</h2>
+        <div class="content"><div class="strip"><h3>模型名称</h3><p>gpt-6.1-sol · 文本与图像输入，文本输出</p></div><div class="strip"><h3>推理档位</h3><p>low / medium / high / xhigh / max；不支持 none、minimal</p></div><div class="strip"><h3>工具调用</h3><p>使用 Responses API；Chat Completions 仅支持无工具请求</p></div></div>
+        <p class="footnote">官方模型文档：上下文 1,050,000 tokens；最大输入 922,000；最大输出 128,000。</p>
+      </section>
+
+      <section id="slide-9">
+        <p class="eyebrow">08 · 账单与边界</p><h2>低单价，不等于没有成本与风险</h2>
+        <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:32px"><div class="card"><h3>看完整账单</h3><p>超过 272K 输入：全请求加价</p><p>输入与缓存费 ×2；输出费 ×1.5</p><p>推理 tokens、工具与重试也要算</p></div><div class="card"><h3>保留人工边界</h3><p>能力接近 Astra，安全要求也高</p><p>最小权限、沙箱、操作审计</p><p>高影响动作设置人工确认</p></div></div>
+        <p class="footnote">计费来自官方模型文档；权限与审批为应用建议，并非模型自动提供的保证。</p>
+      </section>
+
+      <section id="slide-10">
+        <p class="eyebrow">09 · 实际选型</p><h2>先在真实任务上对比，再决定切换</h2>
+        <div class="content"><p class="closing">日常复杂工作优先试 Sol<br>最难任务保留 Astra</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px"><div class="strip"><h3>质量</h3><p>正确率与返工量</p></div><div class="strip"><h3>效率</h3><p>完成时间与重试次数</p></div><div class="strip"><h3>成本</h3><p>每个成功任务的总费用</p></div></div></div>
+        <p class="footnote">来源：OpenAI 发布公告与模型文档 · 数据截至 2026 年 9 月 30 日 · 非独立实测</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js-plugins/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

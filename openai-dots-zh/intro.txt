@@ -1,0 +1,17 @@
+中文标题：OpenAI Dots：持续工作的 AI 助手
+English Title: OpenAI Dots: An Always-On AI Assistant
+标签：OpenAI，Dots，ChatGPT，AI助手，智能体，人工智能，自动化，AI安全
+
+Source: https://openai.com/index/introducing-dots/
+Output: https://github.com/isomoes-video/ai-video/tree/main/openai-dots-zh
+
+OpenAI 在 2026 年 9 月发布 Dots，将 AI 助手的定位从回答问题，推进到持续执行多步任务。视频介绍 GPT-6 Astra、云端电脑与应用连接如何支撑后台工作，以及用户如何通过 ChatGPT、Slack、Microsoft Teams 和语音沟通来提供目标、反馈和监督。随后用开发者处理客户反馈、创作者整理采访素材两个发布示例，说明连续工作流程的潜在价值。
+
+主动行动不等于无限授权。本视频还解读内置规则、自定义规则、自动审查，以及从低风险任务和最小权限开始的使用建议，并区分初始一个 Dot 的发布范围与未来多助手协作方向。内容为发布信息解读，非实际使用评测；原文直连受限，已交叉核对 The Verge 与 9to5Google 的报道。实际开放情况、套餐权益和功能请以官方最新说明为准。
+
+00:00  开场
+00:33  工作方式
+02:17  应用示例
+03:31  权限安全
+04:10  发布范围
+04:47  使用建议

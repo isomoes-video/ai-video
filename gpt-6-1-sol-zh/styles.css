@@ -1,0 +1,30 @@
+:root { --paper:#f6f3ec; --ink:#242521; --muted:#64675f; --accent:#cf511e; }
+body { background:var(--paper); }
+.reveal { font-family:Arial,"Noto Sans CJK SC",Helvetica,sans-serif; font-size:24pt; color:var(--ink); }
+.reveal .slides section { box-sizing:border-box; height:720px; padding:48px 68px 94px; text-align:left; }
+.reveal h1,.reveal h2,.reveal h3 { font-family:Arial,"Noto Sans CJK SC",sans-serif; text-transform:none; color:var(--ink); font-weight:750; margin:0; line-height:1.22; }
+.reveal h1 { font-size:70pt; letter-spacing:-2px; }
+.reveal h2 { font-size:34pt; margin:14px 0 32px; }
+.reveal h3 { font-size:23pt; margin:0 0 18px; }
+.reveal p { font-size:21pt; line-height:1.52; margin:12px 0; }
+.reveal .eyebrow { font-size:13pt; color:var(--accent); font-weight:700; letter-spacing:2px; margin:0 0 22px; }
+.reveal .content { flex:1; }
+.reveal .section-divider { display:flex!important; flex-direction:column; justify-content:center; }
+.reveal .hero-sub { font-size:34pt; line-height:1.5; margin-top:24px; }
+.reveal .attribution { font-size:12pt; color:var(--muted); margin-top:24px; }
+.card { background:#e8e5dc; border-radius:14px; padding:28px; }
+.reveal .marker { font-size:15pt; color:var(--accent); margin-bottom:46px; }
+.reveal .big-number { font-size:87pt; line-height:1.15; font-weight:800; color:var(--accent); margin:0 0 12px; letter-spacing:-4px; }
+.reveal .small-number { font-size:57pt; margin:26px 0; }
+.reveal .lead,.reveal .price { font-size:25pt; }
+.reveal .muted { font-size:17pt; color:var(--muted); margin-top:28px; }
+.strip { border-left:4px solid var(--accent); padding:10px 0 10px 22px; margin-bottom:20px; }
+.strip h3 { margin-bottom:4px; }
+.strip p { margin:4px 0; font-size:20pt; }
+.reveal .highlight { color:var(--accent); font-size:24pt; margin-top:32px; font-weight:700; }
+.reveal .footnote { position:absolute; bottom:90px; left:68px; right:68px; font-size:11pt; color:var(--muted); margin:0; }
+.dark { background:var(--ink); }
+.reveal .dark h3,.reveal .dark p { color:var(--paper); }
+.reveal .dark .big-number { color:#ff9564; }
+.reveal .closing { font-size:37pt; font-weight:700; line-height:1.55; }
+.reveal .progress { color:var(--accent); }
