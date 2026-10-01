@@ -1,0 +1,99 @@
+{
+  "accent": "#34d399",
+  "slides": [
+    {
+      "slide_number": 1,
+      "layout": "title",
+      "title": "md2video：让画面动起来",
+      "subtitle": "0.1.5 → 0.1.6 · 从静态幻灯片到 Remotion",
+      "model": "GPT-6.1 Sol"
+    },
+    {
+      "slide_number": 2,
+      "layout": "bullets",
+      "title": "0.1.5：制作链路已经完整",
+      "subtitle": "先看起点，避免把已有功能当成新增功能",
+      "revealSeconds": [2.5, 8.5, 12.0, 16.5],
+      "bullets": [
+        "reveal.js 幻灯片 → PDF → 静态视频",
+        "逐页配音、字幕、简介与封面",
+        "Bilibili 上传在 0.1.5 已经加入",
+        "生成内容保存在独立的 output/ 子模块"
+      ]
+    },
+    {
+      "slide_number": 3,
+      "layout": "quote",
+      "title": "真正的瓶颈：静态中间格式",
+      "quote": "网页里能播放动画，\n并不代表导出的 PDF 能保留动画。",
+      "attribution": "旧链路把每一页转成一张图片"
+    },
+    {
+      "slide_number": 4,
+      "layout": "code",
+      "title": "现在：直接渲染动态场景",
+      "subtitle": "一个共享的 React 渲染器，不再依赖 PDF",
+      "code": "源内容\n  ↓\nslides.json + script.json\n  ↓\nTTS 配音 + SRT 字幕\n  ↓\nRemotion 动态场景\n  ↓\nvideo.mp4"
+    },
+    {
+      "slide_number": 5,
+      "layout": "bullets",
+      "title": "五种布局，为不同内容服务",
+      "revealSeconds": [1.5, 3.5, 5.0, 7.0, 8.5],
+      "bullets": [
+        "title：标题与副标题渐入",
+        "bullets：重点逐条出现",
+        "chart：横向柱状图逐步增长",
+        "code：代码块进入画面",
+        "quote：突出关键观点"
+      ]
+    },
+    {
+      "slide_number": 6,
+      "layout": "code",
+      "title": "时间线由真实配音决定",
+      "subtitle": "逐帧计算 · 配音不重叠 · 字幕按时间戳显示",
+      "code": "配音帧数 = ceil(音频秒数 × fps)\n\n场景帧数 = 配音帧数 + 场景间停顿\n\n默认：30 fps / 1920 × 1080\n停顿：0.25 秒，仅加在场景之间\n字幕：读取每段配音对应的 SRT"
+    },
+    {
+      "slide_number": 7,
+      "layout": "bullets",
+      "title": "迁移不是再叠一层工具",
+      "subtitle": "主链路只保留 Remotion",
+      "revealSeconds": [3.0, 5.5, 9.0, 12.5, 16.0],
+      "bullets": [
+        "删除旧 PDF 合成脚本及其测试",
+        "删除 reveal.js 技能与辅助脚本",
+        "移除七个旧前端依赖",
+        "独立流水线 dashboard 也已移除",
+        "旧 output/ 文件保留，不自动迁移"
+      ]
+    },
+    {
+      "slide_number": 8,
+      "layout": "bullets",
+      "title": "0.1.6：规范也同步改进",
+      "revealSeconds": [4.0, 7.0, 10.0, 13.0],
+      "bullets": [
+        "首个场景展示实际生成模型名称",
+        "视频简介最多包含十个章节",
+        "上传阶段不再强制先执行 dry-run",
+        "配音、封面、简介与上传工具继续复用"
+      ]
+    },
+    {
+      "slide_number": 9,
+      "layout": "code",
+      "title": "现在怎样制作一支视频？",
+      "subtitle": "先预览，再生成配音，最后直接渲染",
+      "code": "# 工作目录：output/my-video/\n# 准备 slides.json 与 script.json\n\nbun run preview --workspace output/my-video\n\nuv run scripts/tts_from_script.py \\\n  --script output/my-video/script.json\n\nbun run video --workspace output/my-video"
+    },
+    {
+      "slide_number": 10,
+      "layout": "quote",
+      "title": "已经动态化，但不夸大能力",
+      "quote": "内容决定布局，\n动画帮助理解。",
+      "attribution": "当前只有一个可调强调色的主题；自动选主题仍是后续方向"
+    }
+  ]
+}

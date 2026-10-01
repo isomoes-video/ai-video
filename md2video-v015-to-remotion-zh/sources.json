@@ -1,0 +1,20 @@
+{
+  "source_url": "https://github.com/isomoes-video/md2video",
+  "baseline": {"version": "0.1.5", "commit": "cac16ae"},
+  "target_version": "0.1.6",
+  "head": "2a33bea",
+  "changes": [
+    {"commit": "3f50ce6", "summary": "Upload prompt no longer requires a dry run before publishing"},
+    {"commit": "373b78e", "summary": "Legacy reveal.js watermark reserve changed to zero; this styling was subsequently removed with reveal.js"},
+    {"commit": "3c2dc7a", "summary": "Chapter lists capped at ten entries and grouped by topic"},
+    {"commit": "7594073", "summary": "Show the generating model name on the first slide"},
+    {"commit": "92380b8", "summary": "Remove the standalone pipeline dashboard"},
+    {"commit": "2a33bea", "summary": "Replace reveal.js and PDF assembly with direct animated Remotion rendering"}
+  ],
+  "notes": [
+    "Output-submodule bumps are generated-content changes, not new renderer capabilities.",
+    "These changes constitute the 0.1.5 to 0.1.6 update; package.json and CHANGELOG.md now identify the target version as 0.1.6.",
+    "Automatic theme selection and advanced diagrams were discussed but not implemented.",
+    "Provider SRT contained one paragraph-long cue per scene. Short caption timings are estimated proportionally within each original cue; original provider files are preserved in video-work/provider-subtitles/."
+  ]
+}

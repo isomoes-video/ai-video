@@ -1,0 +1,22 @@
+中文标题：md2video 0.1.5 → 0.1.6：告别静态 PDF，用 Remotion 生成动态视频
+English Title: md2video 0.1.5 to 0.1.6: From Static PDF Slides to Animated Remotion Videos
+标签：md2video，Remotion，视频自动化，动态演示，配音，字幕，React，开源工具
+
+Source: https://github.com/isomoes-video/md2video
+Output: https://github.com/isomoes-video/ai-video/tree/main/md2video-v015-to-remotion-zh
+
+这支视频基于 md2video 的真实 Git 历史，介绍从 0.1.5 到 0.1.6 的升级，主要功能变化对应提交 cac16ae 至 2a33bea。0.1.5 已经具备逐页配音、字幕、简介、封面和 Bilibili 上传能力；0.1.6 最大的升级是移除 reveal.js 与 PDF 图片合成链路，改用 Remotion 直接渲染动态场景。
+
+内容涵盖五种内置布局、基于真实音频时长的逐帧时间线、场景间停顿、SRT 字幕显示、旧依赖与独立 dashboard 的清理，以及首场景模型署名、最多十个章节和上传不再强制 dry-run 等规范变化。最后演示当前的预览、配音和渲染命令，并说明自动主题选择、比较卡片和复杂图解仍未实现。
+
+项目 package.json 和 CHANGELOG.md 已更新为 0.1.6。视频使用中文配音和动态场景。字幕为便于阅读拆成短句，短句时间在语音服务返回的整段字幕区间内按文本长度估算，并非逐字强制对齐。
+
+00:00 变化概览
+00:21 原有链路
+00:44 静态瓶颈
+01:03 动态渲染
+01:48 配音同步
+02:12 工具清理
+02:35 规范改进
+03:00 制作命令
+03:27 能力边界

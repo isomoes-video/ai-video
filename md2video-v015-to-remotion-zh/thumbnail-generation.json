@@ -1,0 +1,12 @@
+{
+  "model": "qwen-image-2.0-pro",
+  "prompt_file": "thumbnail-prompt.txt",
+  "size": "2688*1536",
+  "seed": 106,
+  "prompt_extend": false,
+  "generation_command_succeeded": true,
+  "postprocessing": "Corrected model-rendered Remottion to Remotion; all artwork remains AI-generated.",
+  "original_image": "video-work/thumbnail-ai-original.png",
+  "sha256": "d5490ed3931deee7ce00c0547ed330dc3303d3bac0ccd9f7dfabf7fd388a0c71",
+  "platform_cover_updated": false
+}
