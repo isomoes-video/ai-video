@@ -1,0 +1,23 @@
+中文标题：Scion：Anthropic 为什么放弃 git，自研源代码控制
+English Title: Redesigning Source Control at Anthropic: Inside Scion
+标签：Scion，Anthropic，源代码控制，git，monorepo，AI Agent，开发基础设施，Antique
+
+Source: https://www.anthropic.com/engineering/redesigning-source-control
+Output: https://github.com/isomoes-video/ai-video/tree/main/anthropic-scion-source-control-zh
+
+Anthropic 的工程博客记录了他们在 2026 年把整个 monorepo 从 git 迁移到自研版本控制系统 Scion 的全过程。随着 Claude 大量参与写代码，合并量从 5 月的日均约 2,500 次增长到 9 月的日均超过 30,000 次，单日峰值达到 30,401 次。源代码控制、构建和 CI 这些为人类规模设计的基础设施，迅速成为新的瓶颈：主分支历史接近 100 GB，压缩工作副本超过 25 GB，每天约 2,500 万次 checkout，朴素拉取会产生超过 600 PB 的日流量。
+
+视频按问题和方案两条线展开。先说明 git 的离线优先假设如何与永远在线的 Agent 冲突，以及镜像、快照、浅克隆等权宜手段为何越来越难维护；再介绍 Scion 的六条设计原则：客户端在线、客户端与服务端不对称、源代码控制即服务、组件水平扩展、提交便宜且无锁、工作副本可选且稀疏。随后拆解 changeset、派生数据与三层缓存架构，并给出迁移结果：基础设施占用缩小 200 倍、checkout 从分钟级降到秒级、缓存命中率超过 99%、CI 省下 25% CPU。
+
+后半部分讨论组织与工程实践：七人团队五个月完成 Scion 与代码评审工具 Antique；工程师从逐行审查转向把关意图和系统约束；自包含仿真、fuzzing、superfan 监控、目录级权限与语义化审批，以及被重新设计的合并队列。最后是文章的边界声明：Scion 不是通用 git 替代品，真正可推广的是把服务端 RPC、缓存分层和稀疏检出等思路带回 git 生态。
+
+00:00  开场
+00:22  压力
+01:11  Git 瓶颈
+02:01  设计原则
+02:44  数据结构
+03:35  缓存架构
+04:03  迁移结果
+04:52  小团队
+05:38  工程实践
+06:48  反思

@@ -1,0 +1,312 @@
+{
+  "accent": "#e08963",
+  "slides": [
+    {
+      "slide_number": 1,
+      "layout": "title",
+      "title": "Scion：为 Agent 重写源代码控制",
+      "subtitle": "Anthropic 用五个月，把 monorepo 从 git 迁到自研系统",
+      "model": "DeepSeek V4.1 Flash"
+    },
+    {
+      "slide_number": 2,
+      "layout": "bullets",
+      "title": "先看压力有多大",
+      "subtitle": "写代码不再是瓶颈，合并代码成了瓶颈",
+      "bullets": [
+        "2026 年 5 月：日均合并约 2,500 次",
+        "2026 年 9 月：日均超过 30,000 次",
+        "9 月 9 日单日峰值：30,401 次",
+        "五个月增长十倍以上，且看不到上限"
+      ],
+      "revealSeconds": [
+        2.5,
+        7.5,
+        13,
+        18.5
+      ]
+    },
+    {
+      "slide_number": 3,
+      "layout": "image",
+      "title": "合并量五个月涨了十倍",
+      "image": "images/merges-per-day.png",
+      "text": "蓝柱是传统 pull request，橙柱是自研评审工具 Antique 的变更请求。\n真正陡峭的增长从夏天开始。",
+      "caption": "Anthropic monorepo · 2026 年 1–9 月每日合并量",
+      "alt": "Anthropic monorepo 2026 年 1 到 9 月每日合并量折线柱状图，9 月 9 日达到 30,401 次",
+      "revealSeconds": [
+        0.5,
+        2,
+        4
+      ]
+    },
+    {
+      "slide_number": 4,
+      "layout": "bullets",
+      "title": "Git 在大 monorepo 上的账单",
+      "bullets": [
+        "主分支历史接近 100 GB",
+        "压缩后的工作副本超过 25 GB",
+        "每天约 2,500 万次代码 checkout",
+        "朴素拉取会超过 600 PB / 天"
+      ],
+      "revealSeconds": [
+        1.5,
+        6.5,
+        11.5,
+        17
+      ]
+    },
+    {
+      "slide_number": 5,
+      "layout": "image",
+      "title": "Git 的扩展方式：镜像与快照",
+      "image": "images/git-setup.png",
+      "text": "shallow clone、sparse checkout、promisor remote，再叠加内部镜像和 blob 快照。\n峰值时维护着数百个镜像。",
+      "caption": "Git 大规模 checkout 的典型架构",
+      "alt": "Git 大规模检出的典型架构：多个镜像、快照与代理层",
+      "revealSeconds": [
+        0.5,
+        1.8,
+        3.5
+      ]
+    },
+    {
+      "slide_number": 6,
+      "layout": "quote",
+      "title": "一个更根本的问题",
+      "quote": "如果客户端本来就不需要离线，\n为什么还要给每个客户端一份完整仓库？",
+      "attribution": "客户端几乎全是永远在线的 Agent 和任务；离线优先的设计开始反噬规模",
+      "revealSeconds": [
+        2.5
+      ]
+    },
+    {
+      "slide_number": 7,
+      "layout": "bullets",
+      "title": "Scion 的六条设计原则",
+      "bullets": [
+        "客户端永远在线，需要数据时再取",
+        "客户端与服务端不对称，历史与 blame 都在服务端",
+        "所有源代码控制查询都通过 API 暴露",
+        "每个组件独立水平扩展，没有完整仓库副本",
+        "提交便宜、增量、无锁，成本随变更大小增长",
+        "工作副本可选，默认稀疏甚至虚拟化"
+      ],
+      "revealSeconds": [
+        3.5,
+        8,
+        12.5,
+        17,
+        21.5,
+        26
+      ]
+    },
+    {
+      "slide_number": 8,
+      "layout": "image",
+      "title": "changeset：便宜的变更记录",
+      "image": "images/changeset.png",
+      "text": "只记录相对第一个父提交改了哪些文件，再按内容哈希指向 blob。\n没有 packfile，也没有 ref 需要移动。",
+      "caption": "Scion changeset 的结构",
+      "alt": "Scion changeset 数据结构示意：元数据在 Spanner，文件内容在云存储",
+      "revealSeconds": [
+        0.5,
+        1.8,
+        3.5
+      ]
+    },
+    {
+      "slide_number": 9,
+      "layout": "bullets",
+      "title": "派生数据：按需计算，递归定义",
+      "bullets": [
+        "changeset 只记录变化，回答不了 blame 与路径历史",
+        "于是构建文件 blame、路径历史、提交图跳表",
+        "每种派生数据都从父提交的值递归计算",
+        "可即时算，也可延迟算，避免物化不需要的数据",
+        "客户端看不到内部结构，服务端可自由优化"
+      ],
+      "revealSeconds": [
+        2,
+        6.5,
+        11,
+        15.5,
+        20.5
+      ]
+    },
+    {
+      "slide_number": 10,
+      "layout": "image",
+      "title": "三层缓存，各司其职",
+      "image": "images/architecture.png",
+      "text": "scion-daemon 管单节点对象，scion-cache 按区域从内存流出，scion-server 落到 Spanner 与云存储。",
+      "caption": "Scion 的 checkout 架构",
+      "alt": "Scion 检出架构：客户端、scion-daemon、scion-cache、scion-server 与 Spanner",
+      "revealSeconds": [
+        0.5,
+        1.8,
+        3.5
+      ]
+    },
+    {
+      "slide_number": 11,
+      "layout": "bullets",
+      "title": "迁移后的结果",
+      "bullets": [
+        "基础设施 CPU 与内存占用缩小 200 倍",
+        "代码 checkout 从分钟级降到秒级",
+        "每一层缓存命中率都超过 99%",
+        "光 CI 就省下 25% 的 CPU 容量",
+        "没有 packfile，也不需要仓库维护"
+      ],
+      "revealSeconds": [
+        1.5,
+        6,
+        10.5,
+        15,
+        19.5
+      ]
+    },
+    {
+      "slide_number": 12,
+      "layout": "bullets",
+      "title": "日常命令快了多少",
+      "subtitle": "中位耗时，git → scn",
+      "bullets": [
+        "拉取最新代码：87 秒 → 3.5 秒",
+        "新建 worktree：7.1 分钟 → 5.1 秒",
+        "变更请求总耗时：34 分钟 → 3.7 分钟",
+        "每天约省下 11,000 个 Agent 小时"
+      ],
+      "revealSeconds": [
+        2,
+        8,
+        14,
+        19.5
+      ]
+    },
+    {
+      "slide_number": 13,
+      "layout": "bullets",
+      "title": "七个人，五个月",
+      "bullets": [
+        "同时做出 Scion 与评审工具 Antique",
+        "还上线了多个相关系统",
+        "全量迁移期间，合并量又涨了十倍",
+        "过去这类系统往往要多年、更多工程师"
+      ],
+      "revealSeconds": [
+        2.5,
+        8,
+        13,
+        18
+      ]
+    },
+    {
+      "slide_number": 14,
+      "layout": "quote",
+      "title": "工程师的角色变了",
+      "quote": "很多时候，工程师的工作\n是告诉 Claude「不」。",
+      "attribution": "不要为迎合模式破坏核心约束，也不要因假想风险过度设计",
+      "revealSeconds": [
+        4
+      ]
+    },
+    {
+      "slide_number": 15,
+      "layout": "bullets",
+      "title": "质量反而更有保障",
+      "bullets": [
+        "为每种关键交互搭建自包含的仿真",
+        "加入 fuzzing 与精细限流",
+        "Claude 顺手补上 ancestry 查询漏掉的索引",
+        "这种优化过去可能要专家花几天甚至几周"
+      ],
+      "revealSeconds": [
+        2.5,
+        7.5,
+        12.5,
+        18
+      ]
+    },
+    {
+      "slide_number": 16,
+      "layout": "bullets",
+      "title": "运维：每个组件一个 superfan",
+      "bullets": [
+        "用 Claude Tag 给组件配专属「superfan」",
+        "scion-daemon、scion-cache、合并队列各有一个",
+        "它们盯着遥测与日志，专门找细微异常",
+        "传统告警仍在，但看起来只剩一个维度"
+      ],
+      "revealSeconds": [
+        2,
+        7,
+        12.5,
+        17.5
+      ]
+    },
+    {
+      "slide_number": 17,
+      "layout": "bullets",
+      "title": "安全与权限一起重做",
+      "bullets": [
+        "支持细粒度仓库权限",
+        "权限可以下放到单个目录",
+        "既保护敏感代码，又保留 monorepo",
+        "评审可表达语义约束，区分注释与逻辑变更"
+      ],
+      "revealSeconds": [
+        2,
+        7,
+        12,
+        17
+      ]
+    },
+    {
+      "slide_number": 18,
+      "layout": "bullets",
+      "title": "合并队列的旧假设失效了",
+      "bullets": [
+        "数百上千个变更可以在测试运行时合并",
+        "行业标准的全局仓库锁难以复刻",
+        "转向合并后与部署前自动测试",
+        "冲突由 Claude 修复，往往比人发现还快"
+      ],
+      "revealSeconds": [
+        2,
+        7,
+        12,
+        17
+      ]
+    },
+    {
+      "slide_number": 19,
+      "layout": "bullets",
+      "title": "这不是给所有人的 git 替代品",
+      "bullets": [
+        "只适合真正巨大的 monorepo",
+        "迁移意味着整条开发生命周期都要换",
+        "更现实的做法：把思路带回 git",
+        "与 GitHub、GitLab 和开源社区一起演进"
+      ],
+      "revealSeconds": [
+        2.5,
+        7.5,
+        12.5,
+        18
+      ]
+    },
+    {
+      "slide_number": 20,
+      "layout": "quote",
+      "title": "提前到来的压力测试",
+      "quote": "为人类规模设计的工具，\n正在遇到 Agent 规模的真实压力。",
+      "attribution": "Scion 不是终点，而是一次关于基础设施如何跟上 AI 的公开复盘",
+      "revealSeconds": [
+        7
+      ]
+    }
+  ]
+}
