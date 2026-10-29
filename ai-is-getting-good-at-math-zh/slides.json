@@ -1,0 +1,17 @@
+{
+  "accent": "#f2b85b",
+  "slides": [
+    {"slide_number":1,"layout":"title","title":"AI 为什么越来越会做数学？","subtitle":"不只看灵感，更要看搜索与验证\n解读 Ankit Maloo · Latent Space","model":"GPT-6.1 Sol"},
+    {"slide_number":2,"layout":"bullets","title":"把难题拆成两种成本","bullets":["洞见：改变问题的表示方式","工作：把一个方向推到足够深入","线索有顺序，不能随意拼接","难题的年龄，不等于结构上的难度"]},
+    {"slide_number":3,"layout":"quote","title":"灵感之后，还有漫长的路","quote":"洞见 → 大量工作 → 新洞见 → 解答","attribution":"原文的问题求解框架 · 示意，不是定律"},
+    {"slide_number":4,"layout":"bullets","title":"搜索方式，为什么会不同？","bullets":["人类：先筛方向，再投入长期研究","模型：可以把多个候选方向推进到底","关键差别：一次失败的时间成本","这是搜索类比，不是固定算法"]},
+    {"slide_number":5,"layout":"bullets","title":"验证器，让试错变得有价值","bullets":["写得像证明，不代表证明成立","形式化检查：在编码与假设内核验","数值实验：能找反例，通常不能替代证明","错误步骤可排除，死胡同未必可预测"]},
+    {"slide_number":6,"layout":"code","title":"一个可迭代的研究闭环","code":"拟题者：明确目标与已知失败\n    ↓\n求解者：展开多个候选方向\n    ↓\n检查者：核对论证与目标\n    ↓\n记录失败原因 → 更新下一轮提示"},
+    {"slide_number":7,"layout":"bullets","title":"失败，也可以变成下一条提示","bullets":["不要把特殊情形当作一般证明","不要把有限测试当作普遍结论","检查是否偷偷使用等价的未证命题","明确记录：哪里错、为什么错"]},
+    {"slide_number":8,"layout":"bullets","title":"案例视角：先问，要不要找反例？","subtitle":"按原文对单位距离问题的解释","bullets":["第一步：从尝试证明，转向寻找反例","第二步：推广已有构造","第三步：在新框架里使用数论工具","这是作者的重构，不是完整运行记录"]},
+    {"slide_number":9,"layout":"code","title":"算力也怕搜索树爆炸","code":"k = 所需的关键线索数\nb = 每一步的候选分支数\nt = 展开思路所需的工作量\n\n候选路径规模 ≈ b^k\n\n启发式视角，不是精确预测公式"},
+    {"slide_number":10,"layout":"bullets","title":"什么问题，可能更适合 AI？","bullets":["目标清楚：什么才算真正解决","结果可检查：有可信的验收机制","分支相对少：搜索空间不至失控","后续工作重：既有思路需要大量展开"]},
+    {"slide_number":11,"layout":"bullets","title":"人和模型，各自缩小什么？","bullets":["专家：缩小值得探索的方向范围","模型：缩短一次尝试所需的时间","共同保留失败记录，而不只保留答案","更快得到结果，也要更深理解原因"]},
+    {"slide_number":12,"layout":"quote","title":"真正的进步，不止是交出答案","quote":"人类缩小分支，模型压缩试错时间。\n验证把候选答案，变成可信结果。","attribution":"本文解读总结 · 原文：Latent Space / Ankit Maloo"}
+  ]
+}
