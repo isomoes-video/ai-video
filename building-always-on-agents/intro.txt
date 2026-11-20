@@ -1,0 +1,15 @@
+中文标题：智能体如何持续待命
+English Title: How Always-On Agents Stay on Call
+标签：智能体，Claude，事件驱动，任务调度，智能体记忆，权限管理
+
+Source: https://claude.com/resources/articles/building-always-on-agents
+Output: https://github.com/isomoes-video/ai-video/tree/main/building-always-on-agents
+
+你让助手盯住一个包裹，只在延误时告诉你。两天没有物流更新，助手靠什么记得这件事？本片用这个例子解读 William Hu 的文章：收件箱接住可能重复的物流通知，定时器在没有新消息时安排跟进，记忆保留用户交代和任务进度。改送自提点之前，助手可以暂停调用，等用户回复后接回原会话。最后用一次重启检验设计：进程消失以后，哪些记录能让事情接着办下去？
+
+00:00  持续待命
+00:34  事件与定时
+01:20  跨运行记忆
+01:43  权限与确认
+02:08  消息投递
+02:32  重启检验

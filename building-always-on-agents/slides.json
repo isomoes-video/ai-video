@@ -1,0 +1,13 @@
+{
+  "accent": "#ffb86c",
+  "slides": [
+    {"slide_number":1,"layout":"title","title":"智能体如何持续待命","subtitle":"从追踪一件包裹，看懂五个架构组件","model":"GPT-6.2 Astra"},
+    {"slide_number":2,"layout":"bullets","title":"两次更新之间，模型在休息","bullets":["物流更新：唤醒一次运行","运行：查状态，记下下一步","会话：保留消息和工具调用记录"]},
+    {"slide_number":3,"layout":"image","title":"收件箱：先记下来，再处理","image":"images/inbox.png","alt":"原文示意图：接收端把事件写入收件箱，工作进程读取待办，运行结束后标记完成。","caption":"事件收件箱｜图源：Claude 原文","text":"同一条物流通知到达两次？按事件编号去重，同一收件箱只让一个工作进程处理。"},
+    {"slide_number":4,"layout":"bullets","title":"没有新消息，谁来叫醒它？","bullets":["一次跟进：明早九点再查这件包裹","周期任务：每天九点汇总所有在途件","只有到期的任务才进入收件箱"]},
+    {"slide_number":5,"layout":"code","title":"记忆：下次醒来读什么","subtitle":"示例：跨运行保留的笔记","code":"instructions.md   改收货地址前先问我\nprogress/包裹.md    已查延误；等待新预计日期\nreported.md       昨天已通知过延误\nnotes/偏好.md      用户偏好晚间收摘要"},
+    {"slide_number":6,"layout":"bullets","title":"改地址之前，先暂停这次调用","bullets":["查询物流：按已有权限执行","修改地址：保存现场，发出确认请求","用户回复：作为新事件，接回原会话"]},
+    {"slide_number":7,"layout":"bullets","title":"发件箱：值得打扰用户吗？","bullets":["状态没变：不发送消息","到货日期变了：发送有用的差异","需要节流或重试：让分发进程处理"]},
+    {"slide_number":8,"layout":"quote","title":"把系统停在两次运行之间","quote":"关掉工作进程，再启动一个。它还知道接下来该做什么吗？","attribution":"用一次重启检查设计"}
+  ]
+}
