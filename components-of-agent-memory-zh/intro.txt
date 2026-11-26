@@ -1,0 +1,21 @@
+中文标题：Agent 记忆的组成
+English Title: The Components of Agent Memory
+标签：智能体，记忆系统，Anthropic，Claude，上下文工程，知识管理
+
+Source: https://www.anthropic.com/research/components-of-agent-memory
+Output: https://github.com/isomoes-video/ai-video/tree/main/components-of-agent-memory-zh
+
+智能体的记忆不只是保存聊天记录。本视频解读 Anthropic 于 2026 年 11 月 6 日发布的文章，介绍会话记录、记忆笔记、wiki 等知识表示，以及每次会话预加载的上下文如何配合；解释 dreaming 如何在空闲时回查经验、纠正错误、组织知识并维护索引。
+
+通过数据库任务、Pokémon Red、企业文档搜索和法律合同实验，讨论为什么验证过的规则比堆积记录更重要，为什么 wiki 与搜索可以互补，以及过度记录、错误注入、写入冲突和过期知识会带来什么风险。所有数字均对应原文的特定实验，不代表所有智能体的通用表现；视频最后总结即时记录、后台整理、维护成本和可靠性之间的取舍。
+
+00:00  开场
+00:31  记忆分层
+01:37  学习闭环
+02:49  重要性判断
+04:05  离线纠错
+04:46  知识维基
+06:04  上下文索引
+06:40  目标导向
+07:22  维护预算
+08:00  总结

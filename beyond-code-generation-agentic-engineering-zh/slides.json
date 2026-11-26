@@ -1,0 +1,15 @@
+{
+  "accent": "#34d399",
+  "slides": [
+    {"slide_number":1,"layout":"title","title":"从代码生成到智能体工程","subtitle":"GitHub Copilot · 规划、构建、验证、观察","model":"GPT-6 Astra"},
+    {"slide_number":2,"layout":"quote","title":"代码更快，交付呢？","quote":"写代码提速之后，瓶颈可能转移到评审与协作。","attribution":"基于 GitHub Blog · 2026 年 11 月 6 日"},
+    {"slide_number":3,"layout":"bullets","title":"把智能体放进完整流程","bullets":["Plan：对齐上下文与验收标准","Build：隔离任务，持续推进","Verify：缩小变更，提前检查","Observe：连接证据，反馈下一轮"]},
+    {"slide_number":4,"layout":"bullets","title":"Plan：先把问题说清楚","bullets":["汇总设计、讨论与历史决策","共同确认约束，比较实现方案","把共识写成 Issue 与验收标准","复杂任务先审计划，再开始实现"]},
+    {"slide_number":5,"layout":"code","title":"把模糊任务改成可验证计划","subtitle":"教学示例 · API 变更的任务说明","code":"目标：新增筛选能力\n兼容：现有客户端保持可用\n范围：接口、测试、文档\n验收：旧调用与新筛选均通过测试\n观察：上线后关注错误率与延迟\n待确认：空结果与非法参数的行为"},
+    {"slide_number":6,"layout":"bullets","title":"Build：让任务独立前进","bullets":["云端沙箱：离开电脑，任务继续","会话连续性：跨设备接续工作","隔离工作副本：避免混杂未完成修改","仓库指令与共享记忆：复用项目知识","按任务选择模型与推理投入"]},
+    {"slide_number":7,"layout":"bullets","title":"Verify：让评审真正看得懂","bullets":["用小而聚焦的 PR 表达一个意图","依赖变更可拆成堆叠式 PR","质量检查与自动评审先处理常规问题","安全扫描与依赖策略进入验证流程","人类聚焦行为正确性与潜在故障"]},
+    {"slide_number":8,"layout":"bullets","title":"自动修复，也需要明确条件","bullets":["Agentic Autofix：提出安全修复方案","Agent Merge：跟进检查、评论与冲突","自动合并取决于配置与验证条件","检查通过后，仍要判断是否符合目标"]},
+    {"slide_number":9,"layout":"bullets","title":"Observe：上线才有真实反馈","bullets":["关联日志、发布记录与客户反馈","通过连接器汇总业务与运行证据","把发现写成含回归测试的后续 Issue","审阅记忆和指令改进，反馈下一轮规划"]},
+    {"slide_number":10,"layout":"quote","title":"从本周最痛的一件事开始","quote":"别只问能生成多少代码，\n要问能否更可靠地交付。","attribution":"先改善一个环节，再扩展到整个工作流"}
+  ]
+}

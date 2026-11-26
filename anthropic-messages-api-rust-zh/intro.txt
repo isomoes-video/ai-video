@@ -1,0 +1,18 @@
+中文标题：Claude API 迁移到 Rust：不停服，怎么验证？
+English Title: How Anthropic Migrated the Messages API to Rust Without Downtime
+标签：Anthropic，Claude，Rust，Python，API迁移，影子流量，软件验证
+
+Source: https://www.anthropic.com/research/migrating-api-to-rust
+Output: https://github.com/isomoes-video/ai-video/tree/main/anthropic-messages-api-rust-zh
+
+用 Anthropic 的 16 张原图看懂这次迁移：为什么只把解析器换成 Rust 不够，为什么通过约 98% 的测试却只和约四分之一的线上输入匹配，以及团队如何只调用模型一次，用检查点和差异指纹定位问题，而不用查看客户原文。最后看看沙箱验证、生产验证和记忆环如何配合人工评审，支撑不停服切换。迁移后，每请求 CPU 开销下降约 70%；在文中观测的 Claude Code 请求里，首 token 中位延迟下降约 20%。
+
+00:00  开场
+00:20  迁移动机
+01:11  测试的局限
+01:59  生产影子流量
+03:22  检查点与指纹
+04:08  验证循环
+04:48  人工评审与生产验收
+05:34  记忆环
+05:57  迁移收益

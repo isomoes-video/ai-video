@@ -1,0 +1,19 @@
+{
+  "accent": "#f2b880",
+  "slides": [
+    {"slide_number":1,"layout":"title","title":"Agent 记忆的组成","subtitle":"从会记录，到会纠错、会组织、会取用\n解读 Anthropic · 2026-11-06","model":"GPT-6.1 Sol Fast"},
+    {"slide_number":2,"layout":"bullets","title":"记忆，不等于更长的上下文","bullets":["把经验保存为未来会话可读的上下文","不是修改模型权重","不是单次对话中的上下文学习","也不等于压缩旧对话的 compaction"]},
+    {"slide_number":3,"layout":"image","title":"四层记忆，一个整理过程","image":"images/memory-hierarchy.png","caption":"来源：Anthropic《The components of agent memory》","alt":"四层记忆架构：底层是可搜索的会话记录，其上是记忆笔记、wiki 等知识表示，顶层是每次会话预加载的上下文；dreaming 跨层整理记忆。"},
+    {"slide_number":4,"layout":"quote","title":"记忆是在预测未来","quote":"有价值的记忆，不是发生过的一切，\n而是未来还用得上的经验。","attribution":"根据原文观点概括"},
+    {"slide_number":5,"layout":"chart","title":"记忆的收益，取决于学习闭环","subtitle":"CL-Bench 1.0 数据库任务 · 平均奖励（原文数据）","bars":[{"label":"Sonnet 4.6 · 无记忆","value":0.33},{"label":"Sonnet 4.6 · 有记忆","value":0.364},{"label":"Opus 5 · 无记忆","value":0.564},{"label":"Opus 5 · 有记忆","value":0.828}]},
+    {"slide_number":6,"layout":"bullets","title":"少记一点，反而走得更远","subtitle":"Pokémon Red · 各取一次约 10,000 步的运行作比较","bullets":["Sonnet 3.7：413 个文件，获得 1 枚徽章","Fable 5：10 个文件，获得 4 枚徽章","屏幕可见状态：不要反复抄进记忆","策略、计划、验证过的规则：优先保留"]},
+    {"slide_number":7,"layout":"bullets","title":"提示要补短板，不要绑住判断","bullets":["Sonnet 4.6：提示先读记忆、再验证猜想","平均奖励：0.364 → 0.641","强模型：只记录失败，反而削弱收益","指导记忆的用途，不必规定每一步"]},
+    {"slide_number":8,"layout":"bullets","title":"Dreaming：用原始记录纠正笔记","subtitle":"不是模型真的做梦，而是在空闲时回看经验","bullets":["错误笔记：把月见山入口地标记到了东侧","离线回查：用会话记录核对位置","修正之后：重新进入山洞，抵达下一座城市","原始记录提供核验依据，但不是万能真相"]},
+    {"slide_number":9,"layout":"chart","title":"Wiki + 搜索：组织与检索互补","subtitle":"Stainless 文档实验 · 25 个问题 · 满足评分标准的比例","unit":"%","bars":[{"label":"仅搜索","value":53},{"label":"仅 wiki · 最佳结果","value":48},{"label":"wiki + 搜索 · 后期结果","value":61}]},
+    {"slide_number":10,"layout":"bullets","title":"Wiki 的价值，不是再抄一遍资料","bullets":["跨文档综合题：wiki 87%，仅搜索 73%","单文档即可检索的任务：未见明确增益","反例：115 KB 原文，生成 203 KB wiki","抽象与链接才是价值，不是页数"]},
+    {"slide_number":11,"layout":"bullets","title":"顶层上下文：小索引，不是大仓库","bullets":["每次会话加载，降低发现知识的成本","也会占用 token，并放大错误笔记的影响","只提升高价值、稳定、常用的内容","把细节下沉，用链接指向按需读取的材料"]},
+    {"slide_number":12,"layout":"bullets","title":"围绕目标组织，才能保住关键事实","subtitle":"法律合同实验：优化 wiki 构建方式","bullets":["原方案：多人改同一张表，覆盖彼此内容","改进：每份合同单独成页，由一个 agent 写入","关键条款逐字引用，避免过度概括","可满足的评分事实：41 / 57 → 57 / 57"]},
+    {"slide_number":13,"layout":"bullets","title":"记忆系统也需要维护预算","bullets":["即时记笔记：马上可用，但会打断主任务","后台整理：不抢当前注意力，但结果有延迟","过期与错误：按变化风险安排核验","修复断链、合并重复、保留来源和验证状态"]},
+    {"slide_number":14,"layout":"quote","title":"关键不是记得多，而是用得对","quote":"保留可追溯的经验，\n提炼可验证的规则，\n按需加载，持续纠错。","attribution":"本文实验是特定任务的证据，不是所有 Agent 的通用保证"}
+  ]
+}
